@@ -21,11 +21,11 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="index.html">멘토링</a></li>
-								<li><a href="index.html">자유게시판</a></li>
-								<li><a href="index.html">질문게시판</a></li>
-								<li><a href="index.html">유용한 정보</a></li>
-								<li><a href="index.html">오늘의 퀴즈</a></li>
+								<li class="current"><a href="index.jsp">멘토링</a></li>
+								<li><a href="index.jsp">자유게시판</a></li>
+								<li><a href="index.jsp">질문게시판</a></li>
+								<li><a href="index.jsp">유용한 정보</a></li>
+								<li><a href="index.jsp">오늘의 퀴즈</a></li>
 							</ul>
 						</nav>
 
