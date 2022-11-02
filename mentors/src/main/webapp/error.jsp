@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container pt-3">
-${mvo.nickName }
+"에러"
 </div>
 </body>
 </html>
