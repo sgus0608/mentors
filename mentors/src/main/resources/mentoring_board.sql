@@ -20,3 +20,7 @@ INSERT INTO mentoring_board VALUES(mentoring_board_seq.nextval, '재밌다', '�
 
 SELECT * FROM mentoring_board;
 
+SELECT b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, b.category, b.role, m.nick_name
+FROM mentoring_board b
+INNER JOIN mentors_member m ON b.id=m.id
+ORDER BY b.post_no DESC;
