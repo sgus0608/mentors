@@ -30,10 +30,10 @@ order by post_no DESC
 
 -- 상세글보기
 
-select post_no,title,m.nick_name,category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits
+select post_no,title,m.nick_name,category,content,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits, m.id
 from tips_board t
 inner join mentors_member m on m.id=t.id
-where post_no=1;
+where post_no=1
 order by post_no desc
 
 

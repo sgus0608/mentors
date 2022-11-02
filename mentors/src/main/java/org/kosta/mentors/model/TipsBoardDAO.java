@@ -61,6 +61,32 @@ public class TipsBoardDAO {
 		return list;
 	}
 
+	public TipsPostVO findPostByNo(long postNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		TipsPostVO tipsPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select post_no,title,m.nick_name,category,content,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits, m.id ");
+			sql.append("from tips_board t ");
+			sql.append("inner join mentors_member m on m.id=t.id ");
+			sql.append("where post_no=? ");
+			sql.append("order by post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setLong(1,postNo);
+			rs=pstmt.executeQuery ();
+			if(rs.next()) {
+				MemberVO memberVO=new MemberVO(rs.getString("id"), null, rs.getString("nick_name"), null, null, null, null, null);
+				tipsPostVO=new TipsPostVO(postNo, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), rs.getString("category"), memberVO);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return tipsPostVO;
+	}
+
 
 	
 }
