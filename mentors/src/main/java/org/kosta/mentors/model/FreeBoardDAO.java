@@ -129,6 +129,19 @@ public class FreeBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public void countHitsPost(long post_no) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update free_board set hits=hits+1 where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, post_no);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 
