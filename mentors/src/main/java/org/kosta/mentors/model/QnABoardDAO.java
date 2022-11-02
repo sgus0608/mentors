@@ -54,6 +54,32 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return list;
 	}
+	public QnAPostVO postDetailByNo(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		QnAPostVO qnaPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("SELECT post_no,title,m.nick_name,category,content,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,m.id ");
+			sql.append("FROM qna_board q ");
+			sql.append("INNER JOIN mentors_member m ON m.id=q.id ");
+			sql.append("WHERE post_no=? ");
+			sql.append("ORDER BY post_no DESC ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setLong(1, postNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				memberVO=new MemberVO(rs.getString("id"), null, rs.getString("nick_name"), null, null, null, null, null);
+				qnaPostVO=new QnAPostVO(postNo, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), rs.getString("category"), memberVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return qnaPostVO;
+	}
 }
 
 
