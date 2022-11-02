@@ -1,20 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-<div class="container pt-3">
-${mvo.nickName }
-</div>
-</body>
+	<head>
+		<title>멘토스 - 세미프로젝트(천하제일조)</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
+	</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<section id="header">
+
+					<!-- Logo -->
+						<h1><a href="${pageContext.request.contextPath}/layout.jsp"><img src="${pageContext.request.contextPath}/images/mentors_logo1.png" width="200"></a></h1>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="current"><a href="${pageContext.request.contextPath}/mentoringboard/layout-board.jsp">멘토링</a></li>
+								<li><a href="${pageContext.request.contextPath}/layout.jsp">자유게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/layout.jsp">질문게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/layout.jsp">유용한 정보</a></li>
+								<li><a href="${pageContext.request.contextPath}/layout.jsp">오늘의 퀴즈</a></li>
+							</ul>
+						</nav>
+
+					<!-- Banner -->
+						<section id="banner">
+							<header>
+								<h2>우리 모두 멘토를 향해</h2>
+								<p>달려가봐요</p>
+							</header>
+						</section>
+				</section>
+				
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								아이디 : ${mvo.nickName}
+							</div>
+						</div>
+					</div>
+				</section>
+				
+			<!-- Footer -->
+				<section id="footer">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+							
+								<!-- Copyright -->
+									<div id="copyright">
+										<ul class="links">
+											<li>Copyright(c) 2022 KOSTA 천하제일 All right reserved</li>
+										</ul>
+									</div>
+									
+							</div>
+						</div>
+					</div>
+				</section>
+				
+		</div>
+
+		<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/assets/js/jquery.dropotron.min.js"></script>
+			<script src="${pageContext.request.contextPath}/assets/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/assets/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/assets/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
+	</body>
 </html>
