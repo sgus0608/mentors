@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.kosta.mentors.model.QnABoardDAO;
 import org.kosta.mentors.model.QnAPostVO;
 
-public class QnAFindPostListController implements Controller {
+public class QnABoardFindPostListController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
