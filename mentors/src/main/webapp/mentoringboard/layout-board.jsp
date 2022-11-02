@@ -29,13 +29,6 @@
 							</ul>
 						</nav>
 
-					<!-- Banner -->
-						<section id="banner">
-							<header>
-								<h2>우리 모두 멘토를 향해</h2>
-								<p>달려가봐요</p>
-							</header>
-						</section>
 				</section>
 				
 			<!-- Main -->
@@ -43,11 +36,32 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-12">
-								내용이 들어갈 곳 내용이 들어갈 곳<br>
-								내용이 들어갈 곳 내용이 들어갈 곳<br>
-								내용이 들어갈 곳 내용이 들어갈 곳<br>
-								내용이 들어갈 곳 내용이 들어갈 곳<br>
-								내용이 들어갈 곳 내용이 들어갈 곳
+								<table>
+								    <thead>
+								      <tr>
+								        <th>Firstname</th>
+								        <th>Lastname</th>
+								        <th>Email</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr>
+								        <td>John</td>
+								        <td>Doe</td>
+								        <td>john@example.com</td>
+								      </tr>
+								      <tr>
+								        <td>Mary</td>
+								        <td>Moe</td>
+								        <td>mary@example.com</td>
+								      </tr>
+								      <tr>
+								        <td>July</td>
+								        <td>Dooley</td>
+								        <td>july@example.com</td>
+								      </tr>
+								    </tbody>
+								  </table>
 							</div>
 						</div>
 					</div>
