@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.kosta.mentors.model.FreeBoardDAO;
-import org.kosta.mentors.model.PostVO;
 import org.kosta.mentors.model.TipsBoardDAO;
 import org.kosta.mentors.model.TipsPostVO;
 
