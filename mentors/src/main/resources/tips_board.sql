@@ -19,3 +19,37 @@ INSERT INTO tips_board VALUES(tips_board_seq.nextval, '자바개꿀팁', '열심
 COMMIT
 
 SELECT * FROM tips_board;
+
+
+-- 게시글 리스트
+
+select post_no,title,m.nick_name,category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits
+from tips_board t
+inner join mentors_member m on m.id=t.id
+order by post_no DESC
+
+-- 상세글보기
+
+select post_no,title,m.nick_name,category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits
+from tips_board t
+inner join mentors_member m on m.id=t.id
+where post_no=1;
+order by post_no desc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
