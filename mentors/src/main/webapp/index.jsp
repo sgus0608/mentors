@@ -24,7 +24,7 @@
 								<li class="current"><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">멘토링</a></li>
 								<li><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">자유게시판</a></li>
 								<li><a href="${pageContext.request.contextPath}/QnAFindPostListController.do">질문게시판</a></li>
-								<li><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">유용한 정보</a></li>
+								<li><a href="${pageContext.request.contextPath}/TipsBoardFindPostListController.do">유용한 정보</a></li>
 								<li><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">오늘의 퀴즈</a></li>
 							</ul>
 						</nav>
