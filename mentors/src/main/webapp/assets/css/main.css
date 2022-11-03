@@ -152,7 +152,9 @@ input, select, textarea {
 	}
 
 	a {
-		color: #d52349;
+		/*color: #d52349;
+		*/
+		color: #408080;
 		text-decoration: underline;
 	}
 
@@ -2060,6 +2062,15 @@ input, select, textarea {
 
 	#page-wrapper > section {
 		margin-bottom: 0;
+	}
+/* Login Bar */
+	#login-bar{
+		position: relative;
+		background: #F7F7F7;
+		padding: 0 10em 0 0;
+		text-align: right;
+		/* padding: 0 15em 0 0; 
+		text-align: right; */
 	}
 
 /* Header */
