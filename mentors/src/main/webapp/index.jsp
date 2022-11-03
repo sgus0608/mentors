@@ -25,7 +25,7 @@
 								<li><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
 								<li><a href="QnABoardFindPostListController.do">질문게시판</a></li>
 								<li><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
-								<li><a href="FreeBoardFindPostListController.do">오늘의 퀴즈</a></li>
+								<li><a href="QuizFindPostListController.do">오늘의 퀴즈</a></li>
 							</ul>
 						</nav>
 
