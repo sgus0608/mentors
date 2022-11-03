@@ -11,15 +11,32 @@
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
-		<%--login 시험용 나중에 지울것 by khj --%>
-			<form>
-				<a href="login/login.jsp">로그인</a>
-			</form>
+		
+			<div id="login-bar">
+				<c:choose>
+					<c:when test="${sessionScope.mvo == null}">
+						<a href="login/login.jsp">로그인</a>
+					</c:when>
+					<c:otherwise>
+						${sessionScope.mvo.nickName}님&nbsp;&nbsp;
+						<a href="javascript:logout()">로그아웃</a>
+						<form id="logoutForm" action="LogoutController.do" method="post"></form>
+						<script type="text/javascript">
+							function logout() {
+								let result = confirm("로그아웃 하시겠습니까?");
+								if(result)
+									document.getElementById("logoutForm").submit();
+							}
+						</script>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 			<!-- Header -->
 				<section id="header">
 
 					<!-- Logo -->
-						<h1><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/mentors_logo1.png" width="200"></a></h1>
+						<h1><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/mentros_logo2.png" width="320"></a></h1>
 
 					<!-- Nav -->
 						<nav id="nav">
