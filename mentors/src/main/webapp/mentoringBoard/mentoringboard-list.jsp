@@ -18,7 +18,14 @@
 								      <tr>
 								        <td>${post.postNo}</td>
 								        <td>${post.category}</td>
+								        <c:choose>
+								        <c:when test="${sessionScope.mvo == null}">
 								        <td>${post.title}</td>
+								        </c:when>
+								        <c:otherwise>
+								        <td><a href="MentoringBoardPostDetailController.do?postNo=${post.postNo}">${post.title}</a></td>
+								        </c:otherwise>
+								        </c:choose>
 								        <td>${post.role}</td>
 								        <td>${post.memberVO.nickName}</td>
 								        <td>${post.timePosted}</td>
