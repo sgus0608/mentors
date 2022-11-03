@@ -23,7 +23,7 @@
         					${list.title}
         				</c:when>
 						<c:otherwise>
-							<a href="TipsPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
+							<a href="TipsBoardPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
 						</c:otherwise>
 				</c:choose>
 				</td>
@@ -34,3 +34,4 @@
 		</c:forEach>
 	</tbody>
 </table>
+	<a href="TipsBoardWritePostFormController.do">글쓰기</a>
