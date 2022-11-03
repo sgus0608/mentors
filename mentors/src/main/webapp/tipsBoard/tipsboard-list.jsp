@@ -13,13 +13,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${list}" var="list">
+		<c:forEach items="${requestScope.list}" var="list">
 			<tr>
 				<td>${list.postNo}</td>
 				<td>${list.category}</td>
 				<td>
 				<c:choose>
-						<c:when test="${sessionScope.mvo!=null}">
+						<c:when test="${sessionScope.mvo==null}">
         					${list.title}
         				</c:when>
 						<c:otherwise>
