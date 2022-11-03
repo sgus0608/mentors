@@ -11,7 +11,10 @@
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
-
+		<%--login 시험용 나중에 지울것 by khj --%>
+			<form>
+				<a href="login/login.jsp">로그인</a>
+			</form>
 			<!-- Header -->
 				<section id="header">
 
