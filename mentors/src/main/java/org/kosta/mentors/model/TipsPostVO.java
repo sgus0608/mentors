@@ -7,13 +7,13 @@ public class TipsPostVO extends PostVO{
 		super();
 	}
 
-	public TipsPostVO(long no, String title, long hits, String timePosted, String category, MemberVO memberVO) {
-		super(no, title, hits, timePosted, memberVO);
+	public TipsPostVO(long postNo, String title, long hits, String timePosted, String category, MemberVO memberVO) {
+		super(postNo, title, hits, timePosted, memberVO);
 		this.category=category;
 	}
 
-	public TipsPostVO(long no, String title, String content, long hits, String timePosted, String category, MemberVO memberVO) {
-		super(no, title, content, hits, timePosted, memberVO);
+	public TipsPostVO(long postNo, String title, String content, long hits, String timePosted, String category, MemberVO memberVO) {
+		super(postNo, title, content, hits, timePosted, memberVO);
 		this.category=category;
 	}
 
@@ -35,6 +35,5 @@ public class TipsPostVO extends PostVO{
 		return "TipsPostVO[postNo=" + super.getPostNo() + ", title="  +super.getTitle() + ", content=" + super.getContent() + ", hits=" + super.getHits() + ", timePosted="
 				+ super.getTimePosted() +" ,category="+category+ ", memberVO=" +super.getMemberVO() + "]";
 	}
-	  
 	
 }

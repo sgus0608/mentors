@@ -55,6 +55,7 @@ public class MemberDAO {
 		}
 		return memberVO;
 	}
+	
 	public boolean checkId(String id) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -74,6 +75,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
 	public void registerMember(MemberVO vo) throws SQLException {
 		PreparedStatement pstmt = null;
 		Connection con =null;
@@ -95,4 +97,5 @@ public class MemberDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	
 }

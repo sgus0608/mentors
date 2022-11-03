@@ -16,15 +16,15 @@ public class MentoringPostVO extends PostVO {
 	}
 	
 	//멘토링 게시판 리스트 조회시 사용할 생성자
-	public MentoringPostVO(long no, String title, long hits, String timePosted, String category, String role, MemberVO memberVO) {
-		super(no, title, hits, timePosted, memberVO);
+	public MentoringPostVO(long postNo, String title, long hits, String timePosted, String category, String role, MemberVO memberVO) {
+		super(postNo, title, hits, timePosted, memberVO);
 		this.category = category;
 		this.role = role;
 	}
 	
 	//멘토링 게시판 상세글보기
-	public MentoringPostVO(long no, String title, String content, long hits, String timePosted, String category, String role, MemberVO memberVO) {
-		super(no, title, content, hits, timePosted, memberVO);
+	public MentoringPostVO(long postNo, String title, String content, long hits, String timePosted, String category, String role, MemberVO memberVO) {
+		super(postNo, title, content, hits, timePosted, memberVO);
 		this.category = category;
 		this.role = role;
 	}
