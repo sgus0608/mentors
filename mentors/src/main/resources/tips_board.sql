@@ -45,6 +45,10 @@ select*from tips_board
 
 commit
 
+--글 삭제
+delete from tips_board where post_no='1';
+
+
 
 
 

@@ -22,3 +22,15 @@
 		</td>
 	</tr>
 </table>
+
+<div align="center">
+	<button type="submit" onclick="updatePost()" >수정</button>&nbsp;&nbsp;
+	<button  type="submit" onclick="deletePost()">삭제</button>
+</div>
+<form action="TipsBoardUpdatePostController.do" method="post" id="updateForm"></form>
+<form action="TipsBoardDeletePostController.do" method="post" id="deleteForm"></form>
+
+<%--
+<a href="TipsBoardUpdatePostController.do">수정</a> &nbsp; &nbsp;
+<a href="TipsBoardDeletePostController.do">삭제</a>
+ --%>
