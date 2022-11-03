@@ -15,7 +15,7 @@ public class QnABoardFindPostListController implements Controller {
 		QnABoardDAO qnaBoardDAO=QnABoardDAO.getInstance();
 		ArrayList<QnAPostVO> list=qnaBoardDAO.findPostList();
 		request.setAttribute("list", list);
-		request.setAttribute("url", "board/qnaBoardList.jsp");
+		request.setAttribute("url", "qna-board/qnaBoardList.jsp");
 		return "layout.jsp";
 	}
 }

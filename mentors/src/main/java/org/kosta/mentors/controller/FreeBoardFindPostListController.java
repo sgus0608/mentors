@@ -11,7 +11,7 @@ public class FreeBoardFindPostListController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setAttribute("list", FreeBoardDAO.getInstance().findPostList());
-		request.setAttribute("url", "board/freeBoardList.jsp");
+		request.setAttribute("url", "free-board/freeBoardList.jsp");
 		return "layout.jsp";
 	}
 

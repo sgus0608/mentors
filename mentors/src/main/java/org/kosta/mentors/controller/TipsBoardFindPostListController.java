@@ -15,7 +15,7 @@ public class TipsBoardFindPostListController implements Controller {
 		TipsBoardDAO tipsBoardDAO=TipsBoardDAO.getInstance();
 		ArrayList<TipsPostVO> list=tipsBoardDAO.findPostList();
 		request.setAttribute("list", list);
-		request.setAttribute("url", "board/tipsBoardList.jsp");
+		request.setAttribute("url", "tips-board/tipsBoardList.jsp");
 		return "layout.jsp";
 	}
 
