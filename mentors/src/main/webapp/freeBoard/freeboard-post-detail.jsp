@@ -5,7 +5,7 @@
 	<tr>
 		<td>글번호 ${postVO.postNo}</td>
 		<td>제목 ${postVO.title}</td>
-		<td>작성자 ${mvo.nickName}</td>
+		<td>작성자 ${postVO.memberVO.nickName}</td>
 		<td>조회수 ${postVO.hits}</td>
 		<td>작성일 ${postVO.timePosted}</td>
 	</tr>
