@@ -21,11 +21,11 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">멘토링</a></li>
-								<li><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">자유게시판</a></li>
-								<li><a href="${pageContext.request.contextPath}/QnABoardFindPostListController.do">질문게시판</a></li>
-								<li><a href="${pageContext.request.contextPath}/TipsBoardFindPostListController.do">유용한 정보</a></li>
-								<li><a href="${pageContext.request.contextPath}/FreeBoardFindPostListController.do">오늘의 퀴즈</a></li>
+								<li class="current"><a href="MentoringBoardFindPostListController.do">멘토링</a></li>
+								<li><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
+								<li><a href="QnABoardFindPostListController.do">질문게시판</a></li>
+								<li><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
+								<li><a href="FreeBoardFindPostListController.do">오늘의 퀴즈</a></li>
 							</ul>
 						</nav>
 
