@@ -7,7 +7,7 @@ public class TestCasePostDetailByNo {
 	public static void main(String[] args) {
 		try {
 			long postNo=1;
-			TipsPostVO tipsPostVO=TipsBoardDAO.getInstance().findPostByNo(postNo);
+			TipsPostVO tipsPostVO=TipsBoardDAO.getInstance().postDetailByNo(postNo);
 			System.out.println(tipsPostVO);
 		} catch (Exception e) {
 			e.printStackTrace();

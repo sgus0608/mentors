@@ -37,9 +37,13 @@ where post_no=1
 order by post_no desc
 
 
--- 
+-- 글등록
+insert into tips_board(post_no,title,content,time_posted,category,id)
+values(tips_board_seq.nextval,'안녕하세요','반갑습니다',sysdate,'정처기','java');
 
+select*from tips_board
 
+commit
 
 
 

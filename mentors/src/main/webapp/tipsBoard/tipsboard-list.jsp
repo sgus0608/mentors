@@ -23,7 +23,7 @@
         					${list.title}
         				</c:when>
 						<c:otherwise>
-							<a href="TipsPostDetailController.do?no=${list.postNo}">${list.title}</a>
+							<a href="TipsPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
 						</c:otherwise>
 				</c:choose>
 				</td>
