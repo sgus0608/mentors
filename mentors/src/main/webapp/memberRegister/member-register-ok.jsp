@@ -16,7 +16,7 @@
 <div class="container pt-3">
 	<script type="text/javascript">
 	alert("회원가입이 완료되었습니다");
-	location.href="login.jsp";
+	location.href="${pageContext.request.contextPath}/login/login.jsp";
 	</script>
 </div>
 </body>

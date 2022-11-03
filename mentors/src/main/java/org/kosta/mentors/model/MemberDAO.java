@@ -81,7 +81,7 @@ public class MemberDAO {
 			con = dataSource.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into mentors_member(id,password,nick_name,email," );
-			sql.append("address,interest,signup_date) values(?,?,?,?,?,?,sydate)");
+			sql.append("address,interest,signup_date) values(?,?,?,?,?,?,sysdate)");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPassword());
@@ -89,6 +89,7 @@ public class MemberDAO {
 			pstmt.setString(4, vo.getEmail());
 			pstmt.setString(5, vo.getAddress());
 			pstmt.setString(6, vo.getInterest());
+		
 			pstmt.executeQuery();
 		} finally {
 			closeAll(pstmt, con);

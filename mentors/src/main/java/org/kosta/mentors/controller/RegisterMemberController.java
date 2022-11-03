@@ -19,7 +19,7 @@ public class RegisterMemberController implements Controller {
 		String interest = request.getParameter("interest");
 		MemberVO vo = new MemberVO(id,password,nickName,email,address,interest,null,null);
 		MemberDAO.getInstance().registerMember(vo);
-		return "/member-register-ok.jsp";
+		return "memberRegister/member-register-ok.jsp";
 	}
 
 }
