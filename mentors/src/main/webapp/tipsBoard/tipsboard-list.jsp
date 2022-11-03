@@ -13,17 +13,17 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${list}" var="list">
+		<c:forEach items="${requestScope.list}" var="list">
 			<tr>
 				<td>${list.postNo}</td>
 				<td>${list.category}</td>
 				<td>
 				<c:choose>
-						<c:when test="${sessionScope.mvo!=null}">
+						<c:when test="${sessionScope.mvo==null}">
         					${list.title}
         				</c:when>
 						<c:otherwise>
-							<a href="TipsPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
+							<a href="TipsBoardPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
 						</c:otherwise>
 				</c:choose>
 				</td>
@@ -34,3 +34,4 @@
 		</c:forEach>
 	</tbody>
 </table>
+	<a href="TipsBoardWritePostFormController.do">글쓰기</a>

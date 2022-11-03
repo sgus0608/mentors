@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.kosta.mentors.model.TipsBoardDAO;
 import org.kosta.mentors.model.TipsPostVO;
 
-public class TipsPostDetailController implements Controller {
+public class TipsBoardPostDetailController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
