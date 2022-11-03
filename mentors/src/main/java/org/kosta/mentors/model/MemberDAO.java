@@ -55,5 +55,43 @@ public class MemberDAO {
 		}
 		return memberVO;
 	}
-	
+	public boolean checkId(String id) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select count(*) from mentors_member where id =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()&&rs.getInt(1)>0) {
+				result = true;
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return result;
+	}
+	public void registerMember(MemberVO vo) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con =null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("insert into mentors_member(id,password,nick_name,email," );
+			sql.append("address,interest,signup_date) values(?,?,?,?,?,?,sydate)");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getNickName());
+			pstmt.setString(4, vo.getEmail());
+			pstmt.setString(5, vo.getAddress());
+			pstmt.setString(6, vo.getInterest());
+			pstmt.executeQuery();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
