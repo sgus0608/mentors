@@ -19,10 +19,12 @@
 		  <td>${list.category}</td>
 		  <td> 
 		    <c:choose>
-		      <c:when test="${sessionScope.mvo!=null}">${list.title}</c:when>
+		        <c:when test="${sessionScope.mvo==null}">
+		          ${list.title}
+		        </c:when>
 		        <c:otherwise>
-		          <a href="QnAPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
-		      </c:otherwise>
+		            <a href="QnABoardPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
+		        </c:otherwise>
 		    </c:choose>
 		  </td>
 		  <td>${list.memberVO.nickName}</td>
@@ -32,6 +34,8 @@
 	  </c:forEach>
 	</tbody>
 </table>
+	
+	  <a href="QnABoardWritePostFormController.do">글쓰기</a>
 
 
 
