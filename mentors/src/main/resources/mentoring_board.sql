@@ -36,3 +36,6 @@ WHERE b.post_no=1;
 INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id)
 VALUES(mentoring_board_seq.nextval, '테스트임다', '테스트에요~~~~', sysdate, '자바', '멘토', 'java');
 
+-- 글수정
+UPDATE mentoring_board SET category='파이썬', role='멘티', title='테스투', content='테' WHERE post_no=2;
+
