@@ -51,9 +51,9 @@
     </form>
     <script type="text/javascript">
     	let checkFlag = false;
+    	function checkRegisterForm(event){
     	let password1 = document.getElementById("password1").value;
 		let password2= document.getElementById("password2").value;
-    	function checkRegisterForm(event){
     		if(checkFlag==false){
     			alert("아이디가 중복되었습니다");
     			event.preventDefault();
