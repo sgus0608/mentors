@@ -98,6 +98,19 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	public void deletePost(long no) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="DELETE from qna_board where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, no);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 
