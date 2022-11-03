@@ -21,8 +21,12 @@
 <button type="submit" onclick="updatePost()">수정</button>&nbsp;&nbsp;
 <button type="submit" onclick="deletePost()">삭제</button>
 </div>
-<form action="QnABoardDeletePostController.do" method="post" id="deleteForm"></form>
-<form action="QnABoardUpdatePostController.do" method="post" id="updateForm"></form>
+<form action="QnABoardDeletePostController.do" method="post" id="deleteForm">
+	<input type="hidden" name="no">
+</form>
+<form action="QnABoardUpdatePostController.do" method="post" id="updateForm">
+
+</form>
 
 
 
