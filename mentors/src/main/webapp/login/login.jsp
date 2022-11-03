@@ -8,26 +8,26 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="login/loginimages/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="loginimages/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="login/loginfont/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="loginfont/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="login/loginfont/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="loginfont/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/login/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/login/vendors/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="vendors/select2/select2.min.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="login/logincss/util.css">
-	<link rel="stylesheet" type="text/css" href="login/logincss/main.css">
+	<link rel="stylesheet" type="text/css" href="logincss/util.css">
+	<link rel="stylesheet" type="text/css" href="logincss/main.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -35,12 +35,12 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form"action="LoginController.do" method="post">
+				<form class="login100-form validate-form"action="${pageContext.request.contextPath}/LoginController.do" method="post">
 					<span class="login100-form-title p-b-26">
 						<b>Welcome</b>
 					</span>
 					 <span class="login-logo">
-						<img alt="" src="images/mentors_logo1.png ">
+						<img alt="" src="${pageContext.request.contextPath}/images/mentors_logo1.png ">
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
 						<input class="input100" type="text" name="id">
@@ -66,7 +66,7 @@
 							Don’t have an account?
 						</span>
 
-						<a class="txt2" href="member-register.jsp">
+						<a class="txt2" href="${pageContext.request.contextPath}/memberRegister/member-register.jsp">
 							Sign Up
 						</a>
 					</div>

@@ -20,7 +20,7 @@ public class LoginController implements Controller {
 		MemberVO mvo=MemberDAO.getInstance().login(id, password);
 		String viewPath=null;
 		if(mvo==null) {
-			viewPath="redirect:login-fail.jsp";
+			viewPath="redirect:login/login-fail.jsp";
 		}else {
 			viewPath="redirect:index.jsp";
 			HttpSession session=request.getSession();
