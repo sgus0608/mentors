@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.kosta.mentors.model.QnABoardDAO;
 import org.kosta.mentors.model.QnAPostVO;
 
-public class QnAPostDetailController implements Controller {
+public class QnABoardPostDetailController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
