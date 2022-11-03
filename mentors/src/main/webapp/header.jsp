@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+			<%--login 시험용 나중에 지울것 by khj --%>
+			<form>
+				<a href="login/login.jsp">로그인</a>
+			</form>
 			<!-- Header -->
 				<section id="header">
 					<!-- Logo -->
@@ -12,7 +16,7 @@
 								<li><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
 								<li><a href="QnABoardFindPostListController.do">질문게시판</a></li>
 								<li><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
-								<li><a href="FreeBoardFindPostListController.do">오늘의 퀴즈</a></li>
+								<li><a href="QuizFindPostListController.do">오늘의 퀴즈</a></li>
 							</ul>
 						</nav>
 				</section>
