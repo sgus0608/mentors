@@ -2,8 +2,6 @@ package org.kosta.mentors.test.kdh;
 
 import java.sql.SQLException;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import org.kosta.mentors.model.MentoringBoardDAO;
 import org.kosta.mentors.model.MentoringPostVO;
 

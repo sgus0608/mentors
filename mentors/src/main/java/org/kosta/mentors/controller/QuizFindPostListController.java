@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.mentors.model.QuizDAO;
-import org.kosta.mentors.model.QuizVO;
 
 public class QuizFindPostListController implements Controller {
 
