@@ -5,8 +5,8 @@
 	<thead>
 		<tr style="background-color: #ccff66">
 			<th>번호</th>
-			<th class="title">제목</th>
 			<th>카테고리</th>
+			<th class="title">제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>조회수</th>
@@ -16,17 +16,17 @@
 		<c:forEach items="${list}" var="list">
 			<tr>
 				<td>${list.postNo}</td>
+				<td>${list.category}</td>
 				<td>
 				<c:choose>
-						<c:when test="${sessionScope.mvo==null}">
+						<c:when test="${sessionScope.mvo!=null}">
         					${list.title}
         				</c:when>
 						<c:otherwise>
-							<a href="PostDetailController.do?no=${list.no}">${list.title}</a>
+							<a href="TipsPostDetailController.do?no=${list.postNo}">${list.title}</a>
 						</c:otherwise>
 				</c:choose>
 				</td>
-				<td>${list.category}</td>
 				<td>${list.memberVO.nickName}</td>
 				<td>${list.timePosted}</td>
 				<td>${list.hits}</td>
