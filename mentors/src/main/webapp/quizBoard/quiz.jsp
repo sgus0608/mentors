@@ -18,6 +18,16 @@ label {
 	font-size: larger;
 	vertical-align: middle;
 }
+button{
+	height: 30px;
+	width: 70px;
+	font-size: small;
+	text-align: center; 
+	display: flex;
+	align-items:center;
+	justify-content: center;
+	
+}
 </style>
 
 
@@ -26,11 +36,14 @@ label {
   	<div>
   		<b> ${post.no}번)</b>  ${post.content }
   		<br>
-  		
   		<input type="radio" name="question${post.no }" value="${post.que1 }"><label>${post.que1 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+  		<span id="result${post.no}"></span>
   		<input type="radio" name="question${post.no }" value="${post.que2 }"><label>${post.que2 }</label>&nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; 
   		<input type="radio" name="question${post.no }" value="${post.que3}"><label>${post.que3 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
   		<input type="radio" name="question${post.no }" value="${post.que4}"><label>${post.que4 }</label>
+  		<br>
+  		<button onclick="">정답 보기</button>
+  		<button onclick="">제출</button>
   	</div>
   <br>
   </c:forEach>
