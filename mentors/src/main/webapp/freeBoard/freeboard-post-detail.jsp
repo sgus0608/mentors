@@ -18,16 +18,28 @@
 
 </table>
 <c:if test="${postVO.memberVO.id==mvo.id}">
-	<button type="button" onclick="modify()">수정</button>
-	<button>삭제</button>
+	<%-- 수정 --%>
+	<button type="button" onclick="updatePost()">수정</button>
+	<button type="button" onclick="deletePost()">삭제</button>
 	<form id="updateForm" action="FreeBoardUpdatePostFormController.do?postNo=${postVO.postNo}" method="post">
-		<input type="hidden" name="no" value="${postVO.postNo}">
+		<input type="hidden" name="postNo" value="${postVO.postNo}">
 	</form>
 	<script>
-	function modify(){
+	function updatePost(){
 		let result=confirm("수정하시겠습니까?");
 		if(result)
 			document.getElementById("updateForm").submit();
+	}
+	</script>
+	<%-- 삭제 --%>
+	<form id="deleteForm" action="FreeBoardDeletePostController.do?postNo=${postVO.postNo}" method="post">
+		<input type="hidden" name="postNo" value="${postVO.postNo}">
+	</form>
+	<script>
+	function deletePost(){
+		let result=confirm("삭제하시겠습니까?");
+		if(result)
+			document.getElementById("deleteForm").submit();
 	}
 	</script>
 </c:if>
