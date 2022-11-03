@@ -12,7 +12,26 @@
   </tr>
   <tr>
     <td colspan="5">
-  	  <pre><font size="4">내용 ${qnaPostVO.content}</font></pre>
+  	  <pre><font size="4">내용 : ${qnaPostVO.content}</font></pre>
   	</td>
   </tr>
 </table>
+
+<div align="center">
+<button type="submit" onclick="updatePost()">수정</button>&nbsp;&nbsp;
+<button type="submit" onclick="deletePost()">삭제</button>
+</div>
+<form action="QnABoardDeletePostController.do" method="post" id="deleteForm"></form>
+<form action="QnABoardUpdatePostController.do" method="post" id="updateForm"></form>
+
+
+
+
+
+
+
+
+
+
+
+
