@@ -18,12 +18,28 @@
 								      <tr>
 								        <td>${post.postNo}</td>
 								        <td>${post.category}</td>
+								        <c:choose>
+								        <c:when test="${sessionScope.mvo == null}">
 								        <td>${post.title}</td>
+								        </c:when>
+								        <c:otherwise>
+								        <td><a href="MentoringBoardPostDetailController.do?postNo=${post.postNo}">${post.title}</a></td>
+								        </c:otherwise>
+								        </c:choose>
 								        <td>${post.role}</td>
 								        <td>${post.memberVO.nickName}</td>
 								        <td>${post.timePosted}</td>
 								        <td>${post.hits}</td>
 								      </tr>
 								    </c:forEach>
+								    <c:if test="${sessionScope.mvo != null}">
+								    <tr>
+								      <td colspan="7">
+								        <form action="MentoringBoardWritePostFormController.do">
+								          <button type="submit">글쓰기</button>
+								        </form>
+								      </td>
+								    </tr>
+								    </c:if>
 								    </tbody>
 								  </table>

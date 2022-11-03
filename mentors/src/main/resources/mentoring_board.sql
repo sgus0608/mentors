@@ -20,7 +20,19 @@ INSERT INTO mentoring_board VALUES(mentoring_board_seq.nextval, '재밌다', '�
 
 SELECT * FROM mentoring_board;
 
+-- 리스트 목록 조회
 SELECT b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, b.category, b.role, m.nick_name
 FROM mentoring_board b
 INNER JOIN mentors_member m ON b.id=m.id
 ORDER BY b.post_no DESC;
+
+-- 상세글 보기
+SELECT b.post_no, b.title, b.content, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD HH24:MI:SS') as time_posted, b.category, b.role, m.id, m.nick_name
+FROM mentoring_board b
+INNER JOIN mentors_member m ON b.id=m.id
+WHERE b.post_no=1;
+
+-- 글등록
+INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id)
+VALUES(mentoring_board_seq.nextval, '테스트임다', '테스트에요~~~~', sysdate, '자바', '멘토', 'java');
+
