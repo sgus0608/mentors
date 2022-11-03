@@ -100,5 +100,25 @@ public class MentoringBoardDAO {
 		}
 		return postVO;
 	}
+
+	public void writePost(MentoringPostVO postVO) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id) ");
+			sql.append("VALUES(mentoring_board_seq.nextval, ?, ?, sysdate, ?, ?, ?)");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, postVO.getTitle());
+			pstmt.setString(2, postVO.getContent());
+			pstmt.setString(3, postVO.getCategory());
+			pstmt.setString(4, postVO.getRole());
+			pstmt.setString(5, postVO.getMemberVO().getId());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 	
 }

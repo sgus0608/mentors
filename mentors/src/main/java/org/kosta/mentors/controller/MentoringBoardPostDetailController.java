@@ -13,7 +13,7 @@ public class MentoringBoardPostDetailController implements Controller {
 		long postNo = Long.parseLong(request.getParameter("postNo"));
 		MentoringPostVO postVO = MentoringBoardDAO.getInstance().postDetailByNo(postNo);
 		request.setAttribute("postVO", postVO);
-		request.setAttribute("url", "mentoringboard-post-detail.jsp");
+		request.setAttribute("url", "mentoringBoard/mentoringboard-post-detail.jsp");
 		return "layout.jsp";
 	}
 

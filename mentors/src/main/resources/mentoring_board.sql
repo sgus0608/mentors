@@ -32,4 +32,7 @@ FROM mentoring_board b
 INNER JOIN mentors_member m ON b.id=m.id
 WHERE b.post_no=1;
 
+-- 글등록
+INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id)
+VALUES(mentoring_board_seq.nextval, '테스트임다', '테스트에요~~~~', sysdate, '자바', '멘토', 'java');
 

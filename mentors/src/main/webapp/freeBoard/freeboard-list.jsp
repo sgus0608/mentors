@@ -43,6 +43,7 @@
 				<td>${list.hits}</td>
 			</tr>
 			</c:forEach>
+			<c:if test="${sessionScope.mvo != null}">
 			<tr>
 				<td colspan="5">
 					<form action="FreeBoardWritePostFormController.do" method="get">
@@ -50,5 +51,6 @@
 					</form>
 				</td>
 			</tr>
+			</c:if>
 	</tbody>
 </table>
