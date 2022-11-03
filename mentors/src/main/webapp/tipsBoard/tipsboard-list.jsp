@@ -34,4 +34,6 @@
 		</c:forEach>
 	</tbody>
 </table>
+	<c:if test="${sessionScope.mvo!=null}">
 	<a href="TipsBoardWritePostFormController.do">글쓰기</a>
+	</c:if>

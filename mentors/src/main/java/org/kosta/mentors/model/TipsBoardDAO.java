@@ -109,4 +109,19 @@ public class TipsBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+
+	public void deletePost(long no) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from tips_board where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, no);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+		
+	}
 }
