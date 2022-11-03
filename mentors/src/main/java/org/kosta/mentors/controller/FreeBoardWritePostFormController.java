@@ -9,5 +9,4 @@ public class FreeBoardWritePostFormController implements Controller {
 		request.setAttribute("url", "freeBoard/freeboard-write-form.jsp");
 		return "layout.jsp";
 	}
-
 }

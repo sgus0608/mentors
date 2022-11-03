@@ -18,6 +18,16 @@
 
 </table>
 <c:if test="${postVO.memberVO.id==mvo.id}">
-	<button>수정</button>
+	<button type="button" onclick="modify()">수정</button>
 	<button>삭제</button>
+	<form id="updateForm" action="FreeBoardUpdatePostFormController.do?postNo=${postVO.postNo}" method="post">
+		<input type="hidden" name="no" value="${postVO.postNo}">
+	</form>
+	<script>
+	function modify(){
+		let result=confirm("수정하시겠습니까?");
+		if(result)
+			document.getElementById("updateForm").submit();
+	}
+	</script>
 </c:if>

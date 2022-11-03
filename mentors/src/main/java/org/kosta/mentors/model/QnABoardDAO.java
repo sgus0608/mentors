@@ -80,6 +80,24 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return qnaPostVO;
 	}
+	public void writePost(QnAPostVO qnaPostVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("insert into qna_board(post_no,title,content,time_posted,category,id) ");
+			sql.append("values (qna_board_seq.nextval,?,?,sysdate,?,?)");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, qnaPostVO.getTitle());
+			pstmt.setString(2, qnaPostVO.getContent());
+			pstmt.setString(3, qnaPostVO.getCategory());
+			pstmt.setString(4, qnaPostVO.getMemberVO().getId());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 
