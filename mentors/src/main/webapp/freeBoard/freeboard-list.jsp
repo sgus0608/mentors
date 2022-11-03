@@ -19,10 +19,10 @@
 				<td>
 				<c:choose>
 						<c:when test="${sessionScope.mvo==null}">
-        					${list.title}
+        					${list.title}				
         				</c:when>
 						<c:otherwise>
-							<a href="PostDetailController.do?postNo=${list.postNo}">${list.title}</a>
+							<a href="FreeBoardPostDetailController.do?postNo=${list.postNo}">${list.title}</a>
 						</c:otherwise>
 				</c:choose>
 				</td>
