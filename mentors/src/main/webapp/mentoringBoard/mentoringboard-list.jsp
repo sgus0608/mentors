@@ -4,26 +4,26 @@
 								<table>
 								    <thead>
 								      <tr>
-								        <th>Firstname</th>
-								        <th>Lastname</th>
-								        <th>Email</th>
+								        <th>글번호</th>
+								        <th>카테고리</th>
+								        <th>제목</th>
+								        <th>역할</th>
+								        <th>작성자</th>
+								        <th>작성일</th>
+								        <th>조회수</th>
 								      </tr>
 								    </thead>
 								    <tbody>
+								    <c:forEach items="${list}" var="post">
 								      <tr>
-								        <td>John</td>
-								        <td>Doe</td>
-								        <td>john@example.com</td>
+								        <td>${post.postNo}</td>
+								        <td>${post.category}</td>
+								        <td>${post.title}</td>
+								        <td>${post.role}</td>
+								        <td>${post.memberVO.nickName}</td>
+								        <td>${post.timePosted}</td>
+								        <td>${post.hits}</td>
 								      </tr>
-								      <tr>
-								        <td>Mary</td>
-								        <td>Moe</td>
-								        <td>mary@example.com</td>
-								      </tr>
-								      <tr>
-								        <td>July</td>
-								        <td>Dooley</td>
-								        <td>july@example.com</td>
-								      </tr>
+								    </c:forEach>
 								    </tbody>
 								  </table>
