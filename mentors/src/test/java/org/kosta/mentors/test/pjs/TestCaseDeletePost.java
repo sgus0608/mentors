@@ -3,7 +3,6 @@ package org.kosta.mentors.test.pjs;
 import java.sql.SQLException;
 
 import org.kosta.mentors.model.QnABoardDAO;
-import org.kosta.mentors.model.QnAPostVO;
 
 public class TestCaseDeletePost {
 	public static void main(String[] args) {
