@@ -14,12 +14,13 @@
   <tr>
     <td colspan="7">${postVO.content}</td>
   </tr>
+  <c:if test="${postVO.memberVO.id == sessionScope.mvo.id}">
   <tr>
     <td colspan="7">
-      <form id="updateForm" action="MentoringBoardUpdatePostFormController.do">
+      <form id="updateForm" action="MentoringBoardUpdatePostFormController.do" method="post">
         <input type="hidden" name="postNo" value="${postVO.postNo}">
       </form>
-      <form id="deleteForm" action="MentoringBoardDeletePostController.do">
+      <form id="deleteForm" action="MentoringBoardDeletePostController.do" method="post">
         <input type="hidden" name="postNo" value="${postVO.postNo}">
       </form>
       <button type="button" onclick="updatePost()">수정</button>
@@ -36,4 +37,5 @@
       </script>
     </td>
   </tr>
+  </c:if>
 </table>
