@@ -111,6 +111,22 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	public void updatePost(QnAPostVO qnaPostVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update qna_board set category=?,title=?,content=? where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, qnaPostVO.getCategory());
+			pstmt.setString(2, qnaPostVO.getTitle());
+			pstmt.setString(3, qnaPostVO.getContent());
+			pstmt.setLong(4, qnaPostVO.getPostNo());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 

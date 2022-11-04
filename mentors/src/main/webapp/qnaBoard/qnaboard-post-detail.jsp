@@ -20,8 +20,8 @@
   <c:if test="${sessionScope.mvo.id==qnaPostVO.memberVO.id}">
   <tr>
     <td colspan="5">
-      <form action="QnABoardUpdatePostController.do" id="updateForm">
-       
+      <form action="QnABoardUpdatePostFormController.do" id="updateForm">
+       	<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
       
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
@@ -30,6 +30,7 @@
       	 <input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
+    
 	      <button type="button" onclick="updatePost()">수정</button>&nbsp;&nbsp;
 	      <button type="button" onclick="deletePost()">삭제</button>
 	  
@@ -37,6 +38,11 @@
 	    function deletePost() {
 			if(confirm("삭제하시겠습니까?")){
 				document.getElementById("deleteForm").submit();
+			}
+		}
+	    function updatePost() {
+			if(confirm("수정하시겠습니까?")){
+				document.getElementById("updateForm").submit();
 			}
 		}
 	  </script>
