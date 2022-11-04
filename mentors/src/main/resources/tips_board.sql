@@ -78,4 +78,9 @@ select count(*) from tips_board
 commit
 
 
+-- 조회수 증가
+update tips_board set hits=hits+1 where post_no=2;
+
+
+
 
