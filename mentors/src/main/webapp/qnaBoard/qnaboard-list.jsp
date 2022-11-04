@@ -41,13 +41,13 @@
 <!--
       pagination 
 -->
-<ul class="pagination justify-content-center" style="margin:20px 0"
->	<c:if test="${pagination.previousPageGroup}">
+<ul class="pagination justify-content-center" style="margin:20px 0">
+	<c:if test="${pagination.previousPageGroup}">
 	<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${pagination.startPageOfPageGroup-1}">Previous</a></li>
 	</c:if>
 	<c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
 	<c:choose>
-	<c:when test="${pasination.nowPage == page}">
+	<c:when test="${pagination.nowPage == page}">
 	<li class="page-item active"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${page}">${page}</a></li>
 	</c:when>
 	<c:otherwise>
