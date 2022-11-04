@@ -3,22 +3,22 @@ package org.kosta.mentors.model;
 public class QuizVO {
 	private long no;
 	private String content;
-	private String que1;
-	private String que2;
-	private String que3;
-	private String que4;
+	private String question1;
+	private String question2;
+	private String question3;
+	private String question4;
 	private String answer;
 	private String Category;
 	
-	public QuizVO(long no, String content, String que1, String que2, String que3, String que4, String answer,
+	public QuizVO(long no, String content, String question1, String question2, String question3, String question4, String answer,
 			String category) {
 		super();
 		this.no = no;
 		this.content = content;
-		this.que1 = que1;
-		this.que2 = que2;
-		this.que3 = que3;
-		this.que4 = que4;
+		this.question1 = question1;
+		this.question2 = question2;
+		this.question3 = question3;
+		this.question4 = question4;
 		this.answer = answer;
 		Category = category;
 	}
@@ -43,36 +43,36 @@ public class QuizVO {
 		this.content = content;
 	}
 	
-	public String getQue1() {
-		return que1;
+	public String getquestion1() {
+		return question1;
 	}
 	
-	public void setQue1(String que1) {
-		this.que1 = que1;
+	public void setquestion1(String question1) {
+		this.question1 = question1;
 	}
 	
-	public String getQue2() {
-		return que2;
+	public String getquestion2() {
+		return question2;
 	}
 	
-	public void setQue2(String que2) {
-		this.que2 = que2;
+	public void setquestion2(String question2) {
+		this.question2 = question2;
 	}
 	
-	public String getQue3() {
-		return que3;
+	public String getquestion3() {
+		return question3;
 	}
 	
-	public void setQue3(String que3) {
-		this.que3 = que3;
+	public void setquestion3(String question3) {
+		this.question3 = question3;
 	}
 	
-	public String getQue4() {
-		return que4;
+	public String getquestion4() {
+		return question4;
 	}
 	
-	public void setQue4(String que4) {
-		this.que4 = que4;
+	public void setquestion4(String question4) {
+		this.question4 = question4;
 	}
 	
 	public String getAnswer() {
@@ -93,8 +93,8 @@ public class QuizVO {
 	
 	@Override
 	public String toString() {
-		return "QuizVO [no=" + no + ", content=" + content + ", que1=" + que1 + ", que2=" + que2 + ", que3=" + que3
-				+ ", que4=" + que4 + ", answer=" + answer + ", Category=" + Category + "]";
+		return "QuizVO [no=" + no + ", content=" + content + ", question1=" + question1 + ", question2=" + question2 + ", question3=" + question3
+				+ ", question4=" + question4 + ", answer=" + answer + ", Category=" + Category + "]";
 	}
 	
 	

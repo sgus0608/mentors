@@ -34,15 +34,13 @@ button{
   	<div>
   		<b> ${post.no}번)</b>  ${post.content }
   		<br>
-  		<input type="radio" name="${post.no}" value="${post.que1 }"><label>${post.que1 }</label>
-  		<input type="radio" name="${post.no}" value="${post.que2 }"><label>${post.que2 }</label>
-  		<input type="radio" name="${post.no}" value="${post.que3}"><label>${post.que3 }</label> 
-  		<input type="radio" name="${post.no}" value="${post.que4}"><label>${post.que4 }</label>
+  		<input type="radio" name="${post.no}" value="${post.question1 }"><label>${post.question1 }</label>
+  		<input type="radio" name="${post.no}" value="${post.question2 }"><label>${post.question2 }</label>
+  		<input type="radio" name="${post.no}" value="${post.question3}"><label>${post.question3 }</label> 
+  		<input type="radio" name="${post.no}" value="${post.question4}"><label>${post.question4 }</label>
   		<br>
-  		<span id="checkResult"></span>
+  		<span id="${post.no }"></span>
   		
-  		
-  		<button onclick="">정답</button>
   		<button onclick="checkAnswer('${post.no}')">제출</button>
   	</div>
   
@@ -52,7 +50,7 @@ button{
 <script type="text/javascript">
 	function checkAnswer(postNo) {
 		let pn = document.getElementsByName(postNo);
-		let checkResultSpan= document.getElementById("result");
+		let checkResultSpan= document.getElementById(postNo);
 	
 		 let answer ="";
 		for(let i =0; i<pn.length;i++){
@@ -69,7 +67,7 @@ button{
 		else{
 			let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
-				if(xhr.readyState==4&&xhr.status=200){
+				if(xhr.readyState==4&&xhr.status==200){
 					if(xhr.responseText=="ok"){
 						checkResultSpan.innerHTML = "<font color=blue>정답입니다</font>";
 					}else{
@@ -77,7 +75,7 @@ button{
 					}
 				}
 			}
-			xhr.open("get","CheckResultController.do?answer="+answer+"&postNo="+postNo);
+			xhr.open("get","QuizCheckResultController.do?answer="+answer+"&postNo="+postNo);
 			xhr.send();
 		}
 	}
