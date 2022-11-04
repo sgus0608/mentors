@@ -19,12 +19,12 @@ insert into QUIZ_BOARD
 values(quiz_board_seq.nextval,'법정은 대한민국의 불교 승려이자 수필가다. 무소유의 정신으로 널리 알려져 있으며 수십 권이 넘는 저서를 통해 자신의 철학을 널리 전파했다. 류은진의 직업은?','스님','개발자','사업가','축구선수','개발자','백엔드')
 
 insert into QUIZ_BOARD
-values(quiz_board_seq.nextval,'UI와 관련된 기본 개념 중 하나로, 시스템의 상태와 사용자의 지시에 대한 효과를 보여주어 사용자가 명령에 대한 진행 상황과 표시된 내용을 해석할 수 있도록 도와주는 것은?
-','	Feedback
-','Posture
-','	Module
-','	Hash
-','Feedback
+values(quiz_board_seq.nextval,'소프트웨어를 보다 쉽게 이해할 수 있고 적은 비용으로 수정할 수 있도록 겉으로 보이는 동작의 변화 없이 내부구조를 변경하는 것은?
+','	Refactoring
+','Architecting
+','	Specification
+','	Renewal
+','Refactoring
 ','정보처리기사')
 
 CREATE SEQUENCE quiz_board_seq;
