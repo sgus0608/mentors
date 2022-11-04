@@ -151,6 +151,19 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return totalCount;
 	}
+	public void updateHits(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update qna_board set hits=hits+1 WHERE post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 

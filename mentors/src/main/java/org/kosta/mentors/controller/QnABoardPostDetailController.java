@@ -1,7 +1,10 @@
 package org.kosta.mentors.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.kosta.mentors.model.QnABoardDAO;
 import org.kosta.mentors.model.QnAPostVO;
@@ -12,6 +15,13 @@ public class QnABoardPostDetailController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long postNo=Long.parseLong(request.getParameter("postNo"));
 		QnABoardDAO qnaBoardDAO=QnABoardDAO.getInstance();
+		HttpSession session=request.getSession(false);
+		@SuppressWarnings("unchecked")
+		ArrayList<Long> list=(ArrayList<Long>) session.getAttribute("qnaboard");
+		if(list.contains(postNo)==false) {
+			QnABoardDAO.getInstance().updateHits(postNo);
+			list.add(postNo);
+		}
 		QnAPostVO qnaPostVO=qnaBoardDAO.postDetailByNo(postNo);
 		request.setAttribute("qnaPostVO", qnaPostVO);
 		request.setAttribute("url", "qnaBoard/qnaboard-post-detail.jsp");
