@@ -52,7 +52,7 @@ public class FreeBoardDAO {
 				list.add(new PostVO(rs.getLong("post_no"),rs.getString("title"),rs.getLong("hits"),rs.getString("time_posted"),memberVO));
 			}
 		}finally {
-			
+			closeAll(rs, pstmt, con);
 		}
 		return list;
 	}
