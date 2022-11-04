@@ -124,4 +124,21 @@ public class TipsBoardDAO {
 		}
 		
 	}
+
+	public void updatePost(TipsPostVO tipsPostVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update tips_board set category=?, title=?, content=? where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, tipsPostVO.getCategory());
+			pstmt.setString(2, tipsPostVO.getTitle());
+			pstmt.setString(3, tipsPostVO.getContent());
+			pstmt.setLong(4, tipsPostVO.getPostNo());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}		
+	}
 }
