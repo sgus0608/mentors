@@ -45,6 +45,44 @@ UPDATE mentoring_board SET category='파이썬', role='멘티', title='테스투
 DELETE FROM mentoring_board WHERE post_no=2;
 
 
+-- 글 복제
+INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id)
+SELECT mentoring_board_seq.nextval, title, content, sysdate, category, role, id FROM mentoring_board
+
+-- row_number() over()
+SELECT row_number() over(ORDER BY post_no DESC) as rnum, post_no, title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, category, role, id
+FROM mentoring_board
+
+-- sub query 이용해서 rnum 1 ~ 5 까지 출력
+SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name
+FROM(
+	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+	category, role, id
+	FROM mentoring_board
+) b INNER JOIN mentors_member m ON b.id=m.id
+WHERE rnum BETWEEN 1 AND 5
+ORDER BY b.post_no DESC;
+
+
+COMMIT
+
+
+SELECT * FROM mentoring_board
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
