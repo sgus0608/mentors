@@ -23,10 +23,12 @@
 	</tr>
 </table>
 
+<c:if test="${sessionScope.mvo.id==tipsPostVO.memberVO.id }">
 <div align="center">
-	<button type="submit" onclick="updatePost()" >수정</button>&nbsp;&nbsp;
-	<button  type="submit" onclick="deletePost()">삭제</button>
+	<button type="submit" " >수정</button>&nbsp;&nbsp;
+	<button  type="submit" ">삭제</button>
 </div>
+</c:if>
 <form action="TipsBoardUpdatePostController.do" method="post" id="updateForm"></form>
 <form action="TipsBoardDeletePostController.do" method="post" id="deleteForm"></form>
 
