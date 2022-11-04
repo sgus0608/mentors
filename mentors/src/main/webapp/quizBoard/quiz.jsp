@@ -28,7 +28,7 @@ button{
 </style>
 
 
-  <c:forEach items="${list }" var="post" begin="0" end="3" varStatus="order">
+  <c:forEach items="${list }" var="post">
   	관련분야 : ${post.category }
   		
   	<div>

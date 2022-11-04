@@ -19,12 +19,21 @@ insert into QUIZ_BOARD
 values(quiz_board_seq.nextval,'법정은 대한민국의 불교 승려이자 수필가다. 무소유의 정신으로 널리 알려져 있으며 수십 권이 넘는 저서를 통해 자신의 철학을 널리 전파했다. 류은진의 직업은?','스님','개발자','사업가','축구선수','개발자','백엔드')
 
 insert into QUIZ_BOARD
-values(quiz_board_seq.nextval,'손흥민은 대한민국의 축구 선수이다. 현재 잉글랜드 프리미어리그 토트넘 홋스퍼에서 윙어로 활약하고 있으며 대한민국 축구 국가대표팀의 주장으로도 활약하고 있다. 천하개발조의 주장인 김동훈의 키는?','188','208','140','2','188','프론트엔드')
+values(quiz_board_seq.nextval,'소프트웨어를 보다 쉽게 이해할 수 있고 적은 비용으로 수정할 수 있도록 겉으로 보이는 동작의 변화 없이 내부구조를 변경하는 것은?
+','	Refactoring
+','Architecting
+','	Specification
+','	Renewal
+','Refactoring
+','정보처리기사')
 
 CREATE SEQUENCE quiz_board_seq;
-update QUIZ_BOARD set answer = '24' where question4='14'
+update QUIZ_BOARD set answer = '스님' where question4='축구선수'
 commit
 select * from QUIZ_BOARD
 COMMIT
-
 select quiz_no, quiz_content,question1,question2,question3,question4,answer,category from quiz_board
+
+
+
+i

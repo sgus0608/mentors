@@ -20,3 +20,24 @@ commit
 
 SELECT * FROM free_board
 
+-- 페이지네이션을 위한 sql
+select post_no, title, m.nick_name,time_posted, hits
+from(
+	select row_number() over(order by post_no desc) as rnum, 
+	post_no, title,
+	to_char(time_posted,'YYYY.MM.DD') as time_posted, 
+	id , hits from free_board
+) f
+inner join mentors_member m on f.id=m.id
+where rnum between 1 and 5
+order by f.post_no desc
+
+commit
+
+insert into free_board(post_no, title, content, time_posted,id)
+select free_board_seq.nextval, title, content, sysdate, id from free_board
+
+
+
+
+
