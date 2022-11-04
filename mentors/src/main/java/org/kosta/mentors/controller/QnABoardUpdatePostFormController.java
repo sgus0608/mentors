@@ -5,16 +5,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.mentors.model.QnABoardDAO;
+import org.kosta.mentors.model.QnAPostVO;
 
-public class QnABoardDeletePostController implements Controller {
+public class QnABoardUpdatePostFormController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(request.getMethod().equalsIgnoreCase("POST")==false) {
-			throw new ServletException(getClass().getName()+" POST 방식만 접근가능");
-		}
 		long postNo=Long.parseLong(request.getParameter("postNo"));
-		QnABoardDAO.getInstance().deletePost(postNo);
-		return "redirect:QnABoardFindPostListController.do";
+		QnABoardDAO qnaBoardDAO=QnABoardDAO.getInstance();
+		QnAPostVO qnaPostVO=qnaBoardDAO.postDetailByNo(postNo);
+		request.setAttribute("qnaPostVO", qnaPostVO);
+		request.setAttribute("url", "qnaBoard/qnaboard-update-form.jsp");
+		return "layout.jsp";
 	}
 }
