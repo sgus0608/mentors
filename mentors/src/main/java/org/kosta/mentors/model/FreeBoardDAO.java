@@ -31,7 +31,7 @@ public class FreeBoardDAO {
 			rs.close();
 		closeAll(pstmt, con); // 컨넥션을 DBCP(DataSource)로 반납한다
 	}
-	public ArrayList<PostVO> findPostList() throws SQLException {
+	public ArrayList<PostVO> findPostList(Pagination pagination) throws SQLException {
 		ArrayList<PostVO> list = new ArrayList<>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -39,12 +39,19 @@ public class FreeBoardDAO {
 		try {
 			con=dataSource.getConnection();
 			StringBuilder sql=new StringBuilder();
-			sql.append("select post_no,title,m.nick_name, ");
-			sql.append("TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits ");
-			sql.append("from free_board f ");
+			sql.append("select post_no, title, m.nick_name,time_posted, hits ");
+			sql.append("from( ");
+			sql.append("select row_number() over(order by post_no desc) as rnum, ");
+			sql.append("post_no, title, ");
+			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
+			sql.append("id , hits from free_board ");
+			sql.append(") f ");
 			sql.append("inner join mentors_member m on f.id=m.id ");
+			sql.append("where rnum between ? and ? ");
 			sql.append("order by f.post_no desc");
 			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setLong(1, pagination.getStartRowNumber());
+			pstmt.setLong(2, pagination.getEndRowNumber());
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MemberVO memberVO=new MemberVO();
@@ -142,6 +149,25 @@ public class FreeBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public long getTotalPostCount() throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalPostCount=0;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_board";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCount=rs.getLong(1);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	
+	
 }
 
 

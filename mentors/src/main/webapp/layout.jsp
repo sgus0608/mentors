@@ -6,7 +6,11 @@
 	<head>
 		<title>멘토스 - 세미프로젝트(천하제일조)</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
 	</head>
 	<body class="homepage is-preload">
