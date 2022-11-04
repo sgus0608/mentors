@@ -19,32 +19,81 @@ label {
 	vertical-align: middle;
 }
 button{
-	height: 30px;
-	width: 70px;
+	height: 40px;
+	width: 80px;
 	font-size: small;
-	text-align: center; 
-	display: flex;
-	align-items:center;
-	justify-content: center;
-	
+	text-align: center;
+  	float: right;
 }
 </style>
 
 
-  <c:forEach items="${list }" var="post" >
+  <c:forEach items="${list }" var="post" begin="0" end="3" varStatus="order">
   	관련분야 : ${post.category }
   	<div>
   		<b> ${post.no}번)</b>  ${post.content }
   		<br>
-  		<input type="radio" name="question${post.no }" value="${post.que1 }"><label>${post.que1 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-  		<span id="result${post.no}"></span>
-  		<input type="radio" name="question${post.no }" value="${post.que2 }"><label>${post.que2 }</label>&nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; 
-  		<input type="radio" name="question${post.no }" value="${post.que3}"><label>${post.que3 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-  		<input type="radio" name="question${post.no }" value="${post.que4}"><label>${post.que4 }</label>
+  		<input type="radio" name="${post.no}" value="${post.que1 }"><label>${post.que1 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+  		<input type="radio" name="${post.no}" value="${post.que2 }"><label>${post.que2 }</label>&nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; 
+  		<input type="radio" name="${post.no}" value="${post.que3}"><label>${post.que3 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+  		<input type="radio" name="${post.no}" value="${post.que4}"><label>${post.que4 }</label>
   		<br>
-  		<button onclick="">정답 보기</button>
-  		<button onclick="">제출</button>
+  		<span id="result"></span>
+  		
+  		
+  		<button onclick="">정답</button>
+  		<button onclick="checkAnswer('${post.no}')">제출</button>
   	</div>
+  
   <br>
-  </c:forEach>
+  
+  
+<script type="text/javascript">
+	function checkAnswer(postNo) {
+		let pn = document.getElementsByName(postNo);
+		let answer ="";
+		for(let i =0; i<pn.length;i++){
+			if(pn[i].checked){
+				answer = pn[i].value;
+				break;
+			}
+		}
+		if(answer==""){
+			alert("답안을 선택하세요");
+		}
+		else{
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState==4&&xhr.status=200){
+					if(xhr.responseText=="ok"){
+						
+					}
+				}
+			}
+			alert(answer);
+		}
+	}
+</script>
+ </c:forEach>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
