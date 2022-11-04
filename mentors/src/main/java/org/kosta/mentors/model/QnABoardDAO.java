@@ -28,7 +28,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			rs.close();
 		closeAll(pstmt, con);
 	}
-	public ArrayList<QnAPostVO> findPostList() throws SQLException {
+	public ArrayList<QnAPostVO> findPostList(Pagination pagination) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -38,11 +38,17 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		try {
 			con=dataSource.getConnection();
 			StringBuilder sql=new StringBuilder();
-			sql.append("SELECT post_no,title,m.nick_name,category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits ");
-			sql.append("FROM qna_board q ");
-			sql.append("INNER JOIN mentors_member m ON m.id=q.id ");
-			sql.append("ORDER BY post_no DESC ");
+			sql.append("SELECT rnum,post_no,title,category,time_posted,hits,m.nick_name ");
+			sql.append("FROM ( ");
+			sql.append("SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC) AS rnum,post_no,title, ");
+			sql.append("category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,id ");
+			sql.append("FROM qna_board) q ");
+			sql.append("INNER JOIN mentors_member m ON q.id=m.id ");
+			sql.append("WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY post_no DESC");
 			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setLong(1, pagination.getStartRowNumber());
+			pstmt.setLong(2, pagination.getEndRowNumber());
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				memberVO=new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
@@ -126,6 +132,24 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		} finally {
 			closeAll(pstmt, con);
 		}
+	}
+	public long getTotalPostCount() throws SQLException {
+		long totalCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalCount;
 	}
 }
 
