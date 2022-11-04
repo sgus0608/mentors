@@ -39,36 +39,32 @@ button{
   		<input type="radio" name="${post.no}" value="${post.que4}"><label>${post.que4 }</label>
   		<br>
   		<span id="result"></span>
-  		${post.no}
   		
-  		<button onclick="checkAnswer()">정답</button>
-  		<button onclick="">제출</button>
+  		
+  		<button onclick="">정답</button>
+  		<button onclick="checkAnswer('${post.no}')">제출</button>
   	</div>
   
   <br>
   
   
 <script type="text/javascript">
-function checkAnswer() {
-	let data = document.getElementsByName("${post.no}").length;
-	let flag = false;	
-	console.log(data);
-	for(let i=1;i<data+1;i++){
-		for(let j=0;j<data;j++){
-	loop1 :
-			
-		if(document.getElementsByName(i)[j].checked == true){
-			
-			alert(document.getElementsByName(i)[j].value);
-			flag=true;
-			if(flag==true){
-			break loop1;
+	function checkAnswer(postNo) {
+		let pn = document.getElementsByName(postNo);
+		let answer ="";
+		for(let i =0; i<pn.length;i++){
+			if(pn[i].checked){
+				answer = pn[i].value;
+				break;
 			}
-		}	
+		}
+		if(answer==""){
+			alert("답안을 선택하세요");
+		}
+		else{
+			alert(answer);
 		}
 	}
-	
-}
 </script>
  </c:forEach>
   
