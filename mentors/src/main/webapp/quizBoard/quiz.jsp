@@ -62,6 +62,14 @@ button{
 			alert("답안을 선택하세요");
 		}
 		else{
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState==4&&xhr.status=200){
+					if(xhr.responseText=="ok"){
+						
+					}
+				}
+			}
 			alert(answer);
 		}
 	}
