@@ -30,15 +30,16 @@ button{
 
   <c:forEach items="${list }" var="post" begin="0" end="3" varStatus="order">
   	관련분야 : ${post.category }
+  		
   	<div>
   		<b> ${post.no}번)</b>  ${post.content }
   		<br>
-  		<input type="radio" name="${post.no}" value="${post.que1 }"><label>${post.que1 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-  		<input type="radio" name="${post.no}" value="${post.que2 }"><label>${post.que2 }</label>&nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; 
-  		<input type="radio" name="${post.no}" value="${post.que3}"><label>${post.que3 }</label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+  		<input type="radio" name="${post.no}" value="${post.que1 }"><label>${post.que1 }</label>
+  		<input type="radio" name="${post.no}" value="${post.que2 }"><label>${post.que2 }</label>
+  		<input type="radio" name="${post.no}" value="${post.que3}"><label>${post.que3 }</label> 
   		<input type="radio" name="${post.no}" value="${post.que4}"><label>${post.que4 }</label>
   		<br>
-  		<span id="result"></span>
+  		<span id="checkResult"></span>
   		
   		
   		<button onclick="">정답</button>
@@ -51,13 +52,17 @@ button{
 <script type="text/javascript">
 	function checkAnswer(postNo) {
 		let pn = document.getElementsByName(postNo);
-		let answer ="";
+		let checkResultSpan= document.getElementById("result");
+	
+		 let answer ="";
 		for(let i =0; i<pn.length;i++){
 			if(pn[i].checked){
 				answer = pn[i].value;
 				break;
 			}
 		}
+		
+		
 		if(answer==""){
 			alert("답안을 선택하세요");
 		}
@@ -66,13 +71,17 @@ button{
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState==4&&xhr.status=200){
 					if(xhr.responseText=="ok"){
-						
+						checkResultSpan.innerHTML = "<font color=blue>정답입니다</font>";
+					}else{
+						checkResultSpan.innerHTML="<font color=red>틀렸습니다</font>";
 					}
 				}
 			}
-			alert(answer);
+			xhr.open("get","CheckResultController.do?answer="+answer+"&postNo="+postNo);
+			xhr.send();
 		}
 	}
+	
 </script>
  </c:forEach>
   
