@@ -140,5 +140,19 @@ public class MentoringBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+
+	public void deletePost(long postNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "DELETE FROM mentoring_board WHERE post_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 	
 }

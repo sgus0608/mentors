@@ -41,3 +41,10 @@ VALUES(mentoring_board_seq.nextval, '테스트임다', '테스트에요~~~~', sy
 -- 글수정
 UPDATE mentoring_board SET category='파이썬', role='멘티', title='테스투', content='테' WHERE post_no=2;
 
+-- 글삭제
+DELETE FROM mentoring_board WHERE post_no=2;
+
+
+
+
+
