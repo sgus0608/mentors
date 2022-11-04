@@ -50,5 +50,25 @@ public class QuizDAO {
 		}
 		return list;
 	}
+	public String checkResult(long postNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		String result = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select answer from quiz_board where quiz_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString("answer");
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return result;
+	}
 	
 }
