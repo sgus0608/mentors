@@ -48,12 +48,8 @@ commit
 --글 삭제
 delete from tips_board where post_no='1';
 
-
-
-
-
-
-
+-- 글 수정
+update tips_board set category='채용', title='안녕하세요', content='잘부탁드립니다' where post_no='3';
 
 
 

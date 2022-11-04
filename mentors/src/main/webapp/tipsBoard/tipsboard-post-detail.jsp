@@ -23,8 +23,9 @@
 	<c:if test="${sessionScope.mvo.id==tipsPostVO.memberVO.id}">
 		<tr>
 			<td colspan="5">
-				<form action="TipsBoardUpdatePostController.do"></form>
-
+				<form action="TipsBoardUpdatePostFormController.do" id="updateForm">
+					<input type="hidden" name="postNo" value="${tipsPostVO.postNo }">
+				</form>
 
 				<form action="TipsBoardDeletePostController.do" id="deleteForm">
 					<input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
@@ -42,7 +43,13 @@
 					 if(result)
 						 document.getElementById("deleteForm").submit();
 				 }
-				</script>
+				 
+				 function updatePost(){
+					 let result=confirm("수정하시겠습니까?");
+					 if(result)
+						 document.getElementById("updateForm").submit();
+				 }
+				</script>		
 
 			</td>
 		</tr>
