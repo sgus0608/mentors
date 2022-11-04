@@ -23,7 +23,6 @@ public class TipsBoardFindPostListController implements Controller {
 		}
 		TipsBoardDAO tipsBoardDAO=TipsBoardDAO.getInstance();
 		ArrayList<TipsPostVO> list=tipsBoardDAO.findPostList(pagination);
-		System.out.println(list);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("url", "tipsBoard/tipsboard-list.jsp");
