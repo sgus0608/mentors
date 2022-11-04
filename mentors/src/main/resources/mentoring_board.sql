@@ -20,6 +20,8 @@ INSERT INTO mentoring_board VALUES(mentoring_board_seq.nextval, '재밌다', '�
 
 SELECT * FROM mentoring_board;
 
+COMMIT
+
 -- 리스트 목록 조회
 SELECT b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, b.category, b.role, m.nick_name
 FROM mentoring_board b
@@ -35,4 +37,7 @@ WHERE b.post_no=1;
 -- 글등록
 INSERT INTO mentoring_board(post_no, title, content, time_posted, category, role, id)
 VALUES(mentoring_board_seq.nextval, '테스트임다', '테스트에요~~~~', sysdate, '자바', '멘토', 'java');
+
+-- 글수정
+UPDATE mentoring_board SET category='파이썬', role='멘티', title='테스투', content='테' WHERE post_no=2;
 

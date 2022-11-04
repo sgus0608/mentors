@@ -18,6 +18,3 @@ SELECT * FROM mentors_member;
 
 COMMIT
 
-ALTER TABLE MENTORS_MEMBER MODIFY (signup_date DEFAULT SYSDATE);
-
-
