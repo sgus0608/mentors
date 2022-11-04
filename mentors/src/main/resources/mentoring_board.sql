@@ -67,6 +67,7 @@ ORDER BY b.post_no DESC;
 
 COMMIT
 
+UPDATE mentoring_board SET hits=hits+1 WHERE post_no=35;
 
 SELECT * FROM mentoring_board
 

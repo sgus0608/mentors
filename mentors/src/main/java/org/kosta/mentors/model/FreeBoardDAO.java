@@ -136,7 +136,7 @@ public class FreeBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	public void countHitsPost(long post_no) throws SQLException {
+	public void updateHits(long post_no) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {

@@ -180,5 +180,24 @@ public class MentoringBoardDAO {
 		}
 		return totalPostCount;
 	}
+
+	public void updateHits(long postNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "UPDATE mentoring_board SET hits=hits+1 WHERE post_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 	
 }
+
+
+
+
+
