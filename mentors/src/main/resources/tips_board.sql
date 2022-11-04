@@ -62,12 +62,20 @@ INSERT INTO tips_board(post_no,title,category,content,time_posted,id)
 SELECT tips_board_seq.nextval, title, category, content, sysdate, id FROM tips_board
 
 
--- sub query 이용해서 
-select rnum, no, title, category, time
+-- sub query 이용해서 rnum 1-5 까지 출력
+select rnum , post_no, title, category, time_posted, hits, m.nick_name
+from(
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+	TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+	FROM tips_board
+) t
+inner join mentors_member m on t.id=m.id
+where rnum between 1 and 5
+order by post_no desc
 
+select count(*) from tips_board
 
-
-
+commit
 
 
 
