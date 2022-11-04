@@ -10,7 +10,7 @@ public class DataSourceManager {
 	private DataSourceManager() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@127.0.0.1:1521:xe");
+		dataSource.setUrl("jdbc:oracle:thin:@43.201.68.30:1521:xe");
 		dataSource.setUsername("scott");
 		dataSource.setPassword("tiger");	
 		dataSource.setMaxTotal(50);
