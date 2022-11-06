@@ -30,33 +30,62 @@
 				<form action="TipsBoardDeletePostController.do" id="deleteForm">
 					<input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
 
-				
+
 				</form>
 
 				<button type="submit" onclick="updatePost()">수정</button>&nbsp;&nbsp;
-				<button type="submit" onclick="deletePost()">삭제</button>
-			
+				<button type="submit" onclick="deletePost()">삭제</button> <script>
+					function deletePost() {
+						let result = confirm("삭제하시겠습니까?");
+						if (result)
+							document.getElementById("deleteForm").submit();
+					}
 
-				<script>
-				 function deletePost(){
-					 let result=confirm("삭제하시겠습니까?");
-					 if(result)
-						 document.getElementById("deleteForm").submit();
-				 }
-				 
-				 function updatePost(){
-					 let result=confirm("수정하시겠습니까?");
-					 if(result)
-						 document.getElementById("updateForm").submit();
-				 }
-				</script>		
+					function updatePost() {
+						let result = confirm("수정하시겠습니까?");
+						if (result)
+							document.getElementById("updateForm").submit();
+					}
+				</script>
 
 			</td>
 		</tr>
 	</c:if>
-댓글은 게시판이랑 같음
-1. 작성자/댓글내용/작성일에 대한 댓글 리스트
-2. 댓글 쓸수 있는 작성 폼
-3. 삭제랑 수정
+	댓글은 게시판이랑 같음 1. 작성자/댓글내용/작성일에 대한 댓글 리스트 2. 댓글 쓸수 있는 작성 폼 3. 삭제랑 수정
 
 </table>
+
+<table>
+	<c:forEach items="${commentList }" var="comment">
+		<tr>
+			<td>${comment.memberVO.nickName}</td>
+			<td><pre>${comment.commentContent }</pre></td>
+			<td>${comment.commentTimePosted }</td>
+			<td><c:if test="${comment.memberVO.id==sessionScope.mvo.id }">
+					<form id="updateCommentForm" action="" method="post">
+						<input type="hidden" name="commentNo" value="${comment.commentNo}">
+					</form>
+					<form id="deleteCommentForm" action="" method="post">
+						<input type="hidden" name="commentNo" value="${comment.commentNo}">
+					</form>
+					<button type="submit" onclick="updateComment()">수정</button>
+					<button type="submit" onclick="deleteComment()">삭제</button>
+				</c:if>
+				</td>
+		</tr>
+	</c:forEach>
+</table>
+<tr>
+	<td>
+		<form action="TipsCommentWriteCommentController.do" method="post">
+			<input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
+			<textarea rows="2" class="form-control" name="commentContent"
+				required="required" placeholder="댓글을 입력하세요"></textarea>
+			<br>
+			<button type="submit">등록</button>
+		</form>
+	</td>
+</tr>
+
+
+
