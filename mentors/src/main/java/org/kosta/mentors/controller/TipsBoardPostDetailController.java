@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.mentors.model.CommentVO;
-import org.kosta.mentors.model.PostVO;
 import org.kosta.mentors.model.TipsBoardDAO;
 import org.kosta.mentors.model.TipsCommentDAO;
 import org.kosta.mentors.model.TipsPostVO;
