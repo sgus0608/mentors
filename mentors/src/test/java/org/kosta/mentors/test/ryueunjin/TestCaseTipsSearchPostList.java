@@ -3,7 +3,6 @@ package org.kosta.mentors.test.ryueunjin;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.catalina.startup.PasswdUserDatabase;
 import org.kosta.mentors.model.Pagination;
 import org.kosta.mentors.model.TipsBoardDAO;
 import org.kosta.mentors.model.TipsPostVO;

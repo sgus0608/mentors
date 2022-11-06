@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import org.omg.CORBA.StructMember;
-
 public class TipsBoardDAO {
 	private static TipsBoardDAO instance = new TipsBoardDAO();
 	private DataSource dataSource;
