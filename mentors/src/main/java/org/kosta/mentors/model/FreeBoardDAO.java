@@ -167,6 +167,169 @@ public class FreeBoardDAO {
 		return totalPostCount;
 	}
 	
+	public long getTotalPostCountByTitle(String searchText) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalPostCount=0;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_board where title like ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCount=rs.getLong(1);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	
+	public ArrayList<PostVO> searchPostListByTitle(String searchText, Pagination pagination) throws SQLException {	
+		ArrayList<PostVO> list = new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select post_no, title, m.nick_name,time_posted, hits ");
+			sql.append("from( ");
+			sql.append("select row_number() over(order by post_no desc) as rnum, ");
+			sql.append("post_no, title, ");
+			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
+			sql.append("id , hits from free_board ");
+			sql.append("where title like ? ");
+			sql.append(") f ");
+			sql.append("inner join mentors_member m on f.id=m.id ");
+			sql.append("where rnum between ? and ? ");
+			sql.append("order by f.post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setNickName(rs.getString("nick_name"));
+				list.add(new PostVO(rs.getLong("post_no"),rs.getString("title"),rs.getLong("hits"),rs.getString("time_posted"),memberVO));
+			}
+		}finally {
+			closeAll(rs, pstmt, con);;
+		}
+		return list;
+	}
+	public long getTotalPostCountByContent(String searchText) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalPostCount=0;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_board where content like ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCount=rs.getLong(1);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	public ArrayList<PostVO> searchPostListByContent(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<PostVO> list = new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select post_no, title, m.nick_name,time_posted, hits ");
+			sql.append("from( ");
+			sql.append("select row_number() over(order by post_no desc) as rnum, ");
+			sql.append("post_no, title, ");
+			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
+			sql.append("id , hits from free_board ");
+			sql.append("where content like ? ");
+			sql.append(") f ");
+			sql.append("inner join mentors_member m on f.id=m.id ");
+			sql.append("where rnum between ? and ? ");
+			sql.append("order by f.post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setNickName(rs.getString("nick_name"));
+				list.add(new PostVO(rs.getLong("post_no"),rs.getString("title"),rs.getLong("hits"),rs.getString("time_posted"),memberVO));
+			}
+		}finally {
+			closeAll(rs, pstmt, con);;
+		}
+		return list;
+	}
+	public long getTotalPostCountByNickName(String searchText) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalPostCount=0;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select count(*) from free_board f ");
+			sql.append("inner join mentors_member m on f.id=m.id ");
+			sql.append("where nick_name like ?");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCount=rs.getLong(1);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	public ArrayList<PostVO> searchPostListByNickName(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<PostVO> list = new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select post_no, title, m.nick_name,time_posted, hits ");
+			sql.append("from( ");
+			sql.append("select row_number() over(order by post_no desc) as rnum, ");
+			sql.append("post_no, title, ");
+			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
+			sql.append("mm.id , hits from free_board fb ");
+			sql.append("inner join mentors_member mm on fb.id=mm.id ");
+			sql.append("where mm.nick_name like ? ");
+			sql.append("order by fb.post_no desc ");
+			sql.append(") f ");
+			sql.append("inner join mentors_member m on f.id=m.id ");
+			sql.append("where rnum between ? and ? ");
+			sql.append("order by f.post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setNickName(rs.getString("nick_name"));
+				list.add(new PostVO(rs.getLong("post_no"),rs.getString("title"),rs.getLong("hits"),rs.getString("time_posted"),memberVO));
+			}
+		}finally {
+			closeAll(rs, pstmt, con);;
+		}
+		return list;
+	}
+	
 	
 }
 
