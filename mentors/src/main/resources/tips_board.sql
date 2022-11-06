@@ -104,4 +104,6 @@ inner join mentors_member m on t.id=m.id
 where rnum between 1 and 5
 order by post_no desc;
 
+-- 
+
 
