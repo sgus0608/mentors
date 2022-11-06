@@ -20,13 +20,13 @@
   <c:if test="${sessionScope.mvo.id==qnaPostVO.memberVO.id}">
   <tr>
     <td colspan="5">
-      <form action="QnABoardUpdatePostFormController.do" id="updateForm">
+      <form action="QnABoardUpdatePostFormController.do" id="updateForm" method="post">
        	<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
       
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
       
-      <form action="QnABoardDeletePostController.do" id="deleteForm">
+      <form action="QnABoardDeletePostController.do" id="deleteForm" method="post">
       	 <input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
