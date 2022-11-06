@@ -308,14 +308,14 @@ public class FreeBoardDAO {
 			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
 			sql.append("mm.id , hits from free_board fb ");
 			sql.append("inner join mentors_member mm on fb.id=mm.id ");
-			sql.append("where mm.nick_name like ? ");
+			sql.append("where mm.nick_name=? ");
 			sql.append("order by fb.post_no desc ");
 			sql.append(") f ");
 			sql.append("inner join mentors_member m on f.id=m.id ");
 			sql.append("where rnum between ? and ? ");
 			sql.append("order by f.post_no desc");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setString(1, searchText);
 			pstmt.setLong(2, pagination.getStartRowNumber());
 			pstmt.setLong(3, pagination.getEndRowNumber());
 			rs=pstmt.executeQuery();
