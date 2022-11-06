@@ -134,7 +134,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 	}
 	public long getTotalPostCount() throws SQLException {
-		long totalCount=0;
+		long totalPostCount=0;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -144,12 +144,31 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				totalCount=rs.getLong(1);
+				totalPostCount=rs.getLong(1);
 			}
 		} finally {
 			closeAll(rs, pstmt, con);
 		}
-		return totalCount;
+		return totalPostCount;
+	}
+	public long getTotalPostCountByTitle(String searchText) throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board WHERE title LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
 	}
 	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;
@@ -163,6 +182,39 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		} finally {
 			closeAll(pstmt, con);
 		}
+	}
+	public ArrayList<QnAPostVO> searchPostListByTitle(String searchText,Pagination pagination) throws SQLException {
+		ArrayList<QnAPostVO> list=new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		QnAPostVO qnaPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("SELECT rnum,post_no,title,category,time_posted,hits,m.nick_name ");
+			sql.append("FROM (SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC) AS rnum,post_no,title, ");
+			sql.append("category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,id ");
+			sql.append("FROM qna_board ");
+			sql.append("WHERE title LIKE ?) q ");
+			sql.append("INNER JOIN mentors_member m ON q.id=m.id ");
+			sql.append("WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY post_no DESC");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				memberVO=new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
+				qnaPostVO=new QnAPostVO(rs.getLong("post_no"), rs.getString("title"), rs.getLong("hits"), rs.getString("time_posted"), rs.getString("category"), memberVO);
+				list.add(qnaPostVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
 	}
 }
 
