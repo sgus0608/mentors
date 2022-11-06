@@ -37,6 +37,63 @@ commit
 insert into free_board(post_no, title, content, time_posted,id)
 select free_board_seq.nextval, title, content, sysdate, id from free_board
 
+-- 검색 제목 조회
+select row_number() over(order by post_no desc) as rnum, 
+post_no, title,
+to_char(time_posted,'YYYY.MM.DD') as time_posted, 
+id , hits from free_board
+where title like '%갑니다%'
+
+-- 검색 제목 총게시물 수
+select count(*) from free_board where title like '%갑니다%'
+
+-- 검색 제목 조회
+select f.post_no, f.title, f.hits, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.nick_name
+from free_board f
+inner join mentors_member m on f.id=m.id
+where f.title like '%갑니다%'
+order by f.post_no desc
+
+-- 검색 작성자 총게시물 수
+select count(*) from free_board f
+inner join mentors_member m on f.id=m.id
+where nick_name like '%아이유%'
+
+-- 검색 작성자 조회
+select f.post_no, f.title, f.hits, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.nick_name
+from free_board f
+inner join mentors_member m on f.id=m.id
+where m.nick_name like '%아이유%'
+order by f.post_no desc
+
+-- 제목을 통한 검색
+select post_no, title, m.nick_name,time_posted, hits
+from(
+	select row_number() over(order by post_no desc) as rnum, 
+	post_no, title,
+	to_char(time_posted,'YYYY.MM.DD') as time_posted, 
+	id , hits from free_board
+	where title like '%갑니다%'
+) f
+inner join mentors_member m on f.id=m.id
+where rnum between 1 and 5
+order by f.post_no desc
+
+-- 작성자를 통한 검색
+select post_no, title, m.nick_name,time_posted, hits
+from(
+	select row_number() over(order by post_no desc) as rnum, 
+	post_no, title,
+	to_char(time_posted,'YYYY.MM.DD') as time_posted, 
+	mm.id , hits 
+	from free_board fb
+	inner join mentors_member mm on fb.id=mm.id
+	where mm.nick_name like '%아이유%'
+	order by fb.post_no desc
+) f
+inner join mentors_member m on f.id=m.id
+where rnum between 1 and 5
+order by f.post_no desc
 
 
 
