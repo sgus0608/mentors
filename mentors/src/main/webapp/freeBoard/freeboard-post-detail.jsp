@@ -43,3 +43,31 @@
 	}
 	</script>
 </c:if>
+<table>
+	<c:forEach items="${commentList}" var="comment">
+	<tr>
+		<td>${comment.memberVO.nickName}</td>
+		<td><pre>${comment.commentContent}</pre></td>
+		<td>${comment.commentTimePosted}</td>
+		<td>
+		<c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
+			<form id="updateCommentForm" action="" method="post">
+				<input type="hidden" name="commentNo" value="${comment.commentNo}">
+			</form>
+			<form id="deleteCommentForm" action="" method="post">
+				<input type="hidden" name="commentNo" value="${comment.commentNo}">
+			</form>
+			<button type="button" onclick="updateComment()">수정</button>
+			<button type="button" onclick="deleteComment()">삭제</button>
+		</c:if>
+		</td>
+	</tr>
+	</c:forEach>
+</table>
+<form action="FreeCommentWriteCommentController.do" method="post">
+	<input type="hidden" name="postNo" value="${postVO.postNo}">
+	<textarea rows="2" class="form-control" name="commentContent" required="required" placeholder="댓글"></textarea><br>
+	<button type="submit">등록</button>
+</form>
+
+
