@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import org.omg.CORBA.StructMember;
+
 public class TipsBoardDAO {
 	private static TipsBoardDAO instance = new TipsBoardDAO();
 	private DataSource dataSource;
@@ -167,6 +169,26 @@ public class TipsBoardDAO {
 		}
 		return totalPostCount;
 	}
+	
+	public long getTotalPostCountByTitle(String searchText) throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from tips_board where title like ? ";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
 
 	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;
@@ -180,5 +202,44 @@ public class TipsBoardDAO {
 		} finally {
 			closeAll(pstmt, con);
 		}
+	}
+
+	public ArrayList<TipsPostVO> searchPostListByTitle(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<TipsPostVO> list=new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		TipsPostVO tipsPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select rnum , post_no, title, category, time_posted, hits, m.nick_name ");
+			sql.append("from( ");
+			sql.append("SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category, ");
+			sql.append("TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id ");
+			sql.append("FROM tips_board ");
+			sql.append("where title like ? ");
+			sql.append(") t ");
+			sql.append("inner join mentors_member m on t.id=m.id ");
+			sql.append("where rnum between ? and ? ");
+			sql.append("order by post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3,pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				memberVO = new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
+				tipsPostVO = new TipsPostVO(rs.getLong("post_No"), rs.getString("title"), rs.getLong("hits"),
+						rs.getString("time_posted"), rs.getString("category"), memberVO);
+				list.add(tipsPostVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		
+		return list;
 	}
 }

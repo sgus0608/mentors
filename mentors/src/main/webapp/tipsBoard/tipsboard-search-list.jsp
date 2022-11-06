@@ -36,7 +36,8 @@
 	<a href="TipsBoardWritePostFormController.do">글쓰기</a>
 </c:if>
 
-<form action="TipsBoardSearchPostListController.do" method="get"  >
+
+<form action="TipsBoardSearchPostList.do" method="get"  >
 	<select name="category" >
 		<option value="제목">제목</option>
 		<option value="내용">내용</option>
@@ -58,19 +59,19 @@
 -->
 <ul class="pagination justify-content-center" style="margin: 20px 0">
 	<c:if  test="${pagination.previousPageGroup}">
-	<li class="page-item"><a class="page-link" href="TipsBoardFindPostListController.do?pageNo=${pagination.startPageOfPageGroup-1}">Previous</a></li>
+	<li class="page-item"><a class="page-link" href="TipsBoardSearchPostListController.do?pageNo=${pagination.startPageOfPageGroup-1}&category=${category}&searchText=${searchText}">Previous</a></li>
 	</c:if>
 	<c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}"  var="page">
 	<c:choose>
 	<c:when test="${pagination.nowPage == page}">
-	<li class="page-item active"><a class="page-link" href="TipsBoardFindPostListController.do?pageNo=${page}">${page}</a></li>
+	<li class="page-item active"><a class="page-link" href="TipsBoardSearchPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
 	</c:when>
 	<c:otherwise>
-	<li class="page-item"><a class="page-link" href="TipsBoardFindPostListController.do?pageNo=${page}">${page}</a></li>
+	<li class="page-item"><a class="page-link" href="TipsBoardSearchPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
 	</c:otherwise>
 	</c:choose>
 	</c:forEach>
 	<c:if test="${pagination.nextPageGroup}">
-	<li class="page-item"><a class="page-link" href="TipsBoardFindPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}">Next</a></li>
+	<li class="page-item"><a class="page-link" href="TipsBoardSearchPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}&category=${category}&searchText=${searchText}">Next</a></li>
 	</c:if>
 </ul>
