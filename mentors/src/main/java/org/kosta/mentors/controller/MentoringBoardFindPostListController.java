@@ -14,14 +14,40 @@ public class MentoringBoardFindPostListController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pageNo = request.getParameter("pageNo");
-		long totalPostCount = MentoringBoardDAO.getInstance().getTotalPostCount();
+		String category = request.getParameter("category");
+		String searchText = null;
 		Pagination pagination = null;
-		if(pageNo == null) {
-			pagination = new Pagination(totalPostCount);
+		ArrayList<MentoringPostVO> list = null;
+		long totalPostCount = 0;
+		MentoringBoardDAO dao = MentoringBoardDAO.getInstance();
+		
+		if(category == null) {
+			totalPostCount = dao.getTotalPostCount();
+			if(pageNo == null) {
+				pagination = new Pagination(totalPostCount);
+			} else {
+				pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+			}
+			list = dao.findPostList(pagination);
 		} else {
-			pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+			searchText = request.getParameter("searchText");
+			if(category.equalsIgnoreCase("제목")) {
+				totalPostCount = dao.getTotalPostCountByTitle(searchText);
+				if(pageNo == null) {
+					pagination = new Pagination(totalPostCount);				
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				list = dao.searchPostListByTitle(searchText, pagination);
+			} else if(category.equalsIgnoreCase("내용")) {
+				
+			} else if(category.equalsIgnoreCase("작성자")) {
+				
+			}
 		}
-		ArrayList<MentoringPostVO> list = MentoringBoardDAO.getInstance().findPostList(pagination);
+		
+		request.setAttribute("category", category);
+		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-list.jsp");
