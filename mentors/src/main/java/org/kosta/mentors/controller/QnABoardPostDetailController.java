@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.mentors.model.CommentVO;
 import org.kosta.mentors.model.QnABoardDAO;
+import org.kosta.mentors.model.QnACommentDAO;
 import org.kosta.mentors.model.QnAPostVO;
 
 public class QnABoardPostDetailController implements Controller {
@@ -22,8 +24,11 @@ public class QnABoardPostDetailController implements Controller {
 			QnABoardDAO.getInstance().updateHits(postNo);
 			list.add(postNo);
 		}
+		
 		QnAPostVO qnaPostVO=qnaBoardDAO.postDetailByNo(postNo);
+		ArrayList<CommentVO> commentList=QnACommentDAO.getInstance().findCommentList(postNo);
 		request.setAttribute("qnaPostVO", qnaPostVO);
+		request.setAttribute("commentList", commentList);
 		request.setAttribute("url", "qnaBoard/qnaboard-post-detail.jsp");
 		return "layout.jsp";
 	}
