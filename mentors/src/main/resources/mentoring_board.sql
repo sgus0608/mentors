@@ -71,9 +71,27 @@ UPDATE mentoring_board SET hits=hits+1 WHERE post_no=35;
 
 SELECT * FROM mentoring_board
 
+-- 검색 제목 조회
+SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+category, role, id
+FROM mentoring_board
+WHERE title LIKE '%사자%'
 
+-- 검색 제목 총게시물 수
+SELECT count(*) FROM mentoring_board WHERE title LIKE '%사자%'
 
-
+-- 검색 제목 조회(페이징네이션 포함)
+SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name
+FROM(
+	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+	category, role, id
+	FROM mentoring_board
+	WHERE title LIKE '%사자%'
+) b INNER JOIN mentors_member m ON b.id=m.id
+WHERE rnum BETWEEN 1 AND 5
+ORDER BY b.post_no DESC;
 
 
 
