@@ -32,17 +32,13 @@
 								        <td>${post.hits}</td>
 								      </tr>
 								    </c:forEach>
-								    <c:if test="${sessionScope.mvo != null}">
-								    <tr>
-								      <td colspan="7">
-								        <form action="MentoringBoardWritePostFormController.do">
-								          <button type="submit">글쓰기</button>
-								        </form>
-								      </td>
-								    </tr>
-								    </c:if>
 								    </tbody>
 								  </table>
+								  <c:if test="${sessionScope.mvo != null}">
+								    <form action="MentoringBoardWritePostFormController.do">
+								      <button type="submit">글쓰기</button>
+								    </form>
+								  </c:if>
 								  <!--
 								        pagination 
 								  -->

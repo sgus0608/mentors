@@ -32,13 +32,9 @@
 	</tbody>
 </table>
 <c:if test="${sessionScope.mvo != null}">
-	<tr>
-		<td colspan="5">
-			<form action="FreeBoardWritePostFormController.do">
-				<button type="submit">글쓰기</button>
-			</form>
-		</td>
-	</tr>
+	<form action="FreeBoardWritePostFormController.do">
+		<button type="submit">글쓰기</button>
+	</form>
 </c:if>
 <!--
       pagination 
