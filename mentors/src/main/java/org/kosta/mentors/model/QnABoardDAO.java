@@ -28,6 +28,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			rs.close();
 		closeAll(pstmt, con);
 	}
+	// 리스트 보여주기 메서드
 	public ArrayList<QnAPostVO> findPostList(Pagination pagination) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -60,6 +61,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return list;
 	}
+	// 상세글 보기 메서드
 	public QnAPostVO postDetailByNo(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -86,6 +88,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return qnaPostVO;
 	}
+	// 글쓰기 메서드
 	public void writePost(QnAPostVO qnaPostVO) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -104,6 +107,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	//글삭제 메서드
 	public void deletePost(long no) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -117,6 +121,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	// 글수정메서드
 	public void updatePost(QnAPostVO qnaPostVO) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -133,6 +138,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	// 총게시물수 구하기 메서드
 	public long getTotalPostCount() throws SQLException {
 		long totalPostCount=0;
 		Connection con=null;
@@ -151,6 +157,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return totalPostCount;
 	}
+	// 제목으로 검색했을 때 총 게시물 수 구하기 메서드
 	public long getTotalPostCountByTitle(String searchText) throws SQLException {
 		long totalPostCount=0;
 		Connection con=null;
@@ -170,6 +177,27 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return totalPostCount;
 	}
+	// 닉네임으로 검색했을 때 총 게시물 수 구하기 메서드
+	public long getTotalPostCountByNickName(String searchText) throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board WHERE title LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	//조회수 업데이트 메서드
 	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -183,6 +211,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	// 제목검색했을 때 조회되는 메서드
 	public ArrayList<QnAPostVO> searchPostListByTitle(String searchText,Pagination pagination) throws SQLException {
 		ArrayList<QnAPostVO> list=new ArrayList<>();
 		Connection con=null;
