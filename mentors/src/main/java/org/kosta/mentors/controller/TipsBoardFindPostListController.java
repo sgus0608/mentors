@@ -13,16 +13,42 @@ public class TipsBoardFindPostListController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String pageNo=request.getParameter("pageNo");
-		long totalPostCount=TipsBoardDAO.getInstance().getTotalPostCount();
-		Pagination pagination=null;
-		if(pageNo==null) {
-			pagination=new Pagination(totalPostCount);
-		}else {
-			pagination=new Pagination(totalPostCount,Long.parseLong(pageNo));
+		String pageNo = request.getParameter("pageNo");
+		String category = request.getParameter("category");
+		String searchText = null;
+		Pagination pagination = null;
+		ArrayList<TipsPostVO> list = null;
+		long totalPostCount = 0;
+		TipsBoardDAO dao=TipsBoardDAO.getInstance();
+		
+		if (category == null) {
+			totalPostCount = dao.getTotalPostCount();
+			if (pageNo == null) {
+				pagination = new Pagination(totalPostCount);
+			} else {
+				pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+			}
+			list =dao.findPostList(pagination);
+		} else {
+			searchText = request.getParameter("searchText");
+			if (category.equalsIgnoreCase("제목")) {
+				totalPostCount = dao.getTotalPostCountByTitle(searchText);
+				if (pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				
+				list = dao.searchPostListByTitle(searchText, pagination);
+			} else if(category.equalsIgnoreCase("내용")) {
+				
+			}else if(category.equalsIgnoreCase("작성자")) {
+				
+			}
 		}
-		TipsBoardDAO tipsBoardDAO=TipsBoardDAO.getInstance();
-		ArrayList<TipsPostVO> list=tipsBoardDAO.findPostList(pagination);
+
+		request.setAttribute("category", category);
+		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("url", "tipsBoard/tipsboard-list.jsp");
