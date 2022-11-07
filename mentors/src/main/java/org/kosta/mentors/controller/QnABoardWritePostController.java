@@ -15,9 +15,11 @@ public class QnABoardWritePostController implements Controller {
 		if(request.getMethod().equalsIgnoreCase("POST")==false) {
 			throw new Exception(getClass().getName()+" Post 방식만 가능합니다");
 		}
+		
 		String category=request.getParameter("category");
 		String title=request.getParameter("title");
 		String content=request.getParameter("content"); // 
+		
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		QnAPostVO qnaPostVO=new QnAPostVO(title, content, category, memberVO);

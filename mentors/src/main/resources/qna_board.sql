@@ -19,3 +19,27 @@ INSERT INTO qna_board VALUES(qna_board_seq.nextval, '질문이요', '자바를 �
 COMMIT
 
 SELECT * FROM qna_board;
+
+SELECT rnum,post_no,title,category,time_posted,hits,m.nick_name
+FROM (
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC) AS rnum,post_no,title,
+	category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,id 
+	FROM qna_board
+	WHERE title LIKE '%김돌이%') q
+INNER JOIN mentors_member m ON q.id=m.id
+WHERE rnum BETWEEN 1 AND 5
+ORDER BY post_no DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
