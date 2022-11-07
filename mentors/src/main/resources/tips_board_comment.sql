@@ -30,4 +30,5 @@ order by  c.comment_no asc;
 
 delete from tips_comment where comment_no='1';
 
+update tips_comment set comment_content='내가 진짜로 짱이야' where comment_no='4';
 
