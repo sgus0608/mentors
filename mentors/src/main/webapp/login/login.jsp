@@ -66,7 +66,7 @@
 							Don’t have an account?
 						</span>
 
-						<a class="txt2" href="${pageContext.request.contextPath}/memberRegister/member-register.jsp">
+						<a class="txt2" href="${pageContext.request.contextPath}/member/member-register.jsp">
 							Sign Up
 						</a>
 					</div>

@@ -19,10 +19,11 @@
 	</tr>
 
 	<c:if test="${sessionScope.mvo.id==tipsPostVO.memberVO.id}">
+		
 		<tr>
 			<td colspan="5">
 				<form action="TipsBoardUpdatePostFormController.do" id="updateForm">
-					<input type="hidden" name="postNo" value="${tipsPostVO.postNo }">
+					<input type="hidden" name="postNo" value="${tipsPostVO.postNo }">					
 				</form>
 
 				<form action="TipsBoardDeletePostController.do" id="deleteForm">
@@ -55,14 +56,37 @@
 			<td><pre>${comment.commentContent }</pre></td>
 			<td>${comment.commentTimePosted }</td>
 			<td><c:if test="${comment.memberVO.id==sessionScope.mvo.id }">
+			<div class="replyCommentArea">
+			
+			
+			
 					<form id="updateCommentForm"  action="TipsCommentUpdateCommentController.do" method="post">
 						<input type="hidden" name="commentNo" value="${comment.commentNo}">
+						<textarea name="content">${commentVO.commentContent }</textarea>
+						<button type="submit">수정</button>
 					</form>
 					<form id="deleteCommentForm"  action="TipsCommentDeleteCommentController.do" method="post">
 						<input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
 						<input type="hidden" name="commentNo" value="${comment.commentNo}">
 					</form>
 					<button type="submit" onclick="updateComment()">수정</button>
+					
+					
+					<script type="text/javascript">
+						function updateComment(){
+							if(confirm("수정하시겠습니까?")){
+								document.getElementById("updateCommentForm")
+							}							
+						}
+					</script>
+					
+					
+					
+					
+					
+					
+					
+					
 					<button type="submit" onclick="deleteComment()">삭제</button>
 					<script type="text/javascript">
 						function deleteComment(){
@@ -74,7 +98,11 @@
 				</c:if></td>
 		</tr>
 	</c:forEach>
+	</div>
 </table>
+
+
+
 <tr>
 	<td>
 		<form action="TipsCommentWriteCommentController.do" method="post">

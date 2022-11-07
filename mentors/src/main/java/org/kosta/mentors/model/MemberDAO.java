@@ -97,5 +97,44 @@ public class MemberDAO {
 			closeAll(pstmt, con);
 		}
 	}
+
+	public void UpdateMember(MemberVO vo) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("update mentors_member set password=?,nick_name=?,email=?, address=?, interest=? ");
+			sql.append("where id =? ");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, vo.getPassword());
+			pstmt.setString(2, vo.getNickName());
+			pstmt.setString(3, vo.getEmail());
+			pstmt.setString(4, vo.getAddress());
+			pstmt.setString(5, vo.getInterest());
+			pstmt.setString(6, vo.getId());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+
+	public void deleteMember(String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "delete from mentors_member where id =? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+
+	
 	
 }

@@ -31,6 +31,18 @@ public class MemberVO implements Serializable {
 		this.memberType = memberType;
 	}
 
+	
+
+	public MemberVO(String id, String password, String nickName, String email, String address, String interest) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.nickName = nickName;
+		this.email = email;
+		this.address = address;
+		this.interest = interest;
+	}
+
 	public String getId() {
 		return id;
 	}
