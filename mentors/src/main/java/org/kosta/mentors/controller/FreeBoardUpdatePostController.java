@@ -11,10 +11,10 @@ public class FreeBoardUpdatePostController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (request.getMethod().equalsIgnoreCase("POST") == false) 
-			throw new ServletException("FreeBoardUpdatePostController는 POST METHOD 방식만 가능");
+			throw new ServletException(getClass().getName()+"는 POST METHOD 방식만 가능");
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
-		Long postNo=Long.parseLong(request.getParameter("postNo"));
+		long postNo=Long.parseLong(request.getParameter("postNo"));
 		PostVO postVO=new PostVO();
 		postVO.setTitle(title);
 		postVO.setContent(content);

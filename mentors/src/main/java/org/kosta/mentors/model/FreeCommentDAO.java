@@ -78,4 +78,52 @@ public class FreeCommentDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public void updateComment(CommentVO commentVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update free_comment set comment_content=? where comment_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, commentVO.getCommentContent());
+			pstmt.setLong(2, commentVO.getCommentNo());
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	public CommentVO findCommentByNo(long commentNo) throws SQLException {
+		CommentVO commentVO = null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="select post_no from free_comment where comment_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, commentNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				commentVO = new CommentVO();
+				commentVO.setCommentContent(rs.getString("comment_content"));
+				commentVO.setPostNo(rs.getLong("post_no"));
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return commentVO;
+	}
+	public void deleteComment(long commentNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from free_comment where comment_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, commentNo);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
 }

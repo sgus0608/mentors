@@ -5,7 +5,7 @@
 <table class="table table-hover table-bordered boardlist">
 	<thead>
 		<tr style="background-color: #ccff66">
-			<th>번호</th>
+			<th>글번호</th>
 			<th class="title">제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
@@ -82,18 +82,21 @@
 			end="${pagination.endPageOfPageGroup}" var="page">
 			<c:choose>
 				<c:when test="${pagination.nowPage==page}">
-					<li class="page-item active"><a class="page-link"
-						href="FreeBoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
+					<li class="page-item active">
+					<a class="page-link" href="FreeBoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a>
+					</li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="FreeBoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
+					<li class="page-item">
+					<a class="page-link" href="FreeBoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a>
+					</li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pagination.nextPageGroup}">
-			<li class="page-item"><a class="page-link"
-				href="FreeBoardFindPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}&category=${category}&searchText=${searchText}">Next</a></li>
+			<li class="page-item">
+			<a class="page-link" href="FreeBoardFindPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}&category=${category}&searchText=${searchText}">Next</a>
+			</li>
 		</c:if>
 	</c:otherwise>
 	</c:choose>

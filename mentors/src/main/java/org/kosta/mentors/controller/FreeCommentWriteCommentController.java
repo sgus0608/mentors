@@ -1,5 +1,6 @@
 package org.kosta.mentors.controller;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,8 +13,10 @@ public class FreeCommentWriteCommentController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(request.getMethod().equalsIgnoreCase("POST")==false) 
+			throw new ServletException(getClass().getName()+"는 POST METHOD 방식만 가능");
 		String commentContent=request.getParameter("commentContent");
-		Long postNo=Long.parseLong(request.getParameter("postNo"));
+		long postNo=Long.parseLong(request.getParameter("postNo"));
 		HttpSession session=request.getSession(false);
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		
