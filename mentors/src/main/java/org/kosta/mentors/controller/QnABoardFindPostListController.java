@@ -19,7 +19,7 @@ public class QnABoardFindPostListController implements Controller {
 		Pagination pagination = null;
 		ArrayList<QnAPostVO> list = null;
 		long totalPostCount = 0;
-		QnABoardDAO dao=QnABoardDAO.getInstance();
+		QnABoardDAO dao = QnABoardDAO.getInstance();
 
 		if (category == null) {
 			totalPostCount = dao.getTotalPostCount();
@@ -39,10 +39,24 @@ public class QnABoardFindPostListController implements Controller {
 					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
 				}
 				list = dao.searchPostListByTitle(searchText, pagination);
-			}else if(category.equalsIgnoreCase("내용")) {
-				
-			}else if(category.equalsIgnoreCase("작성자")) {
-				
+
+			} else if (category.equalsIgnoreCase("내용")) {
+				totalPostCount = dao.getTotalPostCountByContent(searchText);
+				if (pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				list = dao.searchPostListByContent(searchText, pagination);
+
+			} else if (category.equalsIgnoreCase("작성자")) {
+				totalPostCount = dao.getTotalPostCountByNickName(searchText);
+				if (pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				list = dao.searchPostListByNickName(searchText, pagination);
 			}
 		}
 		request.setAttribute("category", category);
