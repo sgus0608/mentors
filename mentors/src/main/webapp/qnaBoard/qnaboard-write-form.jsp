@@ -4,8 +4,14 @@
 <form method="post" action="QnABoardWritePostController.do">
 		<table class="table">
 		    <tr>
-				<td><input type="text" name="category" placeholder="카테고리"
-					required="required"></td>
+				<td>
+				  <select name="category" required="required">
+				  	<option value="">--카테고리--</option>
+				  	<option value="프로그래밍">프로그래밍</option>
+				  	<option value="취업">취업</option>
+				  	<option value="자격증">자격증</option>
+				  </select>
+				</td>
 			</tr>
 			 <tr>
 				<td><input type="text" name="title" placeholder="글제목"

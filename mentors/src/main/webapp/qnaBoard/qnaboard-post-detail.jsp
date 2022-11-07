@@ -20,13 +20,13 @@
   <c:if test="${sessionScope.mvo.id==qnaPostVO.memberVO.id}">
   <tr>
     <td colspan="5">
-      <form action="QnABoardUpdatePostFormController.do" id="updateForm">
+      <form action="QnABoardUpdatePostFormController.do" id="updateForm" method="post">
        	<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
       
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
       
-      <form action="QnABoardDeletePostController.do" id="deleteForm">
+      <form action="QnABoardDeletePostController.do" id="deleteForm" method="post">
       	 <input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
     <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
@@ -35,14 +35,14 @@
 	      <button type="button" onclick="deletePost()">삭제</button>
 	  
 	  <script type="text/javascript">
-	    function deletePost() {
-			if(confirm("삭제하시겠습니까?")){
-				document.getElementById("deleteForm").submit();
-			}
-		}
 	    function updatePost() {
 			if(confirm("수정하시겠습니까?")){
 				document.getElementById("updateForm").submit();
+			}
+		}
+	    function deletePost() {
+			if(confirm("삭제하시겠습니까?")){
+				document.getElementById("deleteForm").submit();
 			}
 		}
 	  </script>
@@ -51,6 +51,32 @@
   </c:if>
 </table>
 
+<table>
+  <c:forEach items="${commentList}" var="comment">
+  <tr>
+  	<td>${comment.memberVO.nickName}</td>
+  	<td><pre>${comment.commentContent}</pre></td>
+  	<td>${comment.commentTimePosted}</td>
+  	<td>
+  	<c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
+	  <form id="updateCommentForm" action="" method="post">
+	  	<input type="hidden" name="commentNo" value="${comment.commentNo}">
+	  </form>
+	  <form id="deleteCommentForm" action="" method="post">
+	    <input type="hidden" name="commentNo" value="${comment.commentNo}">
+	  </form>
+	  <button type="button" onclick="updateComment()">수정</button>
+	  <button type="button" onclick="deleteComment()">삭제</button>
+  	</c:if>
+	 </td>  	
+  </tr>
+  </c:forEach>
+</table>
+<form action="QnACommentWriteCommentController.do" method="post">
+  <input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
+  <textarea rows="2" class="form-control" name="commentContent" required="required" placeholder="댓글을 입력하세요"></textarea>
+  <button type="submit">등록</button>
+</form>
 
 
 

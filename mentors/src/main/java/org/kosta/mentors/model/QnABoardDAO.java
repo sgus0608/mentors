@@ -28,7 +28,8 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			rs.close();
 		closeAll(pstmt, con);
 	}
-	public ArrayList<QnAPostVO> findPostList() throws SQLException {
+	// 리스트 보여주기 메서드
+	public ArrayList<QnAPostVO> findPostList(Pagination pagination) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -38,11 +39,17 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		try {
 			con=dataSource.getConnection();
 			StringBuilder sql=new StringBuilder();
-			sql.append("SELECT post_no,title,m.nick_name,category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits ");
-			sql.append("FROM qna_board q ");
-			sql.append("INNER JOIN mentors_member m ON m.id=q.id ");
-			sql.append("ORDER BY post_no DESC ");
+			sql.append("SELECT rnum,post_no,title,category,time_posted,hits,m.nick_name ");
+			sql.append("FROM ( ");
+			sql.append("SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC) AS rnum,post_no,title, ");
+			sql.append("category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,id ");
+			sql.append("FROM qna_board) q ");
+			sql.append("INNER JOIN mentors_member m ON q.id=m.id ");
+			sql.append("WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY post_no DESC");
 			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setLong(1, pagination.getStartRowNumber());
+			pstmt.setLong(2, pagination.getEndRowNumber());
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				memberVO=new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
@@ -54,6 +61,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return list;
 	}
+	// 상세글 보기 메서드
 	public QnAPostVO postDetailByNo(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -80,6 +88,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return qnaPostVO;
 	}
+	// 글쓰기 메서드
 	public void writePost(QnAPostVO qnaPostVO) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -98,6 +107,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	//글삭제 메서드
 	public void deletePost(long no) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -111,6 +121,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	// 글수정메서드
 	public void updatePost(QnAPostVO qnaPostVO) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -126,6 +137,113 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		} finally {
 			closeAll(pstmt, con);
 		}
+	}
+	// 총게시물수 구하기 메서드
+	public long getTotalPostCount() throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	// 제목으로 검색했을 때 총 게시물 수 구하기 메서드
+	public long getTotalPostCountByTitle(String searchText) throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board WHERE title LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	// 닉네임으로 검색했을 때 총 게시물 수 구하기 메서드
+	public long getTotalPostCountByNickName(String searchText) throws SQLException {
+		long totalPostCount=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM qna_board WHERE title LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount=rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	//조회수 업데이트 메서드
+	public void updateHits(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="update qna_board set hits=hits+1 WHERE post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+	// 제목검색했을 때 조회되는 메서드
+	public ArrayList<QnAPostVO> searchPostListByTitle(String searchText,Pagination pagination) throws SQLException {
+		ArrayList<QnAPostVO> list=new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		QnAPostVO qnaPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("SELECT rnum,post_no,title,category,time_posted,hits,m.nick_name ");
+			sql.append("FROM (SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC) AS rnum,post_no,title, ");
+			sql.append("category,to_char(time_posted,'YYYY.MM.DD') as time_posted,hits,id ");
+			sql.append("FROM qna_board ");
+			sql.append("WHERE title LIKE ?) q ");
+			sql.append("INNER JOIN mentors_member m ON q.id=m.id ");
+			sql.append("WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY post_no DESC");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				memberVO=new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
+				qnaPostVO=new QnAPostVO(rs.getLong("post_no"), rs.getString("title"), rs.getLong("hits"), rs.getString("time_posted"), rs.getString("category"), memberVO);
+				list.add(qnaPostVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
 	}
 }
 

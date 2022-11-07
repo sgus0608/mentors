@@ -8,28 +8,28 @@ public class Pagination {
 	/**
 	 * 현재 페이지
 	 */
-	private int nowPage=1;
+	private long nowPage=1;
 	/**
 	 * 페이지당 게시물수 
 	 */
-	private int postCountPerPage=5;
+	private long postCountPerPage=5;
 	/**
 	 * 페이지 그룹당 페이지수 
 	 */
-	private int pageCountPerPageGroup=5;
+	private long pageCountPerPageGroup=4;
 	/**
 	 * 총게시물수 ( 데이터베이스에 저장되어 있는 ) 
 	 */
-	private int totalPostCount;
+	private long totalPostCount;
 	
-	public Pagination(int totalPostCount) {
+	public Pagination(long totalPostCount) {
 		this.totalPostCount=totalPostCount;
 	}
-	public Pagination(int totalPostCount,int nowPage) {
+	public Pagination(long totalPostCount,long nowPage) {
 		this.totalPostCount=totalPostCount;
 		this.nowPage=nowPage;
 	}
-	public int getNowPage() {
+	public long getNowPage() {
 		return nowPage;
 	}
 	/**
@@ -42,8 +42,8 @@ public class Pagination {
 	 *        
 	 * @return startRowNumber
 	 */
-	public int getStartRowNumber() {
-		return (this.nowPage -1) * this.postCountPerPage+1;
+	public long getStartRowNumber() {
+		return (this.nowPage - 1) * this.postCountPerPage + 1;
 	}
 	/**
 	 * 현재 페이지 번호(nowPage) 에 해당하는 게시물 리스트의 게시물 row의 마지막 번호를 반환 <br>
@@ -52,12 +52,11 @@ public class Pagination {
 	 * 현 페이지의 마지막 게시물 row number가 된다 
 	 * @return endRowNumber
 	 */
-	public int getEndRowNumber() {
-		int endRowNumber= this.nowPage*this.postCountPerPage;
-		if(this.totalPostCount < endRowNumber) {
+	public long getEndRowNumber() {
+		long endRowNumber = this.nowPage * this.postCountPerPage;
+		if(endRowNumber > this.totalPostCount) {
 			endRowNumber = this.totalPostCount;
 		}
-		//
 		return endRowNumber;
 	}
 	/**
@@ -70,12 +69,11 @@ public class Pagination {
 	 *                    1page       2page       3page  <br> 
 	 * @return totalPage
 	 */
-	public int getTotalPage() {
-		int totalPage=totalPostCount/postCountPerPage;
-		if(totalPostCount%postCountPerPage!=0) {
-			totalPage +=1;
+	public long getTotalPage() {
+		long totalPage = this.totalPostCount / this.postCountPerPage;
+		if(this.totalPostCount % this.postCountPerPage != 0) {
+			totalPage += 1;
 		}
-		//
 		return totalPage;
 	}
 	/**
@@ -87,12 +85,11 @@ public class Pagination {
 	 *  페이지그룹     1group     2group      3group 
 	 * @return totalPageGroup
 	 */	
-	public int getTotalPageGroup() {
-		int totalPageGroup=this.getTotalPage()/this.pageCountPerPageGroup;
-		if(this.getTotalPage() % this.pageCountPerPageGroup!=0) {
-			totalPageGroup +=1;
+	public long getTotalPageGroup() {
+		long totalPageGroup = this.getTotalPage() / this.pageCountPerPageGroup;
+		if(this.getTotalPage() % this.pageCountPerPageGroup != 0) {
+			totalPageGroup += 1;
 		}
-		//
 		return totalPageGroup;
 	}
 	/**
@@ -105,12 +102,11 @@ public class Pagination {
 	 * 				 1group    2group 
 	 * @return nowPageGroup
 	 */
-	public int getNowPageGroup() {
-		int nowPageGroup=nowPage/pageCountPerPageGroup;
-		if(nowPage%pageCountPerPageGroup!=0) {
-			nowPageGroup +=1;
+	public long getNowPageGroup() {
+		long nowPageGroup = this.nowPage / this.pageCountPerPageGroup;
+		if(this.nowPage % this.pageCountPerPageGroup != 0) {
+			nowPageGroup += 1;
 		}
-		//
 		return nowPageGroup;
 	}
 	/**
@@ -125,9 +121,8 @@ public class Pagination {
 	 *                  1group          2group      3group <br> 
 	 * @return startPage
 	 */
-	public int getStartPageOfPageGroup() {
-		//
-		return (getNowPageGroup()-1) * this.pageCountPerPageGroup+1;
+	public long getStartPageOfPageGroup() {
+		return (this.getNowPageGroup() - 1) * this.pageCountPerPageGroup + 1;
 	}
 	/**
 	 * 현재 페이지 그룹의 마지막 번호를 리턴 <br>
@@ -140,9 +135,9 @@ public class Pagination {
 	 *                   1group          2group      3group <br> 
 	 * @return endPage
 	 */
-	public int getEndPageOfPageGroup() {
-		int endPage=this.getNowPageGroup()*this.pageCountPerPageGroup;
-		if(endPage > getTotalPage()) {
+	public long getEndPageOfPageGroup() {
+		long endPage = this.getNowPageGroup() * this.pageCountPerPageGroup;
+		if(endPage > this.getTotalPage()) {
 			endPage = this.getTotalPage();
 		}
 		return endPage;
@@ -154,7 +149,7 @@ public class Pagination {
 	 */
 	public boolean isPreviousPageGroup() {
 		boolean flag=false;
-		if(this.getNowPageGroup()>1) {
+		if(this.getNowPageGroup() > 1) {
 			flag = true;
 		}
 		return flag;
@@ -166,8 +161,8 @@ public class Pagination {
 	 */
 	public boolean isNextPageGroup() {
 		boolean flag=false;
-		if(this.getNowPageGroup()<this.getTotalPageGroup()) {
-			flag= true;
+		if(this.getNowPageGroup() < this.getTotalPageGroup()) {
+			flag = true;
 		}
 		return flag;
 	}

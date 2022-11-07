@@ -35,8 +35,75 @@
 	</tbody>
 </table>
 <c:if test="${sessionScope.mvo!=null}">
-	  <a href="QnABoardWritePostFormController.do">글쓰기</a>
-</c:if>
+	  <form action="QnABoardWritePostFormController.do" method="post">
+	  	<button type="submit">글쓰기</button>
+	  </form>
+</c:if><br><br>
+
+
+<form action="QnABoardFindPostListController.do" method="get">
+	<select name="category">
+		<option value="제목">제목</option>
+		<option value="내용">내용</option>
+		<option value="작성자">작성자</option>
+	</select>
+	<input type="text" name="searchText" placeholder="검색 : " required="required">
+	<button type="submit">검색</button>
+</form>
+
+
+
+<!--
+      pagination 
+-->
+<ul class="pagination justify-content-center" style="margin:20px 0">
+	<c:choose>
+	<c:when test="${category == null}">
+		<c:if test="${pagination.previousPageGroup}">
+		<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${pagination.startPageOfPageGroup-1}">Previous</a></li>
+		</c:if>
+		<c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
+		<c:choose>
+		<c:when test="${pagination.nowPage == page}">
+		<li class="page-item active"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${page}">${page}</a></li>
+		</c:when>
+		<c:otherwise>
+		<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${page}">${page}</a></li>
+		</c:otherwise>
+		</c:choose>
+		</c:forEach>		
+	  	<c:if test="${pagination.nextPageGroup}">
+	  	<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}">Next</a></li>   
+	  	 </c:if>
+  	 </c:when>
+  	 
+  	 <c:otherwise>
+	  	<c:if test="${pagination.previousPageGroup}">
+		<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${pagination.startPageOfPageGroup-1}&category=${category}&searchText=${searchText}">Previous</a></li>
+		</c:if>
+		<c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
+		<c:choose>
+		<c:when test="${pagination.nowPage == page}">
+		<li class="page-item active"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
+		</c:when>
+		<c:otherwise>
+		<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${page}&category=${category}&searchText=${searchText}">${page}</a></li>
+		</c:otherwise>
+		</c:choose>
+		</c:forEach>		
+	  	<c:if test="${pagination.nextPageGroup}">
+	  	<li class="page-item"><a class="page-link" href="QnABoardFindPostListController.do?pageNo=${pagination.endPageOfPageGroup+1}&category=${category}&searchText=${searchText}">Next</a></li>   
+	  	 </c:if>
+  	 </c:otherwise>
+  	 </c:choose>
+</ul>
+
+
+
+
+
+
+
 
 
 					

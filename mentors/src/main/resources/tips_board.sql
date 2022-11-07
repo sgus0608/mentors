@@ -51,11 +51,59 @@ delete from tips_board where post_no='1';
 -- 글 수정
 update tips_board set category='채용', title='안녕하세요', content='잘부탁드립니다' where post_no='3';
 
+-- row number() over()
+select row_number() over(order by post_no desc) as rnum, post_no, title, 
+category, TO_char(time_posted,'YYYY.MM.DD') as time_posted, hits, id
+from tips_board
 
 
+--
+INSERT INTO tips_board(post_no,title,category,content,time_posted,id)
+SELECT tips_board_seq.nextval, title, category, content, sysdate, id FROM tips_board
 
 
+-- sub query 이용해서 rnum 1-5 까지 출력
+select rnum , post_no, title, category, time_posted, hits, m.nick_name
+from(
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+	TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+	FROM tips_board
+) t
+inner join mentors_member m on t.id=m.id
+where rnum between 1 and 5
+order by post_no desc
+
+select count(*) from tips_board
+
+commit
 
 
+-- 조회수 증가
+update tips_board set hits=hits+1 where post_no=2;
+
+
+-- 검색 제목 조회
+SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+FROM tips_board
+where title like '%앙녕%'
+
+-- 검색 제목 총 게시물 수
+select count(*) from tips_board where title like  '%앙녕%';
+
+
+--검색 제목 조회( 페이지네이션 포함)
+select rnum , post_no, title, category, time_posted, hits, m.nick_name
+from(
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+	TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+	FROM tips_board
+	where title like '%앙녕%'
+) t
+inner join mentors_member m on t.id=m.id
+where rnum between 1 and 5
+order by post_no desc;
+
+-- 
 
 

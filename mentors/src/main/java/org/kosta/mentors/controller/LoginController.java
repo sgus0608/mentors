@@ -1,5 +1,7 @@
 package org.kosta.mentors.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +27,10 @@ public class LoginController implements Controller {
 			viewPath="redirect:index.jsp";
 			HttpSession session=request.getSession();
 			session.setAttribute("mvo", mvo);
+			session.setAttribute("mentoringboard", new ArrayList<Long>());
+			session.setAttribute("freeboard", new ArrayList<Long>());
+			session.setAttribute("qnaboard", new ArrayList<Long>());
+			session.setAttribute("tipsboard", new ArrayList<Long>());
 		}
 		return viewPath;
 	}
