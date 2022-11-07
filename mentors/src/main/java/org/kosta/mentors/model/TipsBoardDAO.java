@@ -240,4 +240,121 @@ public class TipsBoardDAO {
 		
 		return list;
 	}
+
+	public long getTotalPostCountByContent(String searchText) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalCountPost=0;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select count(*) from tips_board where content like ?");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalCountPost=rs.getLong(1);
+			}			
+		} finally {
+			closeAll(rs, pstmt, con);
+		}		
+		return totalCountPost;
+	}		
+
+	public ArrayList<TipsPostVO> searchPostListByContent(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<TipsPostVO> list=new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		TipsPostVO tipsPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select rnum , post_no, title, category, time_posted, hits, m.nick_name ");
+			sql.append("from( ");
+			sql.append("SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category, ");
+			sql.append("TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id ");
+			sql.append("FROM tips_board ");
+			sql.append("where content like ? ");
+			sql.append(") t ");
+			sql.append("inner join mentors_member m on t.id=m.id ");
+			sql.append("where rnum between ? and ? ");
+			sql.append("order by post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3,pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				memberVO = new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
+				tipsPostVO = new TipsPostVO(rs.getLong("post_No"), rs.getString("title"), rs.getLong("hits"),
+						rs.getString("time_posted"), rs.getString("category"), memberVO);
+				list.add(tipsPostVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}				
+		return list;
+	}
+
+	public long getTotalPostCountByNickName(String searchText) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalCountPost=0;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select count(*) from tips_board t ");
+			sql.append("inner join mentors_member m on t.id=m.id ");
+			sql.append("where m.nick_name =? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, searchText);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				totalCountPost=rs.getLong(1);
+			}			
+		} finally {
+			closeAll(rs, pstmt, con);
+		}		
+		return totalCountPost;
+	}
+
+	public ArrayList<TipsPostVO> searchPostListByNickName(String searhText, Pagination pagination) throws SQLException {
+		ArrayList<TipsPostVO> list=new ArrayList<>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberVO memberVO=null;
+		TipsPostVO tipsPostVO=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select rnum , post_no, title, category, time_posted, hits, nick_name ");
+			sql.append("from( ");
+			sql.append("SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, ");
+			sql.append("post_no, title, category, m.nick_name, TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits ");
+			sql.append("FROM tips_board t ");
+			sql.append("inner join mentors_member m on m.id=t.id ");
+			sql.append("where m.nick_name =? ");
+			sql.append(") where rnum between ? and ? ");
+			sql.append("order by post_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, searhText);
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				memberVO = new MemberVO(null, null, rs.getString("nick_name"), null, null, null, null, null);
+				tipsPostVO = new TipsPostVO(rs.getLong("post_No"), rs.getString("title"), rs.getLong("hits"),
+						rs.getString("time_posted"), rs.getString("category"), memberVO);
+				list.add(tipsPostVO);
+			}			
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
 }
