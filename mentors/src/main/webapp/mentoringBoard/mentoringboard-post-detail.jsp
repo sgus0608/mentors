@@ -45,8 +45,8 @@
     <td>${comment.memberVO.nickName}</td>
     <td><pre>${comment.commentContent}</pre></td>
     <td>${comment.commentTimePosted}</td>
-    <td>
     <c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
+    <td>
       <form id="updateCommentForm" action="MentoringCommentUpdateCommentController.do" method="post">
         <input type="hidden" name="commentNo" value="${comment.commentNo}">
       </form>
@@ -55,8 +55,8 @@
       </form>
       <button type="button" onclick="updateComment()">수정</button>
       <button type="button" onclick="deleteComment()">삭제</button>
-    </c:if>
     </td>
+    </c:if>
   </tr>
   </c:forEach>
 </table>
