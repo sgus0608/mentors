@@ -25,9 +25,10 @@ where c.post_no=63
 order by c.comment_no asc;
 
 
+--댓글 삭제 sql
+delete from qna_comment where comment_no=?
 
-
-
+SELECT * FROM qna_comment
 
 
 

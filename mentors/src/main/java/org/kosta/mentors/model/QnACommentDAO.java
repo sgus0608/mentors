@@ -75,6 +75,19 @@ public class QnACommentDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public void deleteComment(long commetNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from qna_comment where comment_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, commetNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 
