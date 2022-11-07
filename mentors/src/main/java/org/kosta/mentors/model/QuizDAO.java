@@ -39,10 +39,10 @@ public class QuizDAO {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select rnum, quiz_no, quiz_content,question1,question2, ");
 			sql.append("question3, question4, answer, category from ");
-			sql.append("(select row_number() over(order by quiz_no desc) ");
+			sql.append("(select row_number() over(order by quiz_no asc) ");
 			sql.append("as rnum, quiz_no, quiz_content, question1, question2,question3, ");
 			sql.append("question4, answer, category from Quiz_BOARD) ");
-			sql.append("where rnum between ? and ? order by quiz_no desc");
+			sql.append("where rnum between ? and ? order by quiz_no asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setLong(1, pagination.getStartRowNumber());
 			pstmt.setLong(2, pagination.getEndRowNumber());
