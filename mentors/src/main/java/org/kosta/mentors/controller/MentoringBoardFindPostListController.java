@@ -40,9 +40,21 @@ public class MentoringBoardFindPostListController implements Controller {
 				}
 				list = dao.searchPostListByTitle(searchText, pagination);
 			} else if(category.equalsIgnoreCase("내용")) {
-				
+				totalPostCount = dao.getTotalPostCountByContent(searchText);
+				if(pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				list = dao.searchPostListByContent(searchText, pagination);
 			} else if(category.equalsIgnoreCase("작성자")) {
-				
+				totalPostCount = dao.getTotalPostCountByNickName(searchText);
+				if(pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+				list = dao.searchPostListByNickName(searchText, pagination);
 			}
 		}
 		
