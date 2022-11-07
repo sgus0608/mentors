@@ -15,8 +15,9 @@ public class LoginController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equalsIgnoreCase("POST")==false) {
-			throw new ServletException("LoginController는 PostMethod 방식만 가능");
+			throw new ServletException(getClass().getName()+"는 POST 방식만 접근가능");
 		}
+		
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
 		MemberVO mvo=MemberDAO.getInstance().login(id, password);
