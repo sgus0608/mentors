@@ -13,10 +13,11 @@ public class TipsBoardUpdatePostController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equalsIgnoreCase("POST")==false)
 			throw new ServletException("TipsBoardUpdatePostController는 Post METHOD 방식만 가능");
+		
+		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String title=request.getParameter("title");
 		String category=request.getParameter("category");
 		String content=request.getParameter("content");
-		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		TipsPostVO tipsPostVO=new TipsPostVO();
 		tipsPostVO.setTitle(title);
 		tipsPostVO.setCategory(category);

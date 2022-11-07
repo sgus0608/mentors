@@ -15,9 +15,11 @@ public class TipsBoardWritePostController implements Controller {
 		if(request.getMethod().equalsIgnoreCase("POST")==false) {
 			throw new Exception(getClass().getName()+"POST 방식방 가능합니다");
 		}		
+		
 		String category=request.getParameter("category");
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
+		
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		TipsPostVO	tipsPostVO=new TipsPostVO(title, content, category, memberVO);

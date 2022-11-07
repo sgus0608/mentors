@@ -12,8 +12,13 @@ public class TipsCommentWriteCommentController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(request.getMethod().equalsIgnoreCase("POST")==false) {
+			throw new Exception(getClass().getName()+"POST 방식방 가능합니다");
+		}				
+		
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String commentContent=request.getParameter("commentContent");
+		
 		HttpSession session=request.getSession(false);
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		CommentVO commentVO=new CommentVO(commentContent, postNo, memberVO);
