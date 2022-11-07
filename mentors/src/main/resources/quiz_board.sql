@@ -36,3 +36,9 @@ select quiz_no, quiz_content,question1,question2,question3,question4,answer,cate
 
 
 select rnum, quiz_no, quiz_content,question1,question2,question3,question4,answer,category  from(select row_number() over(order by quiz_no desc) as rnum, quiz_no,quiz_content,question1,question2,question3,question4,answer,category  from  QUIZ_BOARD) where rnum between 1 and 5 order by quiz_no desc;
+
+-- 수정을 위한 퀴즈 게시물 조회
+select quiz_content,question1,question2,question3,question4,answer,category from quiz_board where quiz_no=1;
+
+-- 퀴즈 수정 쿼리문
+UPDATE quiz_board SET quiz_content=?, question1=?, question2=?, question3=?, question4=?, answer=?, category=? WHERE quiz_no=?
