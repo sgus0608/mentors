@@ -47,10 +47,10 @@
     <td>${comment.commentTimePosted}</td>
     <td>
     <c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
-      <form id="updateCommentForm" action="" method="post">
+      <form id="updateCommentForm" action="MentoringCommentUpdateCommentController.do" method="post">
         <input type="hidden" name="commentNo" value="${comment.commentNo}">
       </form>
-      <form id="deleteCommentForm" action="" method="post">
+      <form id="deleteCommentForm" action="MentoringCommentDeleteCommentController.do" method="post">
         <input type="hidden" name="commentNo" value="${comment.commentNo}">
       </form>
       <button type="button" onclick="updateComment()">수정</button>
