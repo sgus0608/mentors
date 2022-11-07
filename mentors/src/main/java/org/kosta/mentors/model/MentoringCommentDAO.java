@@ -81,4 +81,33 @@ public class MentoringCommentDAO {
 			closeAll(pstmt, con);
 		}
 	}
+
+	public void deleteComment(long commentNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "DELETE FROM mentoring_comment WHERE comment_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, commentNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+
+	public void updateComment(CommentVO commentVO) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "UPDATE mentoring_comment SET comment_content=? WHERE comment_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, commentVO.getCommentContent());
+			pstmt.setLong(2, commentVO.getCommentNo());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
