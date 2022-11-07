@@ -63,7 +63,7 @@ public class FreeBoardDAO {
 		}
 		return list;
 	}
-	public PostVO postDetailByNo(Long post_no) throws SQLException {
+	public PostVO postDetailByNo(Long postNo) throws SQLException {
 		PostVO postVO=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -78,13 +78,13 @@ public class FreeBoardDAO {
 			sql.append("inner join mentors_member m on f.id=m.id ");
 			sql.append("where f.post_no=?");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MemberVO memberVO=new MemberVO();
 				memberVO.setNickName(rs.getString("nick_name"));
 				memberVO.setId(rs.getString("id"));
-				postVO=new PostVO(post_no, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), memberVO);
+				postVO=new PostVO(postNo, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), memberVO);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
@@ -123,27 +123,27 @@ public class FreeBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	public void deletePost(long post_no) throws SQLException {
+	public void deletePost(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
 			String sql="delete from free_board where post_no=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
 		}
 	}
-	public void updateHits(long post_no) throws SQLException {
+	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
 			String sql="update free_board set hits=hits+1 where post_no=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
