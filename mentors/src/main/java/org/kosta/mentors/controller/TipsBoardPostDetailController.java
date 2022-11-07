@@ -16,6 +16,7 @@ public class TipsBoardPostDetailController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long postNo=Long.parseLong(request.getParameter("postNo"));
+		
 		TipsBoardDAO tipsBoardDAO=TipsBoardDAO.getInstance();
 		HttpSession session=request.getSession(false);
 		@SuppressWarnings("unchecked")

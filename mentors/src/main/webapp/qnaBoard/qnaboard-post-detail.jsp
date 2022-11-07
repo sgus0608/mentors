@@ -15,8 +15,7 @@
   	  <pre><font size="4">내용 : ${qnaPostVO.content}</font></pre>
   	</td>
   </tr>
-  	  <%--1.로그인한 아이디와 글을 작성한 아이디가 같을때 수정,삭제 버튼이 보인다
-  	        2. form 을 정의해서  javascript의 button onclick 이벤트를 이용해서 post 방식으로 전송한다--%>
+
   <c:if test="${sessionScope.mvo.id==qnaPostVO.memberVO.id}">
   <tr>
     <td colspan="5">
@@ -24,12 +23,9 @@
        	<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
       
-    <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
-      
       <form action="QnABoardDeletePostController.do" id="deleteForm" method="post">
       	 <input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
       </form>
-    <%--oooooooooooooooooooooo구분선oooooooooooooooooo --%>  
     
 	      <button type="button" onclick="updatePost()">수정</button>&nbsp;&nbsp;
 	      <button type="button" onclick="deletePost()">삭제</button>
@@ -50,7 +46,6 @@
   </tr>
   </c:if>
 </table>
-
 <table>
   <c:forEach items="${commentList}" var="comment">
   <tr>
@@ -59,10 +54,10 @@
   	<td>${comment.commentTimePosted}</td>
   	<td>
   	<c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
-	  <form id="updateCommentForm" action="" method="post">
+	  <form id="updateCommentForm" action="QnACommentUpdateCommentController.do" method="post">
 	  	<input type="hidden" name="commentNo" value="${comment.commentNo}">
 	  </form>
-	  <form id="deleteCommentForm" action="" method="post">
+	  <form id="deleteCommentForm" action="QnACommentDeleteCommentController.do" method="post">
 	    <input type="hidden" name="commentNo" value="${comment.commentNo}">
 	  </form>
 	  <button type="button" onclick="updateComment()">수정</button>
