@@ -28,7 +28,7 @@ public class QuizDAO {
 			rs.close();
 		closeAll(pstmt, con);
 	}
-	public ArrayList<QuizVO> FindPostList() throws SQLException {
+	public ArrayList<QuizVO> FindPostList(Pagination pagination) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs =null;
@@ -37,9 +37,15 @@ public class QuizDAO {
 		try {
 			con = dataSource.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select quiz_no, quiz_content,question1,question2,question3,question4,answer,category ");
-			sql.append("from quiz_board");
+			sql.append("select rnum, quiz_no, quiz_content,question1,question2, ");
+			sql.append("question3, question4, answer, category from ");
+			sql.append("(select row_number() over(order by quiz_no desc) ");
+			sql.append("as rnum, quiz_no, quiz_content, question1, question2,question3, ");
+			sql.append("question4, answer, category from Quiz_BOARD) ");
+			sql.append("where rnum between ? and ? order by quiz_no desc");
 			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setLong(1, pagination.getStartRowNumber());
+			pstmt.setLong(2, pagination.getEndRowNumber());
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new QuizVO(rs.getLong("quiz_no"),rs.getString("quiz_content"), rs.getString("question1"), rs.getString("question2"), rs.getString("question3"), rs.getString("question4"), rs.getString("answer"), rs.getString("category"));
@@ -69,6 +75,26 @@ public class QuizDAO {
 		}
 		
 		return result;
+	}
+	public long getTotalPostCount() throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		long totalPostCount =0;
+		Connection con  = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select count(*) from quiz_board";
+			pstmt = con.prepareStatement(sql);
+			rs= pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount = rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return totalPostCount;
+	
 	}
 	
 }

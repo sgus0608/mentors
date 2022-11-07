@@ -35,5 +35,4 @@ COMMIT
 select quiz_no, quiz_content,question1,question2,question3,question4,answer,category from quiz_board
 
 
-
-i
+select rnum, quiz_no, quiz_content,question1,question2,question3,question4,answer,category  from(select row_number() over(order by quiz_no desc) as rnum, quiz_no,quiz_content,question1,question2,question3,question4,answer,category  from  QUIZ_BOARD) where rnum between 1 and 5 order by quiz_no desc;

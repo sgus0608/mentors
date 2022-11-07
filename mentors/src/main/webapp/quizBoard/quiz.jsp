@@ -34,9 +34,9 @@ button{
   	<div>
   		<b> ${post.no}번)</b>  ${post.content }
   		<br>
-  		<input type="radio" name="${post.no}" value="${post.question1 }"><label>${post.question1 }</label>
-  		<input type="radio" name="${post.no}" value="${post.question2 }"><label>${post.question2 }</label>
-  		<input type="radio" name="${post.no}" value="${post.question3}"><label>${post.question3 }</label> 
+  		<input type="radio" name="${post.no}" value="${post.question1 }"><label>${post.question1 }</label>  &nbsp; &nbsp; &nbsp;
+  		<input type="radio" name="${post.no}" value="${post.question2 }"><label>${post.question2 }</label> &nbsp; &nbsp; &nbsp;
+  		<input type="radio" name="${post.no}" value="${post.question3}"><label>${post.question3 }</label>  &nbsp; &nbsp; &nbsp;
   		<input type="radio" name="${post.no}" value="${post.question4}"><label>${post.question4 }</label>
   		<br>
   		<span id="${post.no }"></span>
@@ -47,6 +47,7 @@ button{
   <br>
   
   
+ </c:forEach>
 <script type="text/javascript">
 	function checkAnswer(postNo) {
 		let pn = document.getElementsByName(postNo);
@@ -81,7 +82,28 @@ button{
 	}
 	
 </script>
- </c:forEach>
+<ul class="pagination justify-content-center" style="margin:20px 0">
+	<c:if test="${pagination.previousPageGroup}">
+	<li class="page-item"><a class="page-link" href="QuizFindPostListController.do?quiz_no=${pagination.startPageOfPageGroup-1 }">이전</a></li>
+	</c:if>
+	
+	<c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup }" var="page">
+	<c:choose>
+		<c:when test="${pagination.nowPage==page }">
+			<li class="page-item active"><a class="page-link" href="QuizFindPostListController.do?quiz_no=${page}">${page }</a></li>
+		</c:when>
+		<c:otherwise>
+			<li class="page-item"><a class="page-link" href="QuizFindPostListController.do?quiz_no=${page }">${page }</a></li>
+		</c:otherwise>
+	</c:choose>
+	
+	</c:forEach>
+	
+	<c:if test="${pagination.nextPageGroup}">
+	<li class="page-item"><a class="page-link" href="QuizFindPostListController.do?quiz_no=${pagination.endPageOfPageGroup+1 }">Next</a></li>
+	</c:if>
+</ul>
+
   
   
   
