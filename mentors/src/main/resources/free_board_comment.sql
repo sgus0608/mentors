@@ -24,12 +24,12 @@ inner join mentors_member m on c.id=m.id
 where c.post_no=40
 order by c.comment_no asc
 
+update free_comment set comment_content='즐거운월요일2' where comment_no=1;
+
+select post_no from free_comment where comment_no=1
 
 
-
-
-
-
+delete from free_comment where comment_no=1
 
 
 

@@ -15,6 +15,8 @@ drop table tips_comment
 drop sequence tips_comment_seq
 
 insert into tips_comment values(tips_comment_seq.nextval,'댓글댓글',sysdate,26,'java');
+insert into tips_comment values(tips_comment_seq.nextval,'내가 짱이야',sysdate,26,'spring');
+
 
 select*from tips_comment;
 
@@ -25,5 +27,7 @@ from tips_comment c
 inner join mentors_member m on c.id=m.id
 where c.post_no=26
 order by  c.comment_no asc;
+
+delete from tips_comment where comment_no='1';
 
 

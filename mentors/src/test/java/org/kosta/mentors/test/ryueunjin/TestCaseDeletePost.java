@@ -11,7 +11,5 @@ public class TestCaseDeletePost {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 }

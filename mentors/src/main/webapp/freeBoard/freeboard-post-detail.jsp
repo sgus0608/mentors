@@ -21,7 +21,7 @@
 	<%-- 수정 --%>
 	<button type="button" onclick="updatePost()">수정</button>
 	<button type="button" onclick="deletePost()">삭제</button>
-	<form id="updateForm" action="FreeBoardUpdatePostFormController.do?postNo=${postVO.postNo}" method="post">
+	<form id="updateForm" action="FreeBoardUpdatePostFormController.do" method="post">
 		<input type="hidden" name="postNo" value="${postVO.postNo}">
 	</form>
 	<script>
@@ -32,7 +32,7 @@
 	}
 	</script>
 	<%-- 삭제 --%>
-	<form id="deleteForm" action="FreeBoardDeletePostController.do?postNo=${postVO.postNo}" method="post">
+	<form id="deleteForm" action="FreeBoardDeletePostController.do" method="post">
 		<input type="hidden" name="postNo" value="${postVO.postNo}">
 	</form>
 	<script>
@@ -51,12 +51,27 @@
 		<td>${comment.commentTimePosted}</td>
 		<td>
 		<c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
-			<form id="updateCommentForm" action="" method="post">
-				<input type="hidden" name="commentNo" value="${comment.commentNo}">
+			<form id="updateCommentForm" action="FreeCommentUpdateCommentFormController.do" method="post">
+				<input type="hidden" name="commentNo" value="${commentVO.commentNo}">
 			</form>
-			<form id="deleteCommentForm" action="" method="post">
+			<script>
+				function updateComment(){
+				let result=confirm("수정하시겠습니까?");
+				if(result)
+					document.getElementById("updateCommentForm").submit();
+				}
+			</script>
+			<form id="deleteCommentForm" action="FreeCommentDeleteCommentController.do" method="post">
 				<input type="hidden" name="commentNo" value="${comment.commentNo}">
+				<input type="hidden" name="postNo" value="${postVO.postNo}">
 			</form>
+			<script>
+				function deleteComment(){
+				let result=confirm("삭제하시겠습니까?");
+				if(result)
+					document.getElementById("deleteCommentForm").submit();
+				}
+			</script>
 			<button type="button" onclick="updateComment()">수정</button>
 			<button type="button" onclick="deleteComment()">삭제</button>
 		</c:if>

@@ -104,6 +104,48 @@ inner join mentors_member m on t.id=m.id
 where rnum between 1 and 5
 order by post_no desc;
 
--- 
+-- 내용 검색 총 게시물 수 
+select count(*) from tips_board where content like  '%있지%';
+
+-- 내용 검색 게시물 리스트
+SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+FROM tips_board
+where content like '%있지%'
+
+-- 내용 검색 게시물 리스트 (페이지네이션 포함)
+select rnum , post_no, title, category, time_posted, hits, m.nick_name
+from(
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, post_no, title, category,
+	TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, id
+	FROM tips_board
+	where content like '%있지%'
+) t
+inner join mentors_member m on t.id=m.id
+where rnum between 1 and 5
+order by post_no desc;
+
+-- 작성자 검색 총 게시물 수 
+select count(*) from tips_board t
+inner join mentors_member m on t.id=m.id
+where m.nick_name ='장기하';
+
+-- 작성자 검색 게시물 리스트
+SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, 
+post_no, title, category, m.nick_name, TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits, m.id
+FROM tips_board t
+inner join mentors_member m on m.id=t.id
+where m.nick_name ='장기하' 
+
+-- 작성자 검색 게시물 리스트 (페이지네이션 포함)
+select rnum , post_no, title, category, time_posted, hits, nick_name
+from(
+	SELECT ROW_NUMBER() OVER(ORDER BY post_no DESC)AS rnum, 
+	post_no, title, category, m.nick_name, TO_CHAR(time_posted,'YYYY.MM.DD') as time_posted,hits
+	FROM tips_board t
+	inner join mentors_member m on m.id=t.id
+	where m.nick_name ='장기하' 
+) where rnum between 1 and 5
+order by post_no desc;
 
 

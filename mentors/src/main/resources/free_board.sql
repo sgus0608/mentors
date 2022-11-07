@@ -80,20 +80,17 @@ where rnum between 1 and 5
 order by f.post_no desc
 
 -- 작성자를 통한 검색
-select post_no, title, m.nick_name,time_posted, hits
+select post_no, title, nick_name, time_posted, hits
 from(
 	select row_number() over(order by post_no desc) as rnum, 
 	post_no, title,
 	to_char(time_posted,'YYYY.MM.DD') as time_posted, 
-	mm.id , hits 
+	hits, mm.id, mm.nick_name 
 	from free_board fb
 	inner join mentors_member mm on fb.id=mm.id
-	where mm.nick_name like '%아이유%'
-	order by fb.post_no desc
-) f
-inner join mentors_member m on f.id=m.id
-where rnum between 1 and 5
-order by f.post_no desc
+	where mm.nick_name='아이유'
+) where rnum between 1 and 5
+order by post_no desc
 
 
 

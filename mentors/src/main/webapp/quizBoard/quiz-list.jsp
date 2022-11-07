@@ -26,13 +26,29 @@ button{
   	float: right;
 }
 </style>
-
-
-  <c:forEach items="${list }" var="post">
-  	관련분야 : ${post.category }
-  		
+  <c:if test="${sessionScope.mvo.memberType=='QuizAdmin'}">
+  <div align="right">
+    <form action="QuizWritePostFormController.do" method="post">
+      <button>등록</button>
+    </form>
+    <br>
+    <hr>
+    <form action="QuizUpdatePostFormController.do" method="post">
+      <input type="number" name="postNo" min="1" placeholder="수정할 문제번호" required="required">
+      <button>수정</button>
+    </form>
+    <hr>
+    <form action="QuizDeletePostController.do" method="post">
+      <input type="number" name="postNo" min="1" placeholder="삭제할 문제번호" required="required">
+      <button>삭제</button>
+    </form>
+    <br>
+  </div>
+  </c:if>
+  <c:forEach items="${list }" var="post" >
+  	관련분야 : ${post.category}
   	<div>
-  		<b> ${post.no}번)</b>  ${post.content }
+  		<b> ${post.no}번)</b>  ${post.content}
   		<br>
   		<input type="radio" name="${post.no}" value="${post.question1 }"><label>${post.question1 }</label>  &nbsp; &nbsp; &nbsp;
   		<input type="radio" name="${post.no}" value="${post.question2 }"><label>${post.question2 }</label> &nbsp; &nbsp; &nbsp;
@@ -43,7 +59,6 @@ button{
   		
   		<button onclick="checkAnswer('${post.no}')">제출</button>
   	</div>
-  
   <br>
   
   

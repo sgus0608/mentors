@@ -14,7 +14,7 @@ public class FreeBoardWritePostController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equalsIgnoreCase("POST")==false) 
-			throw new ServletException("FreeBoardWritePostController는 POST METHOD 방식만 가능");
+			throw new ServletException(getClass().getName()+"는 POST METHOD 방식만 가능");
 		HttpSession session=request.getSession();
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");

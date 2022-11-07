@@ -63,7 +63,7 @@ public class FreeBoardDAO {
 		}
 		return list;
 	}
-	public PostVO postDetailByNo(Long post_no) throws SQLException {
+	public PostVO postDetailByNo(Long postNo) throws SQLException {
 		PostVO postVO=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -78,13 +78,13 @@ public class FreeBoardDAO {
 			sql.append("inner join mentors_member m on f.id=m.id ");
 			sql.append("where f.post_no=?");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MemberVO memberVO=new MemberVO();
 				memberVO.setNickName(rs.getString("nick_name"));
 				memberVO.setId(rs.getString("id"));
-				postVO=new PostVO(post_no, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), memberVO);
+				postVO=new PostVO(postNo, rs.getString("title"), rs.getString("content"), rs.getLong("hits"), rs.getString("time_posted"), memberVO);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
@@ -123,27 +123,27 @@ public class FreeBoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	public void deletePost(long post_no) throws SQLException {
+	public void deletePost(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
 			String sql="delete from free_board where post_no=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
 		}
 	}
-	public void updateHits(long post_no) throws SQLException {
+	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
 			String sql="update free_board set hits=hits+1 where post_no=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setLong(1, post_no);
+			pstmt.setLong(1, postNo);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
@@ -282,9 +282,9 @@ public class FreeBoardDAO {
 			StringBuilder sql=new StringBuilder();
 			sql.append("select count(*) from free_board f ");
 			sql.append("inner join mentors_member m on f.id=m.id ");
-			sql.append("where nick_name like ?");
+			sql.append("where nick_name=?");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setString(1, searchText);
 			rs=pstmt.executeQuery();
 			if(rs.next())
 				totalPostCount=rs.getLong(1);
@@ -301,19 +301,17 @@ public class FreeBoardDAO {
 		try {
 			con=dataSource.getConnection();
 			StringBuilder sql=new StringBuilder();
-			sql.append("select post_no, title, m.nick_name,time_posted, hits ");
+			sql.append("select post_no, title, nick_name, time_posted, hits ");
 			sql.append("from( ");
 			sql.append("select row_number() over(order by post_no desc) as rnum, ");
 			sql.append("post_no, title, ");
 			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, ");
-			sql.append("mm.id , hits from free_board fb ");
+			sql.append("hits, mm.id, mm.nick_name ");
+			sql.append("from free_board fb ");
 			sql.append("inner join mentors_member mm on fb.id=mm.id ");
 			sql.append("where mm.nick_name=? ");
-			sql.append("order by fb.post_no desc ");
-			sql.append(") f ");
-			sql.append("inner join mentors_member m on f.id=m.id ");
-			sql.append("where rnum between ? and ? ");
-			sql.append("order by f.post_no desc");
+			sql.append(") where rnum between ? and ? ");
+			sql.append("order by post_no desc");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, searchText);
 			pstmt.setLong(2, pagination.getStartRowNumber());

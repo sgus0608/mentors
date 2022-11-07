@@ -39,10 +39,10 @@ public class QuizDAO {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select rnum, quiz_no, quiz_content,question1,question2, ");
 			sql.append("question3, question4, answer, category from ");
-			sql.append("(select row_number() over(order by quiz_no desc) ");
+			sql.append("(select row_number() over(order by quiz_no asc) ");
 			sql.append("as rnum, quiz_no, quiz_content, question1, question2,question3, ");
 			sql.append("question4, answer, category from Quiz_BOARD) ");
-			sql.append("where rnum between ? and ? order by quiz_no desc");
+			sql.append("where rnum between ? and ? order by quiz_no asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setLong(1, pagination.getStartRowNumber());
 			pstmt.setLong(2, pagination.getEndRowNumber());
@@ -95,6 +95,91 @@ public class QuizDAO {
 		
 		return totalPostCount;
 	
+	}
+	public void writePost(QuizVO quizVO) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "insert into QUIZ_BOARD values(quiz_board_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, quizVO.getContent());
+			pstmt.setString(2, quizVO.getQuestion1());
+			pstmt.setString(3, quizVO.getQuestion2());
+			pstmt.setString(4, quizVO.getQuestion3());
+			pstmt.setString(5, quizVO.getQuestion4());
+			pstmt.setString(6, quizVO.getAnswer());
+			pstmt.setString(7, quizVO.getCategory());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	public QuizVO postDetailByNo(long postNo) throws SQLException {
+		QuizVO quizVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select quiz_content,question1,question2,question3,question4,answer,category ");
+			sql.append("from quiz_board where quiz_no=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setLong(1, postNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				quizVO = new QuizVO();
+				quizVO.setNo(postNo);
+				quizVO.setCategory(rs.getString("category"));
+				quizVO.setAnswer(rs.getString("answer"));
+				quizVO.setContent(rs.getString("quiz_content"));
+				quizVO.setQuestion1(rs.getString("question1"));
+				quizVO.setQuestion2(rs.getString("question2"));
+				quizVO.setQuestion3(rs.getString("question3"));
+				quizVO.setQuestion4(rs.getString("question4"));
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return quizVO;
+	}
+	public void updatePost(QuizVO quizVO) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE quiz_board SET quiz_content=?, question1=?, question2=?, question3=?, question4=?, ");
+			sql.append("answer=?, category=? WHERE quiz_no=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, quizVO.getContent());
+			pstmt.setString(2, quizVO.getQuestion1());
+			pstmt.setString(3, quizVO.getQuestion2());
+			pstmt.setString(4, quizVO.getQuestion3());
+			pstmt.setString(5, quizVO.getQuestion4());
+			pstmt.setString(6, quizVO.getAnswer());
+			pstmt.setString(7, quizVO.getCategory());
+			pstmt.setLong(8, quizVO.getNo());
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	public void deletePost(long postNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "DELETE FROM quiz_board WHERE quiz_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
 	}
 	
 }

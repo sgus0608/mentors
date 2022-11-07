@@ -18,3 +18,8 @@ SELECT * FROM mentors_member;
 
 COMMIT
 
+-- 퀴즈게시판 관리자 추가
+INSERT INTO mentors_member(id, password, nick_name, email, address, interest, signup_date, member_type)
+VALUES('quiz','quiz','퀴즈관리자','quiz@mentors.com','오리','자바', sysdate, 'QuizAdmin');
+
+

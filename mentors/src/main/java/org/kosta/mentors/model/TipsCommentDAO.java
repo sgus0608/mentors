@@ -81,5 +81,19 @@ public class TipsCommentDAO {
 		} finally {
 			closeAll(pstmt, con);
 		}
+	}
+
+	public void deleteComment(long commentNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from tips_comment where comment_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, commentNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}		
 	}	
 }

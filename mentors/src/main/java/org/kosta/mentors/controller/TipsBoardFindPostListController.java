@@ -19,8 +19,8 @@ public class TipsBoardFindPostListController implements Controller {
 		Pagination pagination = null;
 		ArrayList<TipsPostVO> list = null;
 		long totalPostCount = 0;
-		TipsBoardDAO dao=TipsBoardDAO.getInstance();
-		
+		TipsBoardDAO dao = TipsBoardDAO.getInstance();
+
 		if (category == null) {
 			totalPostCount = dao.getTotalPostCount();
 			if (pageNo == null) {
@@ -28,7 +28,7 @@ public class TipsBoardFindPostListController implements Controller {
 			} else {
 				pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
 			}
-			list =dao.findPostList(pagination);
+			list = dao.findPostList(pagination);
 		} else {
 			searchText = request.getParameter("searchText");
 			if (category.equalsIgnoreCase("제목")) {
@@ -38,11 +38,26 @@ public class TipsBoardFindPostListController implements Controller {
 				} else {
 					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
 				}
-				
+
 				list = dao.searchPostListByTitle(searchText, pagination);
-			} else if(category.equalsIgnoreCase("내용")) {
-				
-			}else if(category.equalsIgnoreCase("작성자")) {
+			} else if (category.equalsIgnoreCase("내용")) {
+				totalPostCount = dao.getTotalPostCountByContent(searchText);
+				if (pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+
+				list = dao.searchPostListByContent(searchText, pagination);
+			} else if (category.equalsIgnoreCase("작성자")) {
+				totalPostCount = dao.getTotalPostCountByNickName(searchText);
+				if (pageNo == null) {
+					pagination = new Pagination(totalPostCount);
+				} else {
+					pagination = new Pagination(totalPostCount, Long.parseLong(pageNo));
+				}
+
+				list = dao.searchPostListByNickName(searchText, pagination);
 				
 			}
 		}
