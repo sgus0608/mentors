@@ -7,14 +7,15 @@ import org.kosta.mentors.model.MentoringBoardDAO;
 import org.kosta.mentors.model.MentoringPostVO;
 import org.kosta.mentors.model.Pagination;
 
-public class TestCaseMentoringSearchPostList {
+public class TestCaseMentoringSearchPostListByContent {
+
 	public static void main(String[] args) {
 		try {
-			String searchText = "사자";
-			long totalPostCount = MentoringBoardDAO.getInstance().getTotalPostCountByTitle(searchText);
+			String searchText = "자바";
+			long totalPostCount = MentoringBoardDAO.getInstance().getTotalPostCountByContent(searchText);
 			System.out.println(totalPostCount);
 			Pagination pagination = new Pagination(totalPostCount);
-			ArrayList<MentoringPostVO> list = MentoringBoardDAO.getInstance().searchPostListByTitle(searchText, pagination);
+			ArrayList<MentoringPostVO> list = MentoringBoardDAO.getInstance().searchPostListByContent(searchText, pagination);
 			for(int i=0; i<list.size(); i++) {
 				System.out.println(list.get(i));
 			}
@@ -22,4 +23,5 @@ public class TestCaseMentoringSearchPostList {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -41,7 +41,7 @@ public class MentoringBoardDAO {
 		try {
 			con = dataSource.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name ");
+			sql.append("SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name ");
 			sql.append("FROM( ");
 			sql.append("	SELECT row_number() over(ORDER BY post_no DESC) as rnum, ");
 			sql.append("	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, ");
@@ -200,6 +200,49 @@ public class MentoringBoardDAO {
 		}
 		return totalPostCount;
 	}
+	
+	public long getTotalPostCountByContent(String searchText) throws SQLException {
+		long totalPostCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "SELECT count(*) FROM mentoring_board WHERE content LIKE ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchText+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount = rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
+	
+	public long getTotalPostCountByNickName(String searchText) throws SQLException {
+		long totalPostCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT count(*) FROM mentoring_board b ");
+			sql.append("INNER JOIN mentors_member m ON b.id=m.id ");
+			sql.append("WHERE m.nick_name=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, searchText);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				totalPostCount = rs.getLong(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCount;
+	}
 
 	public void updateHits(long postNo) throws SQLException {
 		Connection con = null;
@@ -223,7 +266,7 @@ public class MentoringBoardDAO {
 		try {
 			con = dataSource.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name ");
+			sql.append("SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name ");
 			sql.append("FROM( ");
 			sql.append("	SELECT row_number() over(ORDER BY post_no DESC) as rnum, ");
 			sql.append("	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, ");
@@ -235,6 +278,90 @@ public class MentoringBoardDAO {
 			sql.append("ORDER BY b.post_no DESC");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO = new MemberVO();
+				memberVO.setNickName(rs.getString("nick_name"));
+				MentoringPostVO postVO = new MentoringPostVO();
+				postVO.setPostNo(rs.getLong("post_no"));
+				postVO.setTitle(rs.getString("title"));
+				postVO.setHits(rs.getLong("hits"));
+				postVO.setTimePosted(rs.getString("time_posted"));
+				postVO.setCategory(rs.getString("category"));
+				postVO.setRole(rs.getString("role"));
+				postVO.setMemberVO(memberVO);
+				list.add(postVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	public ArrayList<MentoringPostVO> searchPostListByContent(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<MentoringPostVO> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name ");
+			sql.append("FROM( ");
+			sql.append("	SELECT row_number() over(ORDER BY post_no DESC) as rnum, ");
+			sql.append("	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, ");
+			sql.append("	category, role, id ");
+			sql.append("	FROM mentoring_board ");
+			sql.append("	WHERE content LIKE ? ");
+			sql.append(") b INNER JOIN mentors_member m ON b.id=m.id ");
+			sql.append("WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY b.post_no DESC");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setLong(2, pagination.getStartRowNumber());
+			pstmt.setLong(3, pagination.getEndRowNumber());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO = new MemberVO();
+				memberVO.setNickName(rs.getString("nick_name"));
+				MentoringPostVO postVO = new MentoringPostVO();
+				postVO.setPostNo(rs.getLong("post_no"));
+				postVO.setTitle(rs.getString("title"));
+				postVO.setHits(rs.getLong("hits"));
+				postVO.setTimePosted(rs.getString("time_posted"));
+				postVO.setCategory(rs.getString("category"));
+				postVO.setRole(rs.getString("role"));
+				postVO.setMemberVO(memberVO);
+				list.add(postVO);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+	
+	public ArrayList<MentoringPostVO> searchPostListByNickName(String searchText, Pagination pagination) throws SQLException {
+		ArrayList<MentoringPostVO> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT rnum, post_no, title, hits, time_posted, category, role, nick_name ");
+			sql.append("FROM( ");
+			sql.append("	SELECT row_number() over(ORDER BY post_no DESC) as rnum, ");
+			sql.append("	b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted, ");
+			sql.append("	b.category, b.role, m.nick_name ");
+			sql.append("	FROM mentoring_board b ");
+			sql.append("	INNER JOIN mentors_member m ON b.id=m.id ");
+			sql.append("	WHERE m.nick_name=?" );
+			sql.append(")WHERE rnum BETWEEN ? AND ? ");
+			sql.append("ORDER BY post_no DESC");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, searchText);
 			pstmt.setLong(2, pagination.getStartRowNumber());
 			pstmt.setLong(3, pagination.getEndRowNumber());
 			rs = pstmt.executeQuery();

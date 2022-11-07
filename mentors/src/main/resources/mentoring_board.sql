@@ -54,7 +54,7 @@ SELECT row_number() over(ORDER BY post_no DESC) as rnum, post_no, title, hits, T
 FROM mentoring_board
 
 -- sub query 이용해서 rnum 1 ~ 5 까지 출력
-SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name
+SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name
 FROM(
 	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
 	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
@@ -82,7 +82,7 @@ WHERE title LIKE '%사자%'
 SELECT count(*) FROM mentoring_board WHERE title LIKE '%사자%'
 
 -- 검색 제목 조회(페이징네이션 포함)
-SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.id, m.nick_name
+SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name
 FROM(
 	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
 	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
@@ -93,12 +93,45 @@ FROM(
 WHERE rnum BETWEEN 1 AND 5
 ORDER BY b.post_no DESC;
 
+-- 검색 내용 총게시물 수
+SELECT count(*) FROM mentoring_board WHERE content LIKE '%자바%'
 
+-- 검색 내용 조회(페이징네이션 포함)
+SELECT b.rnum, b.post_no, b.title, b.hits, b.time_posted, b.category, b.role, m.nick_name
+FROM(
+	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+	post_no,title, hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+	category, role, id
+	FROM mentoring_board
+	WHERE content LIKE '%자바%'
+) b INNER JOIN mentors_member m ON b.id=m.id
+WHERE rnum BETWEEN 1 AND 5
+ORDER BY b.post_no DESC;
 
+-- 검색 작성자 총게시물 수
+SELECT count(*) FROM mentoring_board b
+INNER JOIN mentors_member m ON b.id=m.id
+WHERE m.nick_name='아이유'
 
+-- 검색 작성자 조회
+SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+b.category, b.role, m.nick_name
+FROM mentoring_board b
+INNER JOIN mentors_member m ON b.id=m.id
+WHERE m.nick_name='장기하'
 
-
-
+-- 검색 작성자 조회(페이징네이션 포함)
+SELECT rnum, post_no, title, hits, time_posted, category, role, nick_name
+FROM(
+	SELECT row_number() over(ORDER BY post_no DESC) as rnum,
+	b.post_no, b.title, b.hits, TO_CHAR(time_posted, 'YYYY.MM.DD') as time_posted,
+	b.category, b.role, m.nick_name
+	FROM mentoring_board b
+	INNER JOIN mentors_member m ON b.id=m.id
+	WHERE m.nick_name='장기하'
+)WHERE rnum BETWEEN 1 AND 5
+ORDER BY post_no DESC
 
 
 
