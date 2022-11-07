@@ -3,18 +3,20 @@ package org.kosta.mentors.controller;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.kosta.mentors.model.FreeCommentDAO;
 
-public class FreeCommentDeleteCommentController implements Controller {
+import org.kosta.mentors.model.TipsCommentDAO;
+
+public class TipsCommentDeleteCommentController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if (request.getMethod().equalsIgnoreCase("POST") == false) 
-			throw new ServletException(getClass().getName()+"는 POST METHOD 방식만 가능");
+		if(request.getMethod().equalsIgnoreCase("POST")==false) {
+			throw new ServletException(getClass().getName()+"는  POST 방식만 접근가능");
+		}
 		long postNo=Long.parseLong(request.getParameter("postNo"));
 		long commentNo=Long.parseLong(request.getParameter("commentNo"));
-		FreeCommentDAO.getInstance().deleteComment(commentNo);
-		return "redirect:FreeBoardPostDetailController.do?postNo="+postNo;
+		TipsCommentDAO.getInstance().deleteComment(commentNo);
+		return "redirect:TipsBoardPostDetailController.do?postNo="+postNo;
 	}
 
 }

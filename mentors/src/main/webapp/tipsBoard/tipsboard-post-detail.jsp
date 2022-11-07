@@ -59,10 +59,18 @@
 						<input type="hidden" name="commentNo" value="${comment.commentNo}">
 					</form>
 					<form id="deleteCommentForm"  action="TipsCommentDeleteCommentController.do" method="post">
+						<input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
 						<input type="hidden" name="commentNo" value="${comment.commentNo}">
 					</form>
 					<button type="submit" onclick="updateComment()">수정</button>
 					<button type="submit" onclick="deleteComment()">삭제</button>
+					<script type="text/javascript">
+						function deleteComment(){
+							if(confirm("삭제하시겠습니까?")){
+								document.getElementById("deleteCommentForm").submit();
+							}
+						}
+					</script>
 				</c:if></td>
 		</tr>
 	</c:forEach>
