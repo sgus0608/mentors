@@ -19,14 +19,14 @@ insert into QUIZ_BOARD
 values(quiz_board_seq.nextval,'법정은 대한민국의 불교 승려이자 수필가다. 무소유의 정신으로 널리 알려져 있으며 수십 권이 넘는 저서를 통해 자신의 철학을 널리 전파했다. 류은진의 직업은?','스님','개발자','사업가','축구선수','개발자','백엔드')
 
 insert into QUIZ_BOARD
-values(quiz_board_seq.nextval,'소프트웨어를 보다 쉽게 이해할 수 있고 적은 비용으로 수정할 수 있도록 겉으로 보이는 동작의 변화 없이 내부구조를 변경하는 것은?
-','	Refactoring
-','Architecting
-','	Specification
-','	Renewal
-','Refactoring
-','정보처리기사')
-
+values(quiz_board_seq.nextval,'호랑이 또는 범, 칡범, 갈범은 식육목 고양이과에 속하는 맹수다. 대한민국의 대표 동물이다. 한국어에서 어린 개체는 개호주라 부른다. 다만 2020년대에는 인터넷 신조어로 고양이와 호랑이를 합쳐 "호양이" 라는 단어가 유행하고 있다. 그래서 KOSTA 250기에서 범이 들어간 사람의 이름은?
+','	몰카범
+','경제사범
+','	할아범
+','	박범
+','박범
+','시범')
+select * from mentors_member
 CREATE SEQUENCE quiz_board_seq;
 update QUIZ_BOARD set answer = '스님' where question4='축구선수'
 commit
