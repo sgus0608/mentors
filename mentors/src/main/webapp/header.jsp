@@ -10,11 +10,17 @@
 						${sessionScope.mvo.nickName}님&nbsp;&nbsp;
 						<a href="javascript:logout()">로그아웃</a>
 						<form id="logoutForm" action="LogoutController.do" method="post"></form>
+						<a onclick="memberUpdate()" style="cursor: pointer;">회원정보수정</a>
+						<form id="memberUpdateForm" action="member/memberUpdatForm.jsp"></form>
 						<script type="text/javascript">
 							function logout() {
 								let result = confirm("로그아웃 하시겠습니까?");
 								if(result)
 									document.getElementById("logoutForm").submit();
+							}
+							function memberUpdate() {
+								
+									document.getElementById("memberUpdateForm").submit();
 							}
 						</script>
 					</c:otherwise>

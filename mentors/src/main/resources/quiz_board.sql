@@ -7,6 +7,7 @@ create table quiz_board(
 	question4 varchar2(100) not null,
 	answer varchar2(100) not null,
 	category varchar2(100) not null
+	
 )
 
 insert into QUIZ_BOARD
