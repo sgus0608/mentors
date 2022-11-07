@@ -88,6 +88,20 @@ public class QnACommentDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public void updateComment(CommentVO commentVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+		  con=dataSource.getConnection();
+		  String sql="update qna_comment set comment_content=? where comment_no=?";
+		  pstmt=con.prepareStatement(sql);
+		  pstmt.setString(1, commentVO.getCommentContent());
+		  pstmt.setLong(2, commentVO.getCommentNo());
+		  pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 

@@ -55,6 +55,7 @@
   	<td>
   	<c:if test="${comment.memberVO.id == sessionScope.mvo.id}">
 	  <form id="updateCommentForm" action="QnACommentUpdateCommentController.do" method="post">
+	  	<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
 	  	<input type="hidden" name="commentNo" value="${comment.commentNo}">
 	  </form>
 	  <form id="deleteCommentForm" action="QnACommentDeleteCommentController.do" method="post">
@@ -63,15 +64,25 @@
 	  </form>
 	  <button type="button" onclick="updateComment()">수정</button>
 	  <button type="button" onclick="deleteComment()">삭제</button>
+	  <form action="/board/addReply.kh" method="post">
+	  <input type="hidden" name="refBoardNo" value="${board.boardNo }">
+	  </form>
+	  
 	  <script type="text/javascript">
 	    function deleteComment(){
 			if(confirm("삭제하시겠습니까?")){
 				document.getElementById("deleteCommentForm").submit();
+				
+			}
+		}
+	    function updateComment() {
+			if(confirm("수정하시겠습니까?")){
+				document.getElementById("updateCommentForm").submit();
 			}
 		}
 	  </script>
   	</c:if>
-	 </td>  	
+	</td>  	
   </tr>
   </c:forEach>
 </table>
