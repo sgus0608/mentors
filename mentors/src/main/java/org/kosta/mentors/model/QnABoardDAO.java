@@ -177,26 +177,7 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 		}
 		return totalPostCount;
 	}
-	// 닉네임으로 검색했을 때 총 게시물 수 구하기 메서드
-	public long getTotalPostCountByNickName(String searchText) throws SQLException {
-		long totalPostCount=0;
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		try {
-			con=dataSource.getConnection();
-			String sql="SELECT COUNT(*) FROM qna_board WHERE title LIKE ?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "%"+searchText+"%");
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				totalPostCount=rs.getLong(1);
-			}
-		} finally {
-			closeAll(rs, pstmt, con);
-		}
-		return totalPostCount;
-	}
+
 	//조회수 업데이트 메서드
 	public void updateHits(long postNo) throws SQLException {
 		Connection con=null;

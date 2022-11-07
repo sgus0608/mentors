@@ -14,6 +14,7 @@ public class QnABoardUpdatePostController implements Controller {
 		if(request.getMethod().equalsIgnoreCase("POST")==false) {
 			throw new ServletException(getClass().getName()+" POST 방식만 접근가능");
 		}
+		
 		long postNo=Long.parseLong(request.getParameter("postNo"));
 		String category=request.getParameter("category");
 		String title=request.getParameter("title");
