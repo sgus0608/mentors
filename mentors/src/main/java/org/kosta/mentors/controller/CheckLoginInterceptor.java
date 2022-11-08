@@ -16,6 +16,7 @@ public class CheckLoginInterceptor {
 		permitAllList.add("TipsBoardFindPostListController");
 		permitAllList.add("LoginController");
 		permitAllList.add("CheckIdController");
+		permitAllList.add("IndexPageController");
 	}
 	public static CheckLoginInterceptor getInstance() {
 		return instance;
