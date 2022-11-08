@@ -32,9 +32,10 @@ public class TipsBoardPostDetailController implements Controller {
 		
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		String id=memberVO.getId();
-		boolean likeFlag=TipsBoardDAO.getInstance().checkLike(postNo, id);		
+		boolean checkLike=TipsBoardDAO.getInstance().checkLike(postNo, id);		
 		
-		request.setAttribute("likeFlag", likeFlag);
+		request.setAttribute("totalLikeCount",TipsBoardDAO.getInstance().getTotalLikeCount(postNo));
+		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("tipsPostVO", tipsPostVO);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("url", "tipsBoard/tipsboard-post-detail.jsp");

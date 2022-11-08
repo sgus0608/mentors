@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-2" align="center">
+  <div class="col-1" align="center">
     <b style="font-size: 1.3rem">글번호</b><br>${tipsPostVO.postNo}
   </div>
   <div class="col-2" align="center">
@@ -19,10 +19,56 @@
   <div class="col-2" align="center">
     <b style="font-size: 1.3rem">작성일</b><br>${tipsPostVO.timePosted}
   </div>
-  <div class="col-2" align="center">
+  <div class="col-1" align="center">
     <b style="font-size: 1.3rem">조회수</b><br>${tipsPostVO.hits}
   </div>
-  
+ <div class="col-1" align="center">
+    <b style="font-size: 1.3rem">좋아요</b><br>${totalLikeCount}
+  </div>
+  <div class="col-2" align="center">
+	<c:choose>
+	  <c:when test="${likeFlag == false}">
+	    <button type="button" id="like" onclick="checkLike()">♡</button>
+	  </c:when>
+	  <c:otherwise>
+	    <button type="button" id="disLike" onclick="checkDisLike()">♥</button>
+	  </c:otherwise>
+	</c:choose>
+	<script type="text/javascript">
+		function checkLike(){
+			let like=document.getElementById("like");
+			let xhr=new XMLHttpRequest();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					if(xhr.responseText=="ok"){
+						like.innerHTML="♥";	
+						likeFlag=true;
+					}else{
+						like.innerHTML="♡";
+					}
+				}//if
+			}//function
+			xhr.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+			xhr.send();
+		}
+		function checkDisLike(){
+			let disLike=document.getElementById("disLike");
+			let xhr2=new XMLHttpRequest();
+			xhr2.onreadystatechange=function(){
+				if(xhr2.readyState==4&&xhr2.status==200){
+					if(xhr2.responseText=="fail"){
+						disLike.innerHTML="♡";
+						likeFlag=false;
+					}else{
+						disLike.innerHTML="♥"
+					}
+				}//if
+			}//function
+			xhr2.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+			xhr2.send();
+		}
+	</script>
+  </div>
 </div>
 <hr>
 <div class="row">

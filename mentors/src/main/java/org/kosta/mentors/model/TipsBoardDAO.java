@@ -378,4 +378,57 @@ public class TipsBoardDAO {
 		}		
 		return result;
 	}
+	
+	public void insertLike(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="insert into free_like values(?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}		
+	}	
+	
+	public void deleteLike(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from free_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);	
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}		
+	}
+	
+	public long getTotalLikeCount(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long likeTotal=0L;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_like where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				likeTotal-=1;
+			} else {
+				likeTotal+=1;
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return likeTotal;
+	}
+
 }
