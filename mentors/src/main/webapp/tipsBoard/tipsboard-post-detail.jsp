@@ -22,6 +22,7 @@
   <div class="col-2" align="center">
     <b style="font-size: 1.3rem">조회수</b><br>${tipsPostVO.hits}
   </div>
+  
 </div>
 <hr>
 <div class="row">

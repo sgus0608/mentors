@@ -357,4 +357,25 @@ public class TipsBoardDAO {
 		}
 		return list;
 	}
+
+	public boolean checkLike(long postNo, String id) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		boolean result=false;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from tips_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&rs.getLong(1)>0) {
+				result=true;
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}		
+		return result;
+	}
 }
