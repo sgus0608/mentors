@@ -18,6 +18,13 @@ public class FrontControllerServlet extends HttpServlet {
 		try {
 			String servletPath = request.getServletPath();
 			String controllerName = servletPath.substring(1,servletPath.lastIndexOf("."));
+			
+			boolean checkList=CheckLoginInterceptor.getInstance().checkLogin(request, controllerName);
+			if(checkList==false) {
+				response.sendRedirect("interceptor.jsp");
+				return;
+			}
+			
 			Controller controller = HandlerMapping.getInstance().create(controllerName);
 			String viewPath = controller.handleRequest(request, response);
 			if(viewPath.startsWith("redirect:")) {

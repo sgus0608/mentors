@@ -39,7 +39,6 @@
   </form>
   <button type="button" onclick="updatePost()">수정</button>
   <button type="button" onclick="deletePost()">삭제</button>
-  <br><br><br>
   <script type="text/javascript">
     function updatePost() {
 	  if(confirm("수정하시겠습니까?")){
