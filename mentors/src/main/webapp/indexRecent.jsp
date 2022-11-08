@@ -25,9 +25,9 @@
 					</c:when>
 					<c:otherwise>
 						${sessionScope.mvo.nickName}님&nbsp;&nbsp;
-						<a href="javascript:logout()">로그아웃</a>
-						<form id="logoutForm" action="LogoutController.do" method="post"></form>
-						<a onclick="memberUpdate()" style="cursor: pointer;">회원정보수정</a>
+						<a href="javascript:logout()" style="display: inline; cursor: pointer; text-decoration: none;">로그아웃</a>
+						<form id="logoutForm" action="LogoutController.do" method="post" style="display: inline;"></form>
+						<a onclick="memberUpdate()" style="cursor: pointer; display: inline;">회원정보수정</a>
 						<form id="memberUpdateForm" action="member/memberUpdatForm.jsp"></form>
 						<script type="text/javascript">
 							function logout() {
