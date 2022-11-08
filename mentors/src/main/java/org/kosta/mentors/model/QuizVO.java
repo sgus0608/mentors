@@ -9,6 +9,8 @@ public class QuizVO {
 	private String question4;
 	private String answer;
 	private String category;
+	private long countLike;
+	private int likeFlag;
 	
 	public QuizVO(long no, String content, String question1, String question2, String question3, String question4, String answer,
 			String category) {
@@ -23,6 +25,21 @@ public class QuizVO {
 		this.category = category;
 	}
 	
+	public QuizVO(long no, String content, String question1, String question2, String question3, String question4,
+			String answer, String category, long countLike) {
+		super();
+		this.no = no;
+		this.content = content;
+		this.question1 = question1;
+		this.question2 = question2;
+		this.question3 = question3;
+		this.question4 = question4;
+		this.answer = answer;
+		this.category = category;
+		this.countLike = countLike;
+	}
+
+
 	public QuizVO() {
 		super();
 	}
@@ -91,11 +108,27 @@ public class QuizVO {
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "QuizVO [no=" + no + ", content=" + content + ", question1=" + question1 + ", question2=" + question2 + ", question3=" + question3
-				+ ", question4=" + question4 + ", answer=" + answer + ", Category=" + category + "]";
+	public long getCountLike() {
+		return countLike;
+	}
+
+	public void setCountLike(long countLike) {
+		this.countLike = countLike;
 	}
 	
+	public int getLikeFlag() {
+		return likeFlag;
+	}
+
+	public void setLikeFlag(int likeFlag) {
+		this.likeFlag = likeFlag;
+	}
+
+	@Override
+	public String toString() {
+		return "QuizVO [no=" + no + ", content=" + content + ", question1=" + question1 + ", question2=" + question2
+				+ ", question3=" + question3 + ", question4=" + question4 + ", answer=" + answer + ", category="
+				+ category + ", countLike=" + countLike + "]";
+	}
 	
 }

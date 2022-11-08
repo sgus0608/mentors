@@ -2,7 +2,9 @@ package org.kosta.mentors.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.kosta.mentors.model.MemberVO;
 import org.kosta.mentors.model.Pagination;
 import org.kosta.mentors.model.QuizDAO;
 
@@ -11,16 +13,22 @@ public class QuizFindPostListController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String quizNo = request.getParameter("quiz_no");
+		String pageNo = request.getParameter("quiz_no");
 		Pagination pagination = null;
 		long totalPostCount = QuizDAO.getInstance().getTotalPostCount();
-		if(quizNo==null) {
+		if(pageNo==null) {
 			pagination = new Pagination(totalPostCount);
 		}else {
-			pagination=new Pagination(totalPostCount,Long.parseLong(quizNo));
+			pagination=new Pagination(totalPostCount,Long.parseLong(pageNo));
 		}
 		
-		request.setAttribute("list", QuizDAO.getInstance().FindPostList(pagination));
+		HttpSession session = request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		String id = mvo.getId();
+		
+		request.setAttribute("list", QuizDAO.getInstance().FindPostList(pagination,id));
+		
+		
 		request.setAttribute("pagination", pagination);
 		request.setAttribute("url","quizBoard/quiz-list.jsp");
 		

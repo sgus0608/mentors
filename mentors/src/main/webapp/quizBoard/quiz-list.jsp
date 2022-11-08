@@ -55,20 +55,50 @@ button{
   		<input type="radio" name="${post.no}" value="${post.question3}"><label>${post.question3 }</label>  &nbsp; &nbsp; &nbsp;
   		<input type="radio" name="${post.no}" value="${post.question4}"><label>${post.question4 }</label>
   		<br>
-  		<span id="${post.no }"></span>
+  		<span id="${post.no }"></span> <br>
   		
-  		<button onclick="checkAnswer('${post.no}')">제출</button>
+  		<h2 style="display: inline;">💝 :</h2> <h4 style="display: inline;"><span id="1${post.no}" style="display: run-in;">${post.countLike}</span></h4>
   		
-  		<form action="quizLikeController.do" >
-  		<input type="hidden" name="quiz_no" value=${post.no }>
-  		<button >좋아요</button>
-  		</form>
+  		<button type="button" onclick="checkAnswer('${post.no}')">제출</button>
+  		<c:choose>
+		<c:when test="${post.likeFlag==1 }">
+  		<button type="button" onclick="likebtn('${post.no }')" id="2${post.no}">💔</button>
+		</c:when>
+		<c:otherwise>
+  		<button type="button" onclick="likebtn('${post.no }')" id="2${post.no}">💖</button>
+		
+		</c:otherwise>
+  		</c:choose>
   	</div>
   <br>
   
   
  </c:forEach>
 <script type="text/javascript">
+	function likebtn(postNo) {
+		
+	
+		let likecountspan = document.getElementById("1"+postNo);
+		let likebtnspan = document.getElementById("2"+postNo);
+		let xhr1 = new XMLHttpRequest();
+		
+		xhr1.onreadystatechange = function () {
+			if(xhr1.readyState==4&&xhr1.status==200){
+					let result = JSON.parse(xhr1.responseText);
+				if(result.message=="ok"){
+					console.log(result.count);
+					likecountspan.innerHTML= result.count;	
+					likebtnspan.innerHTML = "💔";
+				}else{
+					likecountspan.innerHTML= result.count;
+					likebtnspan.innerHTML = "💖";
+				}
+			}
+		}
+			xhr1.open("get","${pageContext.request.contextPath}/QuizLikeController.do?quizNo="+postNo);
+			xhr1.send(); 
+			
+	} 
 	
 	function checkAnswer(postNo) {
 		let pn = document.getElementsByName(postNo);

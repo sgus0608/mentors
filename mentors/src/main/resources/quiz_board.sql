@@ -9,7 +9,7 @@ create table quiz_board(
 	category varchar2(100) not null
 	
 )
-
+select count(*) from  quiz_likeBoard where quiz_no=2
 insert into QUIZ_BOARD
 values(quiz_board_seq.nextval, '이순신은 조선 중기의 무신이었다. 본관은 덕수, 자는 여해, 시호는 충무였으며, 한성 출신이었다. 문반 가문 출신으로 1576년 무과에 급제하여 그 관직이 동구비보 권관, 훈련원 봉사, 발포진 수군만호, 조산보 만호, 전라좌도수사를 거쳐 정헌대부 삼도수군통제사에 이르렀다. 그래서 김훈진의 나이는?','25','125','24','14','14','JAVA')
 
@@ -52,3 +52,12 @@ create table quiz_likeBoard(
 	constraint quiz_likeboard_quizno_fk foreign key(quiz_no) references quiz_board(quiz_no),
 	constraint quiz_likeboard_quizid_fk foreign key(id) references mentors_member(id)
 )
+
+
+
+select * from mentors_member
+
+select * from quiz_likeBoard
+
+
+insert into quiz_likeBoard values(1,'java')

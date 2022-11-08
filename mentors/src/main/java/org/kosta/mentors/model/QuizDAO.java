@@ -28,7 +28,7 @@ public class QuizDAO {
 			rs.close();
 		closeAll(pstmt, con);
 	}
-	public ArrayList<QuizVO> FindPostList(Pagination pagination) throws SQLException {
+	public ArrayList<QuizVO> FindPostList(Pagination pagination,String id) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs =null;
@@ -49,6 +49,8 @@ public class QuizDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new QuizVO(rs.getLong("quiz_no"),rs.getString("quiz_content"), rs.getString("question1"), rs.getString("question2"), rs.getString("question3"), rs.getString("question4"), rs.getString("answer"), rs.getString("category"));
+				vo.setCountLike(quizLikeCount(rs.getLong("quiz_no")));
+				vo.setLikeFlag(checkLike(rs.getLong("quiz_no"), id));
 				list.add(vo);
 			}
 		} finally {
@@ -200,6 +202,53 @@ public class QuizDAO {
 			closeAll(rs, pstmt, con);
 		}
 		return count;
+	}
+	public int checkLike(long quizNo, String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		int result = 0;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select count(*) from quiz_likeBoard where quiz_no=? and id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, quizNo);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return result;
+	}
+	public void quizLikeInsert(long quizNo, String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		try {
+			con =dataSource.getConnection();
+			String sql = "insert into quiz_likeBoard values(?,?)";
+			pstmt= con.prepareStatement(sql); 
+			pstmt.setLong(1, quizNo);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+	public void quizLikeDelete(String id) throws SQLException {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			try {
+				con = dataSource.getConnection();
+				String sql = "delete from quiz_likeBoard where id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+			} finally {
+				closeAll(pstmt, con);
+			}
 	}
 	
 }
