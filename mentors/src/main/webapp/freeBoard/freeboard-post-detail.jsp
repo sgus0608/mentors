@@ -1,23 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="row">
 	<div class="col-12">
 		<p style="font-size: 2rem; font-weight: bold">${postVO.title}</p>
 	</div>
 </div>
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		글번호 : ${postVO.postNo}
 	</div>
 	<div class="col-3">
 		작성자 : ${postVO.memberVO.nickName}
 	</div>
-	<div class="col-4">
+	<div class="col-3">
 		작성일 : ${postVO.timePosted}
 	</div>
 	<div class="col-2">
 		조회수 : ${postVO.hits}
+	</div>
+	<div>
+		<form>
+		<c:choose>
+			<c:when test="${likeFlag == false}">
+				<button type="button" id="like" onclick="checkLike()">♡</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" id="disLike" onclick="checkDisLike()">♥</button>
+			</c:otherwise>
+		</c:choose>	
+		</form>		
+		<script type="text/javascript">
+			function checkLike(){
+				let like=document.getElementById("like");
+				let xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						if(xhr.responseText=="ok"){
+							like.innerHTML="♥";	
+							likePush();
+							likeFlag=true;
+						}else{
+							like.innerHTML="♡";
+						}
+					}//if
+				}//function
+				xhr.open("get","CheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+				xhr.send();
+			}
+			function checkDisLike(){
+				let disLike=document.getElementById("disLike");
+				let xhr2=new XMLHttpRequest();
+				xhr2.onreadystatechange=function(){
+					if(xhr2.readyState==4&&xhr2.status==200){
+						if(xhr2.responseText=="fail"){
+							disLike.innerHTML="♡";
+							likeFlag=false;
+						}else{
+							disLike.innerHTML="♥"
+						}
+					}//if
+				}//function
+				xhr2.open("get","CheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+				xhr2.send();
+			}
+		</script>
 	</div>
 </div>
 <hr>
