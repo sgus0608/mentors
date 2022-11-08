@@ -2065,7 +2065,6 @@ input, select, textarea {
 	}
 /* Login Bar */
 	#login-bar{
-		position: relative;
 		background: #F7F7F7;
 		padding: 0 10em 0 0;
 		text-align: right;

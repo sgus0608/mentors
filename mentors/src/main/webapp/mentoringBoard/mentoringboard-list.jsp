@@ -36,7 +36,7 @@
 </table>
 
 <div class="row">
-  <div class="col-4 offset-4">
+  <div class="col-4 offset-4" style="display: inline;">
   <!--
      검색
   -->
@@ -47,8 +47,8 @@
       <option value="내용">내용</option>
       <option value="작성자">작성자</option>
     </select>
-    <input class="form-control mr-2" type="search" name="searchText" required="required">
-    <button class="btn btn-success" type="submit">검색</button>
+    <input class="form-control mr-2" type="search" name="searchText" required="required" style="display: inline;">
+    <button class="btn btn-success" type="submit" style="display: inline;">검색</button>
   </form>
   </nav>
   </div>
@@ -56,9 +56,9 @@
 	 글쓰기 버튼
    -->
   <c:if test="${sessionScope.mvo != null}">
-    <div class="col-2 offset-2" align="right">
-      <form action="MentoringBoardWritePostFormController.do" method="post">
-        <button class="btn btn-success" type="submit">글쓰기</button>
+    <div class="col-2 offset-2" align="right" style="display: inline;">
+      <form action="MentoringBoardWritePostFormController.do" method="post" style="display: inline;">
+        <button class="btn btn-success" type="submit" style="display: inline;">글쓰기</button>
       </form>
     </div>
   </c:if>
