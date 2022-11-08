@@ -39,7 +39,7 @@
      검색
   -->
   <nav class="navbar navbar-expand-sm">
-  <form class="form-inline" action="TipsBoardFindPostListController.do"" method="get">
+  <form class="form-inline" action="TipsBoardFindPostListController.do" method="get">
     <select class="form-control mr-2" name="category">
       <option value="제목">제목</option>
       <option value="내용">내용</option>
