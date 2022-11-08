@@ -181,5 +181,25 @@ public class QuizDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	public long quizLikeCount(long quizNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		ResultSet rs = null;
+		long count = 0;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select count(*) from  quiz_likeBoard where quiz_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, quizNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getLong(1);
+			}
+			
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return count;
+	}
 	
 }

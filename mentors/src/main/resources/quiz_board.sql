@@ -43,3 +43,12 @@ select quiz_content,question1,question2,question3,question4,answer,category from
 
 -- 퀴즈 수정 쿼리문
 UPDATE quiz_board SET quiz_content=?, question1=?, question2=?, question3=?, question4=?, answer=?, category=? WHERE quiz_no=?
+
+
+create table quiz_likeBoard(
+	quiz_no number,
+	id varchar2(100),
+	constraint quiz_likeboard_pk primary key(quiz_no, id),
+	constraint quiz_likeboard_quizno_fk foreign key(quiz_no) references quiz_board(quiz_no),
+	constraint quiz_likeboard_quizid_fk foreign key(id) references mentors_member(id)
+)

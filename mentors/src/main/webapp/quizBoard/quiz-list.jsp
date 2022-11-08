@@ -58,12 +58,18 @@ button{
   		<span id="${post.no }"></span>
   		
   		<button onclick="checkAnswer('${post.no}')">제출</button>
+  		
+  		<form action="quizLikeController.do" >
+  		<input type="hidden" name="quiz_no" value=${post.no }>
+  		<button >좋아요</button>
+  		</form>
   	</div>
   <br>
   
   
  </c:forEach>
 <script type="text/javascript">
+	
 	function checkAnswer(postNo) {
 		let pn = document.getElementsByName(postNo);
 		let checkResultSpan= document.getElementById(postNo);
