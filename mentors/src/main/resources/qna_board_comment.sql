@@ -24,13 +24,12 @@ inner join mentors_member m on c.id=m.id
 where c.post_no=63
 order by c.comment_no asc;
 
-
+SELECT * FROM qna_comment
 --댓글 삭제 sql
 delete from qna_comment where comment_no=?
 
-SELECT * FROM qna_comment
-
-
+--댓글 수정 sql
+update qna_comment set comment_content=? where comment_no=?; 
 
 
 

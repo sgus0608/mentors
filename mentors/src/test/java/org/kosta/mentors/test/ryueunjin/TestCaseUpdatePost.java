@@ -15,10 +15,10 @@ public class TestCaseUpdatePost {
 	      tipsPostVO.setPostNo(no);
 	      tipsPostVO.setCategory(category);
 	      tipsPostVO.setTitle(title);
-	      tipsPostVO.setContent(content);
-	      System.out.println(no+"번 글 수정결과: "+tipsPostVO);
+	      tipsPostVO.setContent(content);	      
 	      try {
 	         TipsBoardDAO.getInstance().updatePost(tipsPostVO);
+	         System.out.println(no+"번 글 수정결과: "+tipsPostVO);
 	      } catch (SQLException e) {
 	         e.printStackTrace();
 	      }

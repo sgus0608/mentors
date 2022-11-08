@@ -16,9 +16,9 @@ public class TestCaseUpdatePost {
 		qnaPostVO.setCategory(category);
 		qnaPostVO.setTitle(title);
 		qnaPostVO.setContent(content);
-		System.out.println(no+"번 글 수정결과: "+qnaPostVO);
 		try {
 			QnABoardDAO.getInstance().updatePost(qnaPostVO);
+			System.out.println(no+"번 글 수정결과: "+qnaPostVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
