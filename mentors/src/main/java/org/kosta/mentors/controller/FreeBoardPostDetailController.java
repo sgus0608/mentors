@@ -34,6 +34,7 @@ public class FreeBoardPostDetailController implements Controller {
 		String id = memberVO.getId();
 		boolean likeFlag =FreeBoardDAO.getInstance().checkLikeFlag(id, postNo);
 		
+		request.setAttribute("totalLikeCount", FreeBoardDAO.getInstance().likeTotalCount(postNo));
 		request.setAttribute("likeFlag", likeFlag);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("postVO", postVO);
