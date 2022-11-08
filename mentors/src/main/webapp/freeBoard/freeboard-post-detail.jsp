@@ -46,7 +46,7 @@
 					}
 				}//if
 			}//function
-			xhr.open("get","CheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+			xhr.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
 			xhr.send();
 		}
 		function checkDisLike(){
@@ -62,7 +62,7 @@
 					}
 				}//if
 			}//function
-			xhr2.open("get","CheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+			xhr2.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
 			xhr2.send();
 		}
 	</script>
