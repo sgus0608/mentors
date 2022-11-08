@@ -328,7 +328,7 @@ public class FreeBoardDAO {
 		return list;
 	}
 	
-	public void likePush(String id, long postNo) throws SQLException {
+	public void insertLike(String id, long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -343,7 +343,7 @@ public class FreeBoardDAO {
 		}
 	}
 	
-	public void likePop(String id, long postNo) throws SQLException {
+	public void deleteLike(String id, long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -358,7 +358,7 @@ public class FreeBoardDAO {
 		}
 	}
 	
-	public boolean checkLikeFlag(String id, long postNo) throws SQLException {
+	public boolean checkLike(String id, long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -379,7 +379,7 @@ public class FreeBoardDAO {
 		return result;
 	}
 	
-	public long likeTotalCount(long postNo) throws SQLException {
+	public long getTotalLikeCount(long postNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
