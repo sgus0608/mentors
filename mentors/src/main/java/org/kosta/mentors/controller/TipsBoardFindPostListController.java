@@ -66,6 +66,7 @@ public class TipsBoardFindPostListController implements Controller {
 		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
+		request.setAttribute("tipsMenuBar", true);
 		request.setAttribute("url", "tipsBoard/tipsboard-list.jsp");
 		return "layout.jsp";
 	}
