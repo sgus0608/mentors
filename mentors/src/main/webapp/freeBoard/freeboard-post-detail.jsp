@@ -39,7 +39,6 @@
 				if(xhr.readyState==4&&xhr.status==200){
 					if(xhr.responseText=="ok"){
 						like.innerHTML="♥";	
-						likePush();
 						likeFlag=true;
 					}else{
 						like.innerHTML="♡";

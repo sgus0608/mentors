@@ -32,10 +32,10 @@ public class FreeBoardPostDetailController implements Controller {
 		//사용자의 좋아요 유무 판단
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");//MemberVO 객체를 담고 있는 정보
 		String id = memberVO.getId();
-		boolean likeFlag =FreeBoardDAO.getInstance().checkLikeFlag(id, postNo);
+		boolean checkLike =FreeBoardDAO.getInstance().checkLike(id, postNo);
 		
-		request.setAttribute("totalLikeCount", FreeBoardDAO.getInstance().likeTotalCount(postNo));
-		request.setAttribute("likeFlag", likeFlag);
+		request.setAttribute("totalLikeCount", FreeBoardDAO.getInstance().getTotalLikeCount(postNo));
+		request.setAttribute("likeFlag", checkLike); 
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("postVO", postVO);
 		request.setAttribute("url", "freeBoard/freeboard-post-detail.jsp");
