@@ -22,6 +22,7 @@
   <div class="col-2">
     조회수<br>${tipsPostVO.hits}
   </div>
+  
 </div>
 <hr>
 <div class="row">

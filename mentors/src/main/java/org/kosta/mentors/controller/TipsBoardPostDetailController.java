@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.mentors.model.CommentVO;
+import org.kosta.mentors.model.MemberVO;
 import org.kosta.mentors.model.TipsBoardDAO;
 import org.kosta.mentors.model.TipsCommentDAO;
 import org.kosta.mentors.model.TipsPostVO;
@@ -28,6 +29,12 @@ public class TipsBoardPostDetailController implements Controller {
 		
 		TipsPostVO tipsPostVO=tipsBoardDAO.postDetailByNo(postNo);
 		ArrayList<CommentVO> commentList=TipsCommentDAO.getInstance().findCommentList(postNo);
+		
+		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+		String id=memberVO.getId();
+		boolean likeFlag=TipsBoardDAO.getInstance().checkLike(postNo, id);		
+		
+		request.setAttribute("likeFlag", likeFlag);
 		request.setAttribute("tipsPostVO", tipsPostVO);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("url", "tipsBoard/tipsboard-post-detail.jsp");
