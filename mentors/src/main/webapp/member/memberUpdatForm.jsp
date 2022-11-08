@@ -8,9 +8,8 @@
 <title>멘토스 회원가입</title>
   <style type="text/css">
   #deletebtn{
-  	 position: static;
-  	 width: 100px;
-  	 margin: 950px  0px 0px 550px;
+  	margin-left: 1000px;
+  	 
   	
   }
   .deleteForm{
@@ -66,8 +65,10 @@
       <input type="submit" class="btn" value="개인정보 수정"/>
     </form>
     <form id="deleteForm" action="${pageContext.request.contextPath}/deleteMemberController.do" method="post"> 
-	    <button type="submit" class="btn" id="deletebtn" onclick="deleteMember()">회원 탈퇴</button> 
+    
+	    <button type="submit" class="btn" id="deletebtn" onclick="deleteMember()" style="width: 100px">회원 탈퇴</button> 
 	    <input type="hidden" name="id" value=${mvo.id }>
+  
     </form>
     <br>
     <script type="text/javascript">
@@ -79,8 +80,26 @@
     	function checkRegisterForm(event){
     	let password1 = document.getElementById("password1").value;
 		let password2= document.getElementById("password2").value;
+		let email = document.getElementById("email").value;
+		let pw = document.getElementById("password1").value;
+		let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+		let num = pw.search(/[0-9]/g);
+    	let eng = pw.search(/[a-z]/ig);
+    	let spe = pw.search(/[`~!@@#$%^&*|\\\'\";:\/?]/gi);
     		if(password1 != password2){
     			alert("비밀번호가 일치하지 않습니다");
+    			event.preventDefault();
+    		}else if(exptext.test(email)==false){
+    			alert("이메일 형식에 맞게 입력해 주세요");;
+    			event.preventDefault();
+    		}else if(pw.length<8 || pw.length>20){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
+    			event.preventDefault();
+    		}else if(pw.search(/\s/)!= -1){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
+    			event.preventDefault();
+    		}else if(num<0||eng<0||spe<0){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
     			event.preventDefault();
     		}
     	}

@@ -54,13 +54,32 @@
     	function checkRegisterForm(event){
     	let password1 = document.getElementById("password1").value;
 		let password2= document.getElementById("password2").value;
+		let email = document.getElementById("email").value;
+		let pw = document.getElementById("password1").value;
+		let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+		let num = pw.search(/[0-9]/g);
+    	let eng = pw.search(/[a-z]/ig);
+    	let spe = pw.search(/[`~!@@#$%^&*|\\\'\";:\/?]/gi);
     		if(checkFlag==false){
     			alert("아이디가 중복되었습니다");
     			event.preventDefault();
     		}else if(password1 != password2){
     			alert("비밀번호가 일치하지 않습니다");
     			event.preventDefault();
+    		}else if(exptext.test(email)==false){
+    			alert("이메일 형식에 맞게 입력해 주세요");;
+    			event.preventDefault();
+    		}else if(pw.length<8 || pw.length>20){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
+    			event.preventDefault();
+    		}else if(pw.search(/\s/)!= -1){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
+    			event.preventDefault();
+    		}else if(num<0||eng<0||spe<0){
+    			alert("비밀번호 형식에 맞게 입력해주세요");
+    			event.preventDefault();
     		}
+    			
     	}
     	function checkEmail() {
 			let email = document.getElementById("email").value;
