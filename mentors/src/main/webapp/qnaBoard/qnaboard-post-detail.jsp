@@ -22,7 +22,7 @@
   <div class="col-1" align="center">
     <b style="font-size: 1.3rem">조회수</b><br>${qnaPostVO.hits}
   </div>
-	<div class="col-2" align="center">
+  <div class="col-2" align="center">
     <b style="font-size: 1.3rem">좋아요</b><br>${totalLikeCount}
   </div>
   <div class="col-2" align="center">
