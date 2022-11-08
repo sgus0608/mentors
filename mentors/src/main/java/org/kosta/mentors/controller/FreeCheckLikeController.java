@@ -8,7 +8,7 @@ import org.kosta.mentors.model.FreeBoardDAO;
 import org.kosta.mentors.model.MemberVO;
 
 
-public class CheckLikeController implements Controller {
+public class FreeCheckLikeController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
