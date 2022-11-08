@@ -12,11 +12,11 @@ public class CheckLoginInterceptor {
 		permitAllList.add("FreeBoardFindPostListController"); 
 		permitAllList.add("MentoringBoardFindPostListController");
 		permitAllList.add("QnABoardFindPostListController");
-		permitAllList.add("RegisterMemberController");
 		permitAllList.add("TipsBoardFindPostListController");
-		permitAllList.add("LoginController");
-		permitAllList.add("CheckIdController");
 		permitAllList.add("IndexPageController");
+		permitAllList.add("LoginController");
+		permitAllList.add("RegisterMemberController");
+		permitAllList.add("CheckIdController");
 	}
 	public static CheckLoginInterceptor getInstance() {
 		return instance;
