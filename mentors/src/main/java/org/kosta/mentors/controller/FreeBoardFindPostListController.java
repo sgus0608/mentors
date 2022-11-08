@@ -63,6 +63,7 @@ public class FreeBoardFindPostListController implements Controller {
 		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
+		request.setAttribute("freeMenuBar", true);
 		request.setAttribute("url", "freeBoard/freeboard-list.jsp");
 		return "layout.jsp";
 	}

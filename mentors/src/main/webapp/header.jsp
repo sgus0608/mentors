@@ -33,11 +33,46 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
+							<c:choose>
+								<c:when test="${mentoringMenuBar != null}">
 								<li class="current"><a href="MentoringBoardFindPostListController.do">멘토링</a></li>
+								</c:when>
+								<c:otherwise>
+								<li><a href="MentoringBoardFindPostListController.do">멘토링</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${freeMenuBar != null}">
+								<li class="current"><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
+								</c:when>
+								<c:otherwise>
 								<li><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${qnaMenuBar != null}">
+								<li class="current"><a href="QnABoardFindPostListController.do">질문게시판</a></li>
+								</c:when>
+								<c:otherwise>
 								<li><a href="QnABoardFindPostListController.do">질문게시판</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${tipsMenuBar != null}">
+								<li class="current"><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
+								</c:when>
+								<c:otherwise>
 								<li><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${quizMenuBar != null}">
+								<li class="current"><a href="QuizFindPostListController.do">오늘의 퀴즈</a></li>
+								</c:when>
+								<c:otherwise>
 								<li><a href="QuizFindPostListController.do">오늘의 퀴즈</a></li>
+								</c:otherwise>
+							</c:choose>
 							</ul>
 						</nav>
 				</section>

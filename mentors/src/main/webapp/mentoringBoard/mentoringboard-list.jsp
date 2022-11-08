@@ -34,26 +34,37 @@
   </c:forEach>
   </tbody>
 </table>
-<!--
-	 글쓰기 버튼
- -->
-<c:if test="${sessionScope.mvo != null}">
-  <form action="MentoringBoardWritePostFormController.do" method="post">
-    <button type="submit">글쓰기</button>
-  </form>
-</c:if>
-<!--
+
+<div class="row">
+  <div class="col-4 offset-4">
+  <!--
      검색
- -->
-<form action="MentoringBoardFindPostListController.do" method="get">
-  <select name="category">
-    <option value="제목">제목</option>
-    <option value="내용">내용</option>
-    <option value="작성자">작성자</option>
-  </select>
-  <input type="text" name="searchText" required="required">
-  <button type="submit">검색</button>
-</form>
+  -->
+  <nav class="navbar navbar-expand-sm">
+  <form class="form-inline" action="MentoringBoardFindPostListController.do" method="get">
+    <select class="form-control mr-2" name="category">
+      <option value="제목">제목</option>
+      <option value="내용">내용</option>
+      <option value="작성자">작성자</option>
+    </select>
+    <input class="form-control mr-2" type="search" name="searchText" required="required">
+    <button class="btn btn-success" type="submit">검색</button>
+  </form>
+  </nav>
+  </div>
+  <!--
+	 글쓰기 버튼
+   -->
+  <c:if test="${sessionScope.mvo != null}">
+    <div class="col-2 offset-2" align="right">
+      <form action="MentoringBoardWritePostFormController.do" method="post">
+        <button class="btn btn-success" type="submit">글쓰기</button>
+      </form>
+    </div>
+  </c:if>
+</div>
+<hr>
+
 <!--
      Pagination
      검색 category 유무에 따라 페이징네이션 컨트롤러 경로 변경

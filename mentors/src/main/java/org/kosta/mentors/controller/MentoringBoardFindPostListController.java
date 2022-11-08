@@ -62,6 +62,7 @@ public class MentoringBoardFindPostListController implements Controller {
 		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
+		request.setAttribute("mentoringMenuBar", true);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-list.jsp");
 		return "layout.jsp";
 	}
