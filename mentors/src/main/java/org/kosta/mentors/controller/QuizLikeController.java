@@ -13,7 +13,7 @@ public class QuizLikeController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long quizNo = Long.parseLong(request.getParameter("quizNo"));
-		System.out.println(quizNo);
+	
 		//request.setAttribute("count", count);
 		HttpSession session = request.getSession(false);
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
