@@ -22,9 +22,10 @@
 </div>
 <hr>
 <div class="row">
-	<pre>${postVO.content}</pre>
+  <div class="col-12">
+    <pre>${postVO.content}</pre>
+  </div>
 </div>
-<hr>
 <c:if test="${postVO.memberVO.id == sessionScope.mvo.id}">
 <div class="row">
 	<div class="col-3 offset-9">
@@ -34,7 +35,7 @@
 	<form id="deleteForm" action="FreeBoardDeletePostController.do" method="post">
 		<input type="hidden" name="postNo" value="${postVO.postNo}">
 	</form>
-	<button type="button" onclick="updatePost()">수정</button>
+	<button type="button" onclick="updatePost()">글수정</button>
 	<button type="button" onclick="deletePost()">삭제</button>
 	<script type="text/javascript">
 		function updatePost() {
@@ -49,6 +50,7 @@
 	</div>
 </div>
 </c:if>
+<hr>
 <div class="row">
 	<div class="col-12">
 		<c:forEach items="${commentList}" var="comment">
@@ -79,7 +81,7 @@
 							<input type="hidden" name="commentNo" value="${comment.commentNo}">
 							<input type="hidden" name="postNo" value="${postVO.postNo}">
 						</form>
-						<button type="button" onclick="updateComment_${comment.commentNo}()">수정하기</button>
+						<button type="button" onclick="updateComment_${comment.commentNo}()">댓글수정</button>
 						<button type="button" onclick="deleteComment_${comment.commentNo}()">삭제</button>
 						<script type="text/javascript">
 							let updateBtnFlag_${comment.commentNo} = false;
