@@ -31,9 +31,10 @@ public class QnABoardPostDetailController implements Controller {
 		
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		String id=memberVO.getId();
-		boolean likeFlag=QnABoardDAO.getInstance().checkLike(postNo, id);
+		boolean checkLike=QnABoardDAO.getInstance().checkLike(postNo, id);
 		
-		request.setAttribute("likeFlag", likeFlag);
+		request.setAttribute("totalLikeCount", QnABoardDAO.getInstance().getTotalLikeCount(postNo));
+		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("qnaPostVO", qnaPostVO);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("url", "qnaBoard/qnaboard-post-detail.jsp");
