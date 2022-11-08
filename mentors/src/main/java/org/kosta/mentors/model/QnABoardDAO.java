@@ -356,13 +356,41 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			pstmt.setLong(1, postNo);
 			pstmt.setString(2, id);
 			rs=pstmt.executeQuery();
-			if(rs.next()&&rs.getInt(1)>0) {
+			if(rs.next()&&rs.getLong(1)>0) {
 				result=true;
 			}
 		} finally {
 			closeAll(rs, pstmt, con);
 		}
 		return result;
+	}
+	public void insertLike(String id,long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="INSERT INTO qna_like VALUES(?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setLong(2, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
+	}
+	public void deleteLike(String id,long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="DELETE FROM qna_like WHERE id=? AND post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setLong(2, postNo);
+			pstmt.executeUpdate();
+		} finally {
+			closeAll(pstmt, con);
+		}
 	}
 }
 

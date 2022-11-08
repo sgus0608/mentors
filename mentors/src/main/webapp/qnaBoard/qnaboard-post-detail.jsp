@@ -22,6 +22,7 @@
   <div class="col-2">
     조회수<br>${qnaPostVO.hits}
   </div>
+
 </div>
 <hr>
 <div class="row">
