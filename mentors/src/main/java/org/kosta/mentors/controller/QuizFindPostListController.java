@@ -22,6 +22,7 @@ public class QuizFindPostListController implements Controller {
 		
 		request.setAttribute("list", QuizDAO.getInstance().FindPostList(pagination));
 		request.setAttribute("pagination", pagination);
+		request.setAttribute("quizMenuBar", true);
 		request.setAttribute("url","quizBoard/quiz-list.jsp");
 		
 		return "layout.jsp";

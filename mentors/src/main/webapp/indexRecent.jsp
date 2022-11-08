@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<%-- 부트스트랩 시작 --%>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<%-- 부트스트랩 끝 --%>
@@ -52,7 +53,7 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="MentoringBoardFindPostListController.do">멘토링</a></li>
+								<li><a href="MentoringBoardFindPostListController.do">멘토링</a></li>
 								<li><a href="FreeBoardFindPostListController.do">자유게시판</a></li>
 								<li><a href="QnABoardFindPostListController.do">질문게시판</a></li>
 								<li><a href="TipsBoardFindPostListController.do">유용한 정보</a></li>
@@ -73,34 +74,40 @@
 				<section id="main">
 					<div class="container">
 						<div class="row">
-							<div class="col-4 offset-2">
-								<a style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;" href="MentoringBoardFindPostListController.do">멘토링게시판</a>
-								<ul>
+							<div class="col-5 offset-1">
+							  <a href="MentoringBoardFindPostListController.do" style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;">멘토링</a>
+							  <div class="list-group">
 								<c:forEach items="${mentoringList}" var="mentoring">
-								  <li><a href="MentoringBoardPostDetailController.do?postNo=${mentoring.postNo}">${mentoring.title}</a></li>
+								  <a href="MentoringBoardPostDetailController.do?postNo=${mentoring.postNo}" class="list-group-item list-group-item-action" style="text-decoration-line: none;">- ${mentoring.title}</a>
 								</c:forEach>
-								</ul>
+							  </div>
 							</div>	
-							<div class="col-4 offset-2">
-								<a style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;" href="FreeBoardFindPostListController.do">자유게시판</a>
+							<div class="col-5 offset-1">
+							  <a href="FreeBoardFindPostListController.do" style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;">자유게시판</a>
+							  <div class="list-group">
 								<c:forEach items="${freeList}" var="free">
-								  <li><a href="FreeBoardPostDetailController.do?postNo=${free.postNo}">${free.title}</a></li>
+								  <a href="FreeBoardPostDetailController.do?postNo=${free.postNo}" class="list-group-item list-group-item-action" style="text-decoration-line: none;">- ${free.title}</a>
 								</c:forEach>
+							  </div>
 							</div>
 						</div>
 						<br>
 						<div class="row">
-							<div class="col-4 offset-2">
-								<a style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;" href="QnABoardFindPostListController.do">QnA</a>
+							<div class="col-5 offset-1">
+							  <div class="list-group">
+								<a href="QnABoardFindPostListController.do" style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;">질문게시판</a>
 								<c:forEach items="${qnaList}" var="qna">
-								  <li><a href="TipsBoardPostDetailController.do?postNo=${qna.postNo}">${qna.title}</a></li>
+								  <a href="QnABoardPostDetailController.do?postNo=${qna.postNo}" class="list-group-item list-group-item-action" style="text-decoration-line: none;">- ${qna.title}</a>
 								</c:forEach>
+							  </div>
 							</div>	
-							<div class="col-4 offset-2">
-								<a style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;" href="TipsBoardFindPostListController.do">유용한정보</a>
+							<div class="col-5 offset-1">
+							  <div class="list-group">
+								<a href="TipsBoardFindPostListController.do" style="font-size: 1.5rem; font-weight: bold; text-decoration-line: none;">유용한 정보</a>
 								<c:forEach items="${tipsList}" var="tips">
-								  <li><a href="QnABoardPostDetailController.do?postNo=${tips.postNo}">${tips.title}</a></li>
+								  <a href="TipsBoardPostDetailController.do?postNo=${tips.postNo}" class="list-group-item list-group-item-action" style="text-decoration-line: none;">- ${tips.title}</a>
 								</c:forEach>
+							  </div>
 							</div>
 						</div>
 					</div>

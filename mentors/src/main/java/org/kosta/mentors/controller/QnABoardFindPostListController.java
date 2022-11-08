@@ -63,6 +63,7 @@ public class QnABoardFindPostListController implements Controller {
 		request.setAttribute("searchText", searchText);
 		request.setAttribute("list", list);
 		request.setAttribute("pagination", pagination);
+		request.setAttribute("qnaMenuBar", true);
 		request.setAttribute("url", "qnaBoard/qnaboard-list.jsp");
 		return "layout.jsp";
 	}
