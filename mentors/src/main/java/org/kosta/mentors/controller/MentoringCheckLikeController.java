@@ -5,26 +5,37 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.mentors.model.MentoringBoardDAO;
+import org.json.JSONObject;
 import org.kosta.mentors.model.MemberVO;
 
 public class MentoringCheckLikeController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session=request.getSession(false);
-		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");//MemberVO 객체를 담고 있는 정보
-		String id = memberVO.getId();
-		long postNo=Long.parseLong(request.getParameter("postNo"));
-		boolean result=MentoringBoardDAO.getInstance().checkLike(id, postNo);
+		long postNo = Long.parseLong(request.getParameter("postNo"));
+		
+		HttpSession session = request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		String id = mvo.getId();
+		
+		boolean result=MentoringBoardDAO.getInstance().checkLike(postNo, id);
 		String message=null;
-		if(result==true) {
+		
+		if(result) {
+			MentoringBoardDAO.getInstance().deleteLike(postNo, id);
 			message="fail";
-			MentoringBoardDAO.getInstance().deleteLike(id, postNo);
 		}else {
+			MentoringBoardDAO.getInstance().insertLike(postNo, id);
 			message="ok";
-			MentoringBoardDAO.getInstance().insertLike(id, postNo);
 		}
-		request.setAttribute("responsebody", message);//AjaxViewServlet이 클라이언트에게 응답하도록 저장 
+		
+		long countLike = MentoringBoardDAO.getInstance().getTotalLikeCount(postNo);
+		
+		JSONObject json = new JSONObject();
+		json.put("message", message);
+		json.put("countLike", countLike);
+		
+		request.setAttribute("responsebody", json);//AjaxViewServlet이 클라이언트에게 응답하도록 저장 
 		return "AjaxView";
 	}
 
