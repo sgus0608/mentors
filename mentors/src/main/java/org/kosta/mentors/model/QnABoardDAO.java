@@ -392,6 +392,27 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			closeAll(pstmt, con);
 		}
 	}
+	public long getTotalLikeCount(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalLikeCount=0L;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from qna_like where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				totalLikeCount-=1;
+			} else {
+				totalLikeCount+=1;
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalLikeCount;
+	}
 }
 
 
