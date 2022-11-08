@@ -328,7 +328,78 @@ public class FreeBoardDAO {
 		return list;
 	}
 	
+	public void likePush(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="insert into free_like values(?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
 	
+	public void likePop(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from free_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);	
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	public boolean checkLikeFlag(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		boolean result=false;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				result=true;
+			} 
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	public long likeTotalCount(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long likeTotal=0L;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from free_like where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				likeTotal-=1;
+			} else {
+				likeTotal+=1;
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return likeTotal;
+	}
 }
 
 

@@ -92,6 +92,12 @@ from(
 ) where rnum between 1 and 5
 order by post_no desc
 
-
-
-
+create table free_like(
+   post_no number,
+   id varchar2(100),
+   constraint free_like_pk primary key(post_no, id),
+   constraint free_like_postno_fk foreign key(post_no) references free_board(post_no),
+   constraint free_like_id_fk foreign key(id) references mentors_member(id)
+)
+ select * from free_like;
+ insert into free_like values(61,'java');
