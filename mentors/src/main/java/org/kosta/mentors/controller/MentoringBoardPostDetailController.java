@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.mentors.model.CommentVO;
+import org.kosta.mentors.model.MemberVO;
 import org.kosta.mentors.model.MentoringBoardDAO;
 import org.kosta.mentors.model.MentoringCommentDAO;
 import org.kosta.mentors.model.MentoringPostVO;
@@ -25,8 +26,13 @@ public class MentoringBoardPostDetailController implements Controller {
 			list.add(postNo);
 		}
 		
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		boolean checkLike = MentoringBoardDAO.getInstance().checkLike(mvo.getId(), postNo);
+		
 		MentoringPostVO postVO = MentoringBoardDAO.getInstance().postDetailByNo(postNo);
 		ArrayList<CommentVO> commentList = MentoringCommentDAO.getInstance().findCommentList(postNo);
+		request.setAttribute("totalLikeCount", MentoringBoardDAO.getInstance().getTotalLikeCount(postNo));
+		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("postVO", postVO);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-post-detail.jsp");

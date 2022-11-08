@@ -383,6 +383,79 @@ public class MentoringBoardDAO {
 		}
 		return list;
 	}
+
+	public boolean checkLike(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		boolean result=false;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from mentoring_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				result=true;
+			} 
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	public void insertLike(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="insert into mentoring_like values(?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+
+	public void deleteLike(String id, long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="delete from mentoring_like where post_no=? and id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			pstmt.setString(2, id);	
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	public long getTotalLikeCount(long postNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		long totalLikeCount=0L;
+		try {
+			con=dataSource.getConnection();
+			String sql="select count(*) from mentoring_like where post_no=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setLong(1, postNo);
+			rs=pstmt.executeQuery();
+			if(rs.next() && rs.getInt(1)>0) {
+				totalLikeCount-=1;
+			} else {
+				totalLikeCount+=1;
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalLikeCount;
+	}
 	
 }
 
