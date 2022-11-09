@@ -4,9 +4,11 @@ CREATE TABLE mentoring_comment (
 	comment_time_posted DATE NOT NULL,
 	post_no NUMBER NOT NULL,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT mentoring_comment_postno_fk FOREIGN KEY(post_no) REFERENCES mentoring_board(post_no),
-	CONSTRAINT mentoring_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT mentoring_comment_postno_fk FOREIGN KEY(post_no) REFERENCES mentoring_board(post_no) ON DELETE CASCADE,
+	CONSTRAINT mentoring_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id) ON DELETE CASCADE
 )
+
+DROP TABLE mentoring_comment;
 
 CREATE SEQUENCE mentoring_comment_seq;
 
