@@ -17,7 +17,7 @@
             </td>
          </tr>
          <tr>
-            <td><textarea rows="10" class="form-control" name="content"  required="required">${tipsPostVO.content}</textarea></td>
+            <td><textarea rows="20" class="form-control" name="content"  required="required">${tipsPostVO.content}</textarea></td>
          </tr>
       </table>
       <div class="text-center">

@@ -8,7 +8,7 @@
       <td><input type="text" name="answer" placeholder="정답" required="required"></td>
     </tr>
     <tr>
-      <td colspan="4"><textarea rows="10" class="form-control" name="content" placeholder="질문내용" required="required"></textarea></td>
+      <td colspan="4"><textarea rows="20" class="form-control" name="content" placeholder="질문내용" required="required"></textarea></td>
     </tr>
     <tr>
       <td><input type="text" name="question1" placeholder="질문1" required="required"></td>    

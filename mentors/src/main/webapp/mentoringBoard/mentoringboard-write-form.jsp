@@ -26,7 +26,7 @@
       <td colspan="2"><input type="text" name="title" placeholder="제목" required="required"></td>    
     </tr>
     <tr>
-      <td colspan="2"><textarea rows="10" class="form-control" name="content" placeholder="본문내용" required="required"></textarea></td>
+      <td colspan="2"><textarea rows="20" class="form-control" name="content" placeholder="본문내용" required="required"></textarea></td>
     </tr>
   </table>
   <div class="text-center">
