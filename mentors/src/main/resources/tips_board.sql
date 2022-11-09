@@ -6,11 +6,14 @@ CREATE TABLE tips_board (
 	hits NUMBER DEFAULT 0,
 	category VARCHAR2(100) NOT NULL,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT tipsboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT tipsboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id) on delete cascade
 )
 
 
 CREATE SEQUENCE tips_board_seq;
+
+drop table tips_board;
+drop SEQUENCE tips_board_seq;
 
 
 INSERT INTO tips_board VALUES(tips_board_seq.nextval, '자바개꿀팁', '열심히하세요', sysdate, 0, '프로그래밍', 'java');
