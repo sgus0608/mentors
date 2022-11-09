@@ -15,8 +15,8 @@ public class TipsBoardUpdatePostController implements Controller {
 			throw new ServletException("TipsBoardUpdatePostController는 Post METHOD 방식만 가능");
 		
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
-		String title=request.getParameter("title");
 		String category=request.getParameter("category");
+		String title=request.getParameter("title");
 		String content=request.getParameter("content");
 		TipsPostVO tipsPostVO=new TipsPostVO();
 		tipsPostVO.setTitle(title);

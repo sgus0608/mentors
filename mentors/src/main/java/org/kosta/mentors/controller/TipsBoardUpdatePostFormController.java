@@ -12,7 +12,7 @@ public class TipsBoardUpdatePostFormController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long  postNo=Long.parseLong(request.getParameter("postNo"));
 		TipsPostVO postVO=TipsBoardDAO.getInstance().postDetailByNo(postNo);
-		request.setAttribute("postVO",postVO);		
+		request.setAttribute("tipsPostVO",postVO);		
 		request.setAttribute("url", "tipsBoard/tipsboard-update-form.jsp");
 		return "layout.jsp";
 	}
