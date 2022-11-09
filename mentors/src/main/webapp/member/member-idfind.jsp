@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div>
+<div  style="border: solid; width: 500px; height: 80px; margin: auto; padding: 20 20 20 20; text-align: center; margin-top: 250px">
 	<div>
 		아이디 찾기
 	</div>
