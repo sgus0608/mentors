@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.kosta.mentors.model.MemberVO;
 import org.kosta.mentors.model.QnABoardDAO;
 
@@ -11,10 +12,11 @@ public class QnACheckLikeController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		long postNo=Long.parseLong(request.getParameter("postNo"));
 		HttpSession session=request.getSession(false);
 		MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
 		String id=memberVO.getId();
-		long postNo=Long.parseLong(request.getParameter("postNo"));
+		
 		boolean result=QnABoardDAO.getInstance().checkLike(postNo, id);
 		String message=null;
 		if(result) {
@@ -24,7 +26,13 @@ public class QnACheckLikeController implements Controller {
 			QnABoardDAO.getInstance().insertLike(id, postNo);
 			message="ok";
 		}
-		request.setAttribute("responsebody", message);
+		
+		long countLike=QnABoardDAO.getInstance().getTotalLikeCount(postNo);
+		JSONObject json=new JSONObject();
+		json.put("message", message);
+		json.put("countLike", countLike);
+		
+		request.setAttribute("responsebody", json);//AjaxViewServlet이 클라이언트에게 응답하도록 저장
 		return "AjaxView";
 	}
 }
