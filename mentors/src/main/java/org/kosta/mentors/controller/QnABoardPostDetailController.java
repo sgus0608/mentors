@@ -37,6 +37,7 @@ public class QnABoardPostDetailController implements Controller {
 		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("qnaPostVO", qnaPostVO);
 		request.setAttribute("commentList", commentList);
+		request.setAttribute("qnaMenuBar", true);
 		request.setAttribute("url", "qnaBoard/qnaboard-post-detail.jsp");
 		return "layout.jsp";
 	}

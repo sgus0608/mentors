@@ -7,6 +7,7 @@ public class MentoringBoardWritePostFormController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("mentoringMenuBar", true);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-write-form.jsp");
 		return "layout.jsp";
 	}

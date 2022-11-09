@@ -13,6 +13,7 @@ public class QuizUpdatePostFormController implements Controller {
 		long postNo = Long.parseLong(request.getParameter("postNo"));
 		QuizVO quizVO = QuizDAO.getInstance().postDetailByNo(postNo);
 		request.setAttribute("quizVO", quizVO);
+		request.setAttribute("quizMenuBar", true);
 		request.setAttribute("url", "quizBoard/quiz-update-form.jsp");
 		return "layout.jsp";
 	}

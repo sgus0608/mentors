@@ -7,6 +7,7 @@ public class QnABoardWritePostFormController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("qnaMenuBar", true);
 		request.setAttribute("url", "qnaBoard/qnaboard-write-form.jsp");
 		return "layout.jsp";
 	}

@@ -38,6 +38,7 @@ public class FreeBoardPostDetailController implements Controller {
 		request.setAttribute("likeFlag", checkLike); 
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("postVO", postVO);
+		request.setAttribute("freeMenuBar", true);
 		request.setAttribute("url", "freeBoard/freeboard-post-detail.jsp");
 		return "layout.jsp";
 	}

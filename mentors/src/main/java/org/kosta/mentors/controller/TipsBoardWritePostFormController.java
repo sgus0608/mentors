@@ -7,6 +7,7 @@ public class TipsBoardWritePostFormController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("tipsMenuBar", true);
 		request.setAttribute("url", "tipsBoard/tipsboard-write-form.jsp");
 		return "layout.jsp";
 	}

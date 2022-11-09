@@ -11,8 +11,9 @@ public class FreeBoardUpdatePostFormController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		long postNo = Long.parseLong(request.getParameter("postNo"));
 		PostVO postVO = FreeBoardDAO.getInstance().postDetailByNo(postNo);
-		request.setAttribute("url", "freeBoard/freeboard-update-form.jsp");
 		request.setAttribute("postVO", postVO);
+		request.setAttribute("freeMenuBar", true);
+		request.setAttribute("url", "freeBoard/freeboard-update-form.jsp");
 		return "layout.jsp";
 	}
 

@@ -38,6 +38,7 @@ public class TipsBoardPostDetailController implements Controller {
 		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("tipsPostVO", tipsPostVO);
 		request.setAttribute("commentList", commentList);
+		request.setAttribute("tipsMenuBar", true);
 		request.setAttribute("url", "tipsBoard/tipsboard-post-detail.jsp");
 		return "layout.jsp";
 	}

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FreeBoardWritePostFormController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("freeMenuBar", true);
 		request.setAttribute("url", "freeBoard/freeboard-write-form.jsp");
 		return "layout.jsp";
 	}

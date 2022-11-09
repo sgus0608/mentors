@@ -36,6 +36,7 @@ public class MentoringBoardPostDetailController implements Controller {
 		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("postVO", postVO);
 		request.setAttribute("commentList", commentList);
+		request.setAttribute("mentoringMenuBar", true);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-post-detail.jsp");
 		return "layout.jsp";
 	}

@@ -22,7 +22,8 @@ public class TipsBoardUpdatePostFormController implements Controller {
 		categoryList.add("꿀팁");
 		
 		request.setAttribute("categoryList", categoryList);
-		request.setAttribute("tipsPostVO",postVO);		
+		request.setAttribute("tipsPostVO",postVO);
+		request.setAttribute("tipsMenuBar", true);
 		request.setAttribute("url", "tipsBoard/tipsboard-update-form.jsp");
 		return "layout.jsp";
 	}

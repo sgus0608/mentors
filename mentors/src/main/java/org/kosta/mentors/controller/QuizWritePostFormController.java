@@ -7,6 +7,7 @@ public class QuizWritePostFormController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("quizMenuBar", true);
 		request.setAttribute("url", "quizBoard/quiz-write-form.jsp");
 		return "layout.jsp";
 	}

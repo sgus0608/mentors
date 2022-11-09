@@ -29,6 +29,7 @@ public class MentoringBoardUpdatePostFormController implements Controller {
 		request.setAttribute("roleList", roleList);
 		
 		request.setAttribute("postVO", postVO);
+		request.setAttribute("mentoringMenuBar", true);
 		request.setAttribute("url", "mentoringBoard/mentoringboard-update-form.jsp");
 		return "layout.jsp";
 	}

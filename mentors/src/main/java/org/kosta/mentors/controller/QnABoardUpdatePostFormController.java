@@ -23,6 +23,7 @@ public class QnABoardUpdatePostFormController implements Controller {
 		
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("qnaPostVO", qnaPostVO);
+		request.setAttribute("qnaMenuBar", true);
 		request.setAttribute("url", "qnaBoard/qnaboard-update-form.jsp");
 		return "layout.jsp";
 	}
