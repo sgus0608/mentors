@@ -383,22 +383,20 @@ public class FreeBoardDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		long likeTotal=0L;
+		long likeTotalCount=0;
 		try {
 			con=dataSource.getConnection();
 			String sql="select count(*) from free_like where post_no=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setLong(1, postNo);
 			rs=pstmt.executeQuery();
-			if(rs.next() && rs.getInt(1)>0) {
-				likeTotal-=1;
-			} else {
-				likeTotal+=1;
+			if(rs.next()) {
+				likeTotalCount = rs.getLong(1);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
 		}
-		return likeTotal;
+		return likeTotalCount;
 	}
 }
 

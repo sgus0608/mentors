@@ -27,10 +27,11 @@ public class MentoringBoardPostDetailController implements Controller {
 		}
 		
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-		boolean checkLike = MentoringBoardDAO.getInstance().checkLike(mvo.getId(), postNo);
+		boolean checkLike = MentoringBoardDAO.getInstance().checkLike(postNo, mvo.getId());
 		
 		MentoringPostVO postVO = MentoringBoardDAO.getInstance().postDetailByNo(postNo);
 		ArrayList<CommentVO> commentList = MentoringCommentDAO.getInstance().findCommentList(postNo);
+		
 		request.setAttribute("totalLikeCount", MentoringBoardDAO.getInstance().getTotalLikeCount(postNo));
 		request.setAttribute("likeFlag", checkLike);
 		request.setAttribute("postVO", postVO);

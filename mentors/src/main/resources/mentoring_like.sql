@@ -5,3 +5,5 @@ create table mentoring_like(
    constraint mentoring_like_id_fk foreign key(id) references mentors_member(id),
    constraint mentoring_like_pk primary key(post_no, id)
 )
+
+select * from mentoring_like;
