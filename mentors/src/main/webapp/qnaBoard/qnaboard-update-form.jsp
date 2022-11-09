@@ -6,7 +6,12 @@
 			<tr>
 				<td>
 				<input type="hidden" name="postNo" value="${qnaPostVO.postNo}">
-				<input type="text" name="category" value="${qnaPostVO.category}" required="required">
+				<select name="category" required="required">
+					<option value="">--카테고리--</option>
+					<option value="프로그래밍">프로그래밍</option>
+					<option value="취업">취업</option>
+					<option value="자격증">자격증</option>
+				</select>
 				<input type="text" name="title" value="${qnaPostVO.title}" required="required">
 				</td>
 			</tr>
