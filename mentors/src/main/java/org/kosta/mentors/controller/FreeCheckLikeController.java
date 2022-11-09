@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.kosta.mentors.model.FreeBoardDAO;
 import org.kosta.mentors.model.MemberVO;
 
@@ -25,7 +26,14 @@ public class FreeCheckLikeController implements Controller {
 			message="ok";
 			FreeBoardDAO.getInstance().insertLike(id, postNo);
 		}
-		request.setAttribute("responsebody", message);//AjaxViewServlet이 클라이언트에게 응답하도록 저장 
+		
+		long countLike = FreeBoardDAO.getInstance().getTotalLikeCount(postNo);
+		
+		JSONObject json =new JSONObject();
+		json.put("message", message);
+		json.put("countLike", countLike);
+		
+		request.setAttribute("responsebody", json);//AjaxViewServlet이 클라이언트에게 응답하도록 저장 
 		return "AjaxView";
 	}
 
