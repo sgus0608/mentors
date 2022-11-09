@@ -22,50 +22,38 @@
   <div class="col-1" align="center">
     <b style="font-size: 1.3rem">조회수</b><br>${tipsPostVO.hits}
   </div>
-  <div class="col-2" align="center">
-    <b style="font-size: 1.3rem">좋아요</b><br>${totalLikeCount}
+ <div class="col-2" align="center">
+    <b style="font-size: 1.3rem">좋아요</b><br><span id="likeCount">${totalLikeCount}</span>
   </div>
   <div class="col-2" align="center">
 	<c:choose>
 	  <c:when test="${likeFlag == false}">
-	    <button type="button" id="like" onclick="checkLike()">♡</button>
+	    <button type="button" id="likeBtn" onclick="checkLikeBtn()">♡</button>
 	  </c:when>
 	  <c:otherwise>
-	    <button type="button" id="disLike" onclick="checkDisLike()">♥</button>
+	    <button type="button" id="likeBtn" onclick="checkLikeBtn()">♥</button>
 	  </c:otherwise>
 	</c:choose>
 	<script type="text/javascript">
-		function checkLike(){
-			let like=document.getElementById("like");
+		function checkLikeBtn(){
+			let likeCountObject=document.getElementById("likeCount");
+			let likeBtnObject=document.getElementById("likeBtn");
 			let xhr=new XMLHttpRequest();
+			
 			xhr.onreadystatechange=function(){
 				if(xhr.readyState==4&&xhr.status==200){
-					if(xhr.responseText=="ok"){
-						like.innerHTML="♥";	
-						likeFlag=true;
-					}else{
-						like.innerHTML="♡";
+					let result=JSON.parse(xhr.responseText);
+					if(result.message=="ok"){
+						likeCountObject.innerHTML=result.countLike;
+						likeBtnObject.innerHTML="♥";	
+					}else{ 
+						likeCountObject.innerHTML=result.countLike;
+						likeBtnObject.innerHTML="♡";
 					}
 				}//if
 			}//function
-			xhr.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
+			xhr.open("get","${pageContext.request.contextPath}/TipsCheckLikeController.do?postNo="+${tipsPostVO.postNo});
 			xhr.send();
-		}
-		function checkDisLike(){
-			let disLike=document.getElementById("disLike");
-			let xhr2=new XMLHttpRequest();
-			xhr2.onreadystatechange=function(){
-				if(xhr2.readyState==4&&xhr2.status==200){
-					if(xhr2.responseText=="fail"){
-						disLike.innerHTML="♡";
-						likeFlag=false;
-					}else{
-						disLike.innerHTML="♥"
-					}
-				}//if
-			}//function
-			xhr2.open("get","FreeCheckLikeController.do?postNo=${postVO.postNo}&id=${sessionScope.mvo.id}");
-			xhr2.send();
 		}
 	</script>
   </div>

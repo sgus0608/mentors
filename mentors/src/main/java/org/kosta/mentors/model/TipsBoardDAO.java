@@ -384,10 +384,10 @@ public class TipsBoardDAO {
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="insert into free_like values(?,?)";
+			String sql="insert into tips_like values(?,?)";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setLong(1, postNo);
-			pstmt.setString(2, id);
+			pstmt.setString(1, id);
+			pstmt.setLong(2, postNo);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
@@ -399,10 +399,10 @@ public class TipsBoardDAO {
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="delete from free_like where post_no=? and id=?";
+			String sql="delete from tips_like where post_no=? and id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setLong(1, postNo);
-			pstmt.setString(2, id);	
+			pstmt.setString(2, id);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);
@@ -413,22 +413,20 @@ public class TipsBoardDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		long likeTotal=0L;
+		long totalLikeCount=0L;
 		try {
 			con=dataSource.getConnection();
-			String sql="select count(*) from free_like where post_no=?";
+			String sql="select count(*) from tips_like where post_no=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setLong(1, postNo);
 			rs=pstmt.executeQuery();
-			if(rs.next() && rs.getInt(1)>0) {
-				likeTotal-=1;
-			} else {
-				likeTotal+=1;
-			}
+			if(rs.next()) {
+				totalLikeCount=rs.getLong(1);
+			} 
 		}finally {
 			closeAll(rs, pstmt, con);
 		}
-		return likeTotal;
+		return totalLikeCount;
 	}
 
 }

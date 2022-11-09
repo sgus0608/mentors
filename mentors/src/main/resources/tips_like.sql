@@ -8,4 +8,4 @@ create table tips_like(
 
 commit
 
-select count(*) from tips_like where post_no=? and id=?
+select count(*) from tips_like 
