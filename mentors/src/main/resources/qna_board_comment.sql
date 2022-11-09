@@ -4,9 +4,10 @@ create table qna_comment (
 	comment_time_posted date not null,
 	post_no number not null,
 	id varchar2(100) not null,
-	constraint qna_comment_postno_fk foreign key(post_no) references qna_board(post_no),
-	constraint qna_comment_id_fk foreign key(id) references mentors_member(id)
+	constraint qna_comment_postno_fk foreign key(post_no) references qna_board(post_no) ON DELETE CASCADE,
+	constraint qna_comment_id_fk foreign key(id) references mentors_member(id) ON DELETE CASCADE
 )
+drop table qna_comment
 create sequence qna_comment_seq;
 
 drop sequence qna_comment_seq;
