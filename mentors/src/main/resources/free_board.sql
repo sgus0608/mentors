@@ -5,7 +5,7 @@ CREATE TABLE free_board (
 	time_posted DATE NOT NULL,
 	hits NUMBER DEFAULT 0,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT freeboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT freeboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id) on delete cascade
 )
 
 DROP TABLE free_board;
@@ -95,9 +95,14 @@ order by post_no desc
 create table free_like(
    post_no number,
    id varchar2(100),
-   constraint free_like_pk primary key(post_no, id),
-   constraint free_like_postno_fk foreign key(post_no) references free_board(post_no),
-   constraint free_like_id_fk foreign key(id) references mentors_member(id)
+   constraint free_like_postno_fk foreign key(post_no) references free_board(post_no) on delete cascade,
+   constraint free_like_id_fk foreign key(id) references mentors_member(id) on delete cascade,
+   constraint free_like_pk primary key(post_no, id)
 )
+
+commit
+
  select * from free_like;
  insert into free_like values(61,'java');
+ 
+ drop table free_like
