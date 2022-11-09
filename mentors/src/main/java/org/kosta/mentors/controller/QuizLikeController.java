@@ -27,7 +27,7 @@ public class QuizLikeController implements Controller {
 			QuizDAO.getInstance().quizLikeInsert(quizNo, id);
 			message = "ok";
 		}else {
-			QuizDAO.getInstance().quizLikeDelete(id);
+			QuizDAO.getInstance().quizLikeDelete(quizNo, id);
 			message="fail";
 		}
 		long count = QuizDAO.getInstance().quizLikeCount(quizNo);

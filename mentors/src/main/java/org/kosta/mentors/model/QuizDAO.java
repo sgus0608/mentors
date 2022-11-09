@@ -237,14 +237,15 @@ public class QuizDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	public void quizLikeDelete(String id) throws SQLException {
+	public void quizLikeDelete(long quizNo, String id) throws SQLException {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			try {
 				con = dataSource.getConnection();
-				String sql = "delete from quiz_likeBoard where id=?";
+				String sql = "delete from quiz_likeBoard where id=? and quiz_No=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
+				pstmt.setLong(2, quizNo);
 				pstmt.executeUpdate();
 			} finally {
 				closeAll(pstmt, con);
