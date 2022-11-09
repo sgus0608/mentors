@@ -4,8 +4,8 @@ CREATE TABLE tips_comment (
 	comment_time_posted DATE NOT NULL,
 	post_no number not null,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT tips_comment_postno_fk FOREIGN KEY(post_no) REFERENCES tips_board(post_no),
-	CONSTRAINT tips_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT tips_comment_postno_fk FOREIGN KEY(post_no) REFERENCES tips_board(post_no) on delete cascade,
+	CONSTRAINT tips_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id)  on delete cascade
 )
 
 CREATE SEQUENCE tips_comment_seq;
