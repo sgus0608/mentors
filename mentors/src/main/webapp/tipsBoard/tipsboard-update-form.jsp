@@ -8,10 +8,16 @@
             <input type="hidden" name="postNo" value="${tipsPostVO.postNo}">
             <select name="category" required="required">
                <option value="">--카테고리--</option>
-              <option value="뉴스">뉴스</option>
-		<option value="후기">후기</option>
-		<option value="추천">추천</option>
-		<option value="꿀팁">꿀팁</option>
+               <c:forEach items="${categoryList}" var="cList">
+                 <c:choose>
+                   <c:when test="${cList == tipsPostVO.category}">
+                   <option value="${cList}" selected="selected">${cList}</option>
+                   </c:when>
+                   <c:otherwise>
+			       <option value="${cList}">${cList}</option>
+			       </c:otherwise>
+                 </c:choose>
+               </c:forEach>
             </select>
             <input type="text" name="title" value="${tipsPostVO.title}" required="required">
             </td>
