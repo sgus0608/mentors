@@ -4,7 +4,15 @@
 <form method="post" action="TipsBoardWritePostController.do">
 	<table class="table">
 		<tr>
-			<td><input type="text" name="category" placeholder="카테고리" required="required"></td>
+			<td>
+			<select name="category" required="required">
+			<option value="">--카테고리--</option>
+			<option value="뉴스">뉴스</option>
+			<option value="후기">후기</option>
+			<option value="추천">추천</option>
+			<option value="꿀팁">꿀팁</option>			
+			</select>
+			</td>
 		</tr>
 		<tr>
 			<td><input type="text" name="title" placeholder="글제목"  required="required"></td>
