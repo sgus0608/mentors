@@ -4,8 +4,8 @@ CREATE TABLE free_comment (
 	comment_time_posted DATE NOT NULL,
 	post_no number not null,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT freeboard_comment_postno_fk FOREIGN KEY(post_no) REFERENCES free_board(post_no),
-	CONSTRAINT freeboard_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT freeboard_comment_postno_fk FOREIGN KEY(post_no) REFERENCES free_board(post_no) on delete cascade,
+	CONSTRAINT freeboard_comment_id_fk FOREIGN KEY(id) REFERENCES mentors_member(id) on delete cascade
 )
 
 CREATE SEQUENCE free_comment_seq;
@@ -31,9 +31,9 @@ select post_no from free_comment where comment_no=1
 
 delete from free_comment where comment_no=1
 
+drop table free_comment
 
-
-
+drop SEQUENCE free_comment_seq
 
 
 
