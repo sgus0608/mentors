@@ -135,6 +135,52 @@ public class MemberDAO {
 		}
 	}
 
+	public String findMemberPw(String id, String email) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String pw = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select password from mentors_member where id=? and email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString(1);
+			} else {
+				pw = "잘못된 아이디나 이메일입니다.";
+			}
+					
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return pw;
+	}
+
+	public String findMemberId(String email) throws SQLException {
+		PreparedStatement pstmt = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String id = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "select id from mentors_member where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				id = rs.getString(1);
+			} else {
+				id = "잘못된 이메일입니다.";
+			}					
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return id;
+	}
+
 	
 	
 }

@@ -63,11 +63,25 @@
 
 					<div class="text-center p-t-50">
 						<span class="txt1">
-							Don’t have an account?
+							아직 회원이 아니신가요?
 						</span>
 
 						<a class="txt2" href="${pageContext.request.contextPath}/member/member-register.jsp">
-							Sign Up
+							회원가입
+						</a>
+						 <br>
+						<span class="txt1">
+							아이디를 잊어버리셨나요?
+						</span>
+						<a class="txt2" href="${pageContext.request.contextPath}/member/member-idfind.jsp">
+							아이디 찾기
+						</a>
+						 <br>
+						<span class="txt1">
+							비밀번호을 잊어버리셨나요?
+						</span>
+						<a class="txt2" href="${pageContext.request.contextPath}/member/member-pwfind.jsp">
+							비밀번호 찾기
 						</a>
 					</div>
 				</form>
