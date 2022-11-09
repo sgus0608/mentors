@@ -4,8 +4,23 @@
 <form method="post" action="MentoringBoardWritePostController.do">
   <table class="table">
     <tr>
-      <td><input type="text" name="category" placeholder="카테고리" required="required"></td>
-      <td><input type="text" name="role" placeholder="역할" required="required"></td>
+      <td>
+	    <select name="category" required="required">
+	  	  <option value="">-카테고리-</option>
+	  	  <option value="프로그래밍">프로그래밍</option>
+	  	  <option value="알고리즘">알고리즘</option>
+	  	  <option value="전공지식">전공지식</option>
+	  	  <option value="취업">취업</option>
+	  	  <option value="자격증">자격증</option>
+	    </select>
+	  </td>
+	  <td>
+	    <select name="role" required="required">
+	  	  <option value="">-역할-</option>
+	  	  <option value="멘토">멘토</option>
+	  	  <option value="멘티">멘티</option>
+	    </select>
+	  </td>
     </tr>
     <tr>
       <td colspan="2"><input type="text" name="title" placeholder="제목" required="required"></td>    
