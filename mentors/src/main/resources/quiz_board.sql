@@ -48,16 +48,23 @@ UPDATE quiz_board SET quiz_content=?, question1=?, question2=?, question3=?, que
 create table quiz_likeBoard(
 	quiz_no number,
 	id varchar2(100),
-	constraint quiz_likeboard_pk primary key(quiz_no, id),
-	constraint quiz_likeboard_quizno_fk foreign key(quiz_no) references quiz_board(quiz_no),
-	constraint quiz_likeboard_quizid_fk foreign key(id) references mentors_member(id)
+	constraint quiz_likeboard_quizno_fk foreign key(quiz_no) references quiz_board(quiz_no) on delete cascade,
+	constraint quiz_likeboard_quizid_fk foreign key(id) references mentors_member(id) on delete cascade,
+	constraint quiz_likeboard_pk primary key(quiz_no, id)
 )
-
+drop table quiz_likeBoard
 
 
 select * from mentors_member
 
 select * from quiz_likeBoard
-
+commit
 
 insert into quiz_likeBoard values(1,'java')
+
+
+
+
+
+
+
