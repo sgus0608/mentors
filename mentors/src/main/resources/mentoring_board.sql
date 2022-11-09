@@ -7,7 +7,7 @@ CREATE TABLE mentoring_board (
 	category VARCHAR2(100) NOT NULL,
 	role VARCHAR2(100) NOT NULL,
 	id VARCHAR2(100) NOT NULL,
-	CONSTRAINT mentoringboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id)
+	CONSTRAINT mentoringboard_fk FOREIGN KEY(id) REFERENCES mentors_member(id) ON DELETE CASCADE
 )
 
 DROP TABLE mentoring_board;
