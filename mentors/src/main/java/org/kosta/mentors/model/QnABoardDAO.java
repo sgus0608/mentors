@@ -403,11 +403,9 @@ public class QnABoardDAO { // Singleton Design Pattern : 자원을 효율적으�
 			pstmt=con.prepareStatement(sql);
 			pstmt.setLong(1, postNo);
 			rs=pstmt.executeQuery();
-			if(rs.next() && rs.getInt(1)>0) {
-				totalLikeCount-=1;
-			} else {
-				totalLikeCount+=1;
-			}
+			if(rs.next()) {
+				totalLikeCount=rs.getLong(1);
+			} 
 		}finally {
 			closeAll(rs, pstmt, con);
 		}
