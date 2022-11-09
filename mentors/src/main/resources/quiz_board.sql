@@ -7,7 +7,6 @@ create table quiz_board(
 	question4 varchar2(100) not null,
 	answer varchar2(100) not null,
 	category varchar2(100) not null
-	
 )
 select count(*) from  quiz_likeBoard where quiz_no=2
 insert into QUIZ_BOARD
@@ -64,7 +63,6 @@ insert into quiz_likeBoard values(1,'java')
 
 
 
-
-
+select * from mentors_member
 
 
