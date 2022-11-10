@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.mentors.model.MemberDAO;
 
-public class deleteMemberController implements Controller {
+public class DeleteMemberController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {

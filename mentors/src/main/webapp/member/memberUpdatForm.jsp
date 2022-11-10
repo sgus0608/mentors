@@ -64,7 +64,7 @@
       </div>
       <input type="submit" class="btn" value="개인정보 수정"/>
     </form>
-    <form id="deleteForm" action="${pageContext.request.contextPath}/deleteMemberController.do" method="post"> 
+    <form id="deleteForm" action="${pageContext.request.contextPath}/DeleteMemberController.do" method="post"> 
     
 	    <button type="submit" class="btn" id="deletebtn" onclick="deleteMember()" style="width: 100px">회원 탈퇴</button> 
 	    <input type="hidden" name="id" value=${mvo.id }>
